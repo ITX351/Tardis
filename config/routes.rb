@@ -1,4 +1,7 @@
 Tardis::Application.routes.draw do
+  resources :comments
+
+
   resources :users
 
 
