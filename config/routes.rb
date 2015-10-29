@@ -6,6 +6,14 @@ Tardis::Application.routes.draw do
 
   resources :comments
   resources :users
+  resources :sessions, only: [:new, :create, :destroy]
+
+  #root :to => "users#index"
+
+  get '/signup' => 'users#new'
+  get '/signin' => 'sessions#new'
+  post '/signin' => 'sessions#create'
+  delete '/signout' => 'sessions#destroy'
 
 
   # The priority is based upon order of creation:

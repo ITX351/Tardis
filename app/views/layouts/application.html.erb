@@ -1,14 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Tardis</title>
+  <title><%= full_title(yield(:title)) %></title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <% if logged_in? %>
+    <!--<li><%= link_to "Users", '#' %></li>
+    <li><%= link_to "Profile", current_user %></li>
+    <li><%= link_to "Settings", '#' %></li>-->
+    Welcome, <%= current_user.name %> !
+    <%= link_to "Log out", signout_path, method: "delete" %>
+  <% else %>
+    <%= link_to "Log in", signin_path %>
+  <% end %>
 
-<%= yield %>
 
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+  <% end %>
+  <%= yield %>
 </body>
 </html>
