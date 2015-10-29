@@ -12,7 +12,7 @@ module SessionsHelper
     @current_user ||= User.where(id: session[:user_id]).first
   end
 
-  def logged_in?
+  def signed_in?
     !current_user.nil?
   end
 end

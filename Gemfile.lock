@@ -30,6 +30,8 @@ GEM
       multi_json (~> 1.0)
     arel (3.0.3)
     bcrypt-ruby (3.0.1)
+    bootstrap-sass (2.3.2.0)
+      sass (~> 3.2)
     builder (3.0.4)
     capybara (1.1.2)
       mime-types (>= 1.16)
@@ -125,6 +127,8 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
+    turbolinks (2.5.3)
+      coffee-rails
     tzinfo (0.3.45)
     uglifier (2.7.2)
       execjs (>= 0.3.0)
@@ -138,6 +142,7 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt-ruby (= 3.0.1)
+  bootstrap-sass (= 2.3.2.0)
   capybara (= 1.1.2)
   coffee-rails (~> 3.2.1)
   jquery-rails
@@ -145,4 +150,5 @@ DEPENDENCIES
   rspec-rails (= 2.13.1)
   sass-rails (~> 3.2.3)
   sqlite3
+  turbolinks
   uglifier (>= 1.0.3)
