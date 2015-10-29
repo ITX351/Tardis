@@ -3,7 +3,8 @@ class User < ActiveRecord::Base
   has_many :comments
   has_secure_password
 
-  validates :name, presence: true, length: { maximum: 50 }
+  validates :name, presence: true, length: { maximum: 50 }, \
+  uniqueness: { case_sensitive: false }
   validates :password, presence: true
   validates :classes, presence: true
 
