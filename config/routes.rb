@@ -2,12 +2,18 @@ Tardis::Application.routes.draw do
   #get "static_pages/home"
   #get "static_pages/help"
   #get "static_pages/about"
-
   resources :comments
-  resources :users
+  resources :users do
+    resources :comments
+  end
+
   resources :sessions, only: [:new, :create, :destroy]
 
-  #root :to => "users#index"
+  resources :places do
+    resources :comments
+  end
+
+  root :to => "static_pages#home"
 
   get '/help' => 'static_pages#help'
   get '/home' => 'static_pages#home'

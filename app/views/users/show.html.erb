@@ -1,5 +1,4 @@
-<p id="notice"><%= notice %></p>
-
+<h3> Personal Information </h3>
 <p>
   <b>Name:</b>
   <%= @user.name %>
@@ -14,7 +13,15 @@
   <b>Email:</b>
   <%= @user.email %>
 </p>
-
-
+<hr/>
+<h3>Comment of <%= @user.name %></h3>
+<% @user.comments.each do |comment| %>
+    <%= comment.content%>
+    ------<%= time_ago_in_words comment.created_at %> ago
+    <br/>
+<% end %>
+<hr/>
+<p>
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Home', home_path %>
+</p>

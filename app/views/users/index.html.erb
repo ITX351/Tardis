@@ -2,6 +2,8 @@
 
 <table>
   <tr>
+
+    <th>ID</th>
     <th>Name</th>
     <th>Password</th>
     <th>Classes</th>
@@ -13,6 +15,7 @@
 
 <% @users.each do |user| %>
   <tr>
+    <td><%= user.id %> </td>
     <td><%= user.name %></td>
     <td><%= user.password %></td>
     <td><%= user.classes %></td>
@@ -28,3 +31,22 @@
 
 <%= link_to 'New User', new_user_path %>
 <%= link_to 'Home', home_path %>
+
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Category</th>
+    <th>location</th>
+    <th>intro</th>
+  </tr>
+
+<% @places.each do |place| %>
+  <tr>
+    <td><%= place.name %></td>
+    <td><%= place.category %></td>
+    <td><%= place.locationx %>,<%= place.locationy%></td>
+    <td><%= place.intro %></td>
+  </tr>
+<% end %>
+</table>
