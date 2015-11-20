@@ -1,6 +1,6 @@
-      <%= form_tag places_path, method: :get, class: "navbar-form navbar-left" do%>
-        <div class = "form-group">
-            <%= text_field_tag :search, params[:search], class: "form-control"%>
-            <%= submit_tag "Search", class: "btn btn-default"%>
-        </div>
-      <% end %>
+<%= form_tag places_path, method: :get, class: "" do%>
+<div class = "form-group">
+    <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Enter something you want to search", width: "100%" %>
+    <%= submit_tag "Search", class: "actions special"%>
+</div>
+<% end %>

@@ -43,7 +43,7 @@ class CommentsController < ApplicationController
     @place = Place.find(params[:place_id])
     @comment = @place.comments.build(params[:comment])
     if current_user.nil?
-        @comment.user_id = 0
+        @comment.user_id = 1
     else
         @comment.user_id = current_user.id
     end

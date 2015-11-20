@@ -1,26 +1,34 @@
 <h1> Places information </h1>
 
-<div align = "center" >
-<% @places.each do |place| %>
-<h3><%= link_to place.name, place %></h3>
-<p>
-    <tr>
-        <td>Category: <%= place.category %></td>
-        <td>Pos: <%= place.locationx %>,<%= place.locationy%></td>
-        <td>Introduction: <%= place.intro %></td>
-    </tr>
-</p>
-    <br/>
-<h4>Comments</h4>
-<p>
-    <% place.comments.each do |comment| %>
-        <%= comment.content%>
-        <br/>
-    <% end %>
-</p>
-    
-<hr/>
+<h2> <%= link_to "New Place", new_place_path %> </h2>
 
+<% @places.each do |place| %>
+
+    <section id="one" class="col-md-6">
+        <div class="inner">
+          <article class="feature left">
+          <span class="image"><%= image_tag(place.avatar_url(:large)) if place.avatar %></span>
+                    
+          <div class="content">
+              <h3><%= link_to place.name, place %></h3>
+
+              <p>
+                Category: <%= place.category %><br/>
+                Pos: <%= place.locationx %>,<%= place.locationy%><br/>
+                Introduction: <%= place.intro %><br/>
+              </p>
+
+              <ul class="actions">
+                <li>
+                  <!-- <a href="#" class="button alt">More</a> -->
+                  <%= link_to "More", place %>
+                </li>
+              </ul>
+
+            </div>
+          </article>
+        </div>
+    </section>
 <% end %>
 
-</div>
+ <hr/>

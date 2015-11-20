@@ -1,9 +1,13 @@
+<%= stylesheet_link_tag    "bootstrap.css", :media => "all" %>
+
+<div align = "center">
 <h2><%= @place.name %></h2>
 <p>
-        <b>Category:</b><%= @place.category %><br/>
         <b>Pos:</b> (<%= @place.locationx %>,<%= @place.locationy%>)<br/>
         <b>Introduction:</b> <%= @place.intro %><br/>
+        <%= image_tag(@place.avatar_url(:big)) if @place.avatar %>
 </p>
+</div>
 <p>
 <%= link_to "Back", places_path %>
 |
@@ -14,24 +18,29 @@
 
 <hr/>
 
-<h3>Comments</h3>
-<p>
-<% @place.comments.each do |comment| %>
-	<%= comment.content %>
+<div>
+<div class = "col-md-5">
+	<h3>Comments</h3>
+	<p>
+	<% @place.comments.each do |comment| %>
+		<%= comment.content %>
+		<br/>
+		By <%= find_user(comment.user_id).name %>
+		------<%= time_ago_in_words comment.created_at %> ago
+		<br/>
+	<% end %>
+	</p>
+</div>
+<div class="col-md-7">
+	<p>
+	<%= form_for [@place, @place.comments.build] do |f| %>
+	<%= f.text_area :content, placeholder: "Enter Your Comments", rows: 10, cols: 3, width: "10"%>
 	<br/>
-	By <%= find_user(comment.user_id).name %>
-	------<%= time_ago_in_words comment.created_at %> ago
-	<br/>
-<% end %>
-</p>
-
-<p>
-<%= form_for [@place, @place.comments.build] do |f| %>
-<%= f.text_area :content %>
-<br/>
-<%= f.submit "Post Comment" %>
-<% end %>
-</p>
+	<%= f.submit "Post Comment", class: "actions special"%>
+	<% end %>
+	</p>
+</div>
+</div>
 
 
 

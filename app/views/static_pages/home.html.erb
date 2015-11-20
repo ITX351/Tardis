@@ -1,16 +1,22 @@
 <div class="center hero-unit">
   <h1>Welcome to HIT Tutorial! </h1>
-  <h2>
-    Something to show here. 
-  </h2>
-  <% if signed_in? %>
-    <h2>
-      You have signed up as <%= current_user.name %>. <br />
-    </h2>
-    <%= link_to "Sign out", signout_path, class: "btn btn-large btn-primary", method: "delete" %>
-  <% else %>
-    <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
-    <%= link_to "Sign in", signin_path, class: "btn btn-large btn-primary"  %>
-  <% end %>
+  <div class = "row">
+  <div>
+    <%= render "layouts/search" %>
+  </div>
+</div>
+
+  <div>
+    <% if signed_in? %>
+      <h2>
+        You have signed up as <%= current_user.name %>. <br />
+      </h2>
+      <%= link_to "Sign out", signout_path, class: "btn btn-large btn-primary", method: "delete" %>
+    <% else %>
+      <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
+      <%= link_to "Sign in", signin_path, class: "btn btn-large btn-primary"  %>
+    <% end %>
+  </div>
   
 </div>
+

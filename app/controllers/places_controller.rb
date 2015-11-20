@@ -11,7 +11,15 @@ class PlacesController < ApplicationController
 	end
 
 	def new
-		
+		@place = Place.new
+	end
+	def create
+		@place = Place.new(params[:place])
+		if @place.save
+			redirect_to @place
+		else
+			render "new"
+		end
 	end
 
 	def show
