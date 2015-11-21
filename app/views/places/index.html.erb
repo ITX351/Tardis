@@ -1,19 +1,22 @@
-
-
-<!-- ......................................................... -->
+<%= stylesheet_link_tag    "main.css", :media => "all" %>
 
 <h1> Places information </h1>
 
 <h2> <%= link_to "New Place", new_place_path %> </h2>
-    <!-- Render Start -->
-    <%= render "layouts/map"%>
-    <!-- Render Finish -->
+    
+    <div id="container" class = "col-md-12"
+            style="width: 800px; 
+                height: 600px; 
+                border: 1px solid gray;
+                overflow:hidden;">
+    </div>
+    <%= javascript_include_tag "map.js" %>
+    <script> map.centerAndZoom(schoolcenter,17);</script>
+
 <% @places.each do |place| %>
     <script>
-        // alert("rtestet");
         var x = <%= place.locationx %>;
         var y = <%= place.locationy %>;
-        
         var marker = new BMap.Marker(new BMap.Point(x, y)); 
         map.addOverlay(marker);
     </script>
@@ -41,38 +44,3 @@
         </div>
     </section>
 <% end %>
-
-<!-- 
-
-<script type="text/javascript">
-    var map = new BMap.Map("container");
-    var point = new BMap.Point(126.638843, 45.749136);
-    map.centerAndZoom(point,17);
-       
-    map.enableScrollWheelZoom();    //ÆôÓÃ¹öÂÖ·Å´óËõÐ¡£¬Ä¬ÈÏ½ûÓÃ
-    map.enableContinuousZoom();    //ÆôÓÃµØÍ¼¹ßÐÔÍÏ×§£¬Ä¬ÈÏ½ûÓÃ
-  
-  
-    map.addControl(new BMap.NavigationControl());  //Ìí¼ÓÄ¬ÈÏËõ·ÅÆ½ÒÆ¿Ø¼þ
-   
-    var localSearch = new BMap.LocalSearch(map);
-    localSearch.enableAutoViewport(); //ÔÊÐí×Ô¶¯µ÷½Ú´°Ìå´óÐ¡
-  
-    map.addEventListener("click", function(e){//µØÍ¼µ¥»÷ÊÂ¼þ
-        map.clearOverlays();
-        document.getElementById("place_locationx").value = e.point.lng;
-        document.getElementById("place_locationy").value = e.point.lat;
-        var point = new BMap.Point(e.point.lng, e.point.lat);
-        map.centerAndZoom(point,17);
-        var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));  // ´´½¨±ê×¢£¬ÎªÒª²éÑ¯µÄµØ·½¶ÔÓ¦µÄ¾­Î³¶È
-        map.addOverlay(marker);
-    });
-
-    // function addMaker(){
-    //     var x = document.getElementById("place_locationx").value;
-    //     var y = document.getElementById("place_locationy").value;
-    //     var marker = new BMap.Marker(new BMap.Point(x, y));  // ´´½¨±ê×¢£¬ÎªÒª²éÑ¯µÄµØ·½¶ÔÓ¦µÄ¾­Î³¶È
-    //     map.addOverlay(marker);
-
-    // }
-</script> -->
