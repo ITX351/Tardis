@@ -2,9 +2,9 @@
 
 <h1> Places information </h1>
 
-<h2> <%= link_to "New Place", new_place_path %> </h2>
+<h2> <%= link_to "New Place", new_place_path, :method => :get %> </h2>
     
-    <div id="container" class = "col-md-12"
+    <div id="container" align = "center"
             style="width: 800px; 
                 height: 600px; 
                 border: 1px solid gray;
@@ -12,19 +12,14 @@
     </div>
     <%= javascript_include_tag "map.js" %>
     <script> map.centerAndZoom(schoolcenter,17);</script>
+<br/><br/><br/><br/><br/>
 
 <% @places.each do |place| %>
-    <script>
-        var x = <%= place.locationx %>;
-        var y = <%= place.locationy %>;
-        var marker = new BMap.Marker(new BMap.Point(x, y)); 
-        map.addOverlay(marker);
-    </script>
 
     <section id="one" class="col-md-6">
         <div class="inner">
           <article class="feature left">
-          <span class="image"><%= image_tag(place.avatar_url(:large)) if place.avatar %></span>
+          <span class="image"><%= image_tag(place.avatar_url(:big)) if place.avatar %></span>
                     
           <div class="content">
               <h3><%= link_to place.name, place %></h3>
@@ -35,7 +30,7 @@
               </p>
               <ul class="actions">
                 <li>
-                  <%= link_to "More", place %>
+                  <%= link_to "More", place, :method => :get%>
                 </li>
               </ul>
 
@@ -44,3 +39,36 @@
         </div>
     </section>
 <% end %>
+
+<script>
+    function addMaker(point){
+        var marker = new BMap.Marker(point);
+        map.addOverlay(marker);
+        return marker;
+    }
+    function addInfoWindow(marker, intro){
+        var opts = {
+            title: intro[0],
+            width: 250,
+            height: 200
+        }
+        var content = intro[1];
+        var info = new BMap.InfoWindow(content, opts);
+        var openInforWinFun = function(){
+            marker.openInfoWindow(info);
+        }
+        marker.addEventListener("click", openInforWinFun);
+        return openInforWinFun;
+    }
+
+    function work(){
+        
+        <% @places.each do |place|%>
+            var marker = new addMaker(new BMap.Point(<%= place.locationx%>, <%= place.locationy%>));
+            var intro = ['<%= place.name%>', '<%= place.intro%>'];
+            addInfoWindow(marker, intro);
+        <% end %>
+    }
+    window.reload(work());
+</script>
+

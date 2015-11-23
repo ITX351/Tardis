@@ -1,8 +1,6 @@
 class PlacesController < ApplicationController
 
 	def index
-		@makerx = []
-		@makery = []
 		if params[:search]
 			# @places = Place.any_of({name: /#{params[:search]}/i})
 			# @places = Place.where(name: /#{params[:search]}/i)

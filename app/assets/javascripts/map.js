@@ -14,17 +14,22 @@ map.addControl(new BMap.NavigationControl());  //Ìí¼ÓÄ¬ÈÏËõ·ÅÆ½Ò�
 var localSearch = new BMap.LocalSearch(map);
 localSearch.enableAutoViewport(); //ÔÊÐí×Ô¶¯µ÷½Ú´°Ìå´óÐ¡
 
-map.addEventListener("click", function(e){//µØÍ¼µ¥»÷ÊÂ¼þ
-	map.clearOverlays();
-	document.getElementById("place_locationx").value = e.point.lng;
-    document.getElementById("place_locationy").value = e.point.lat;
+// map.addEventListener("click", function(e){//µØÍ¼µ¥»÷ÊÂ¼þ
+// 	//map.clearOverlays();
+// 	document.getElementById("place_locationx").value = e.point.lng;
+//     document.getElementById("place_locationy").value = e.point.lat;
+//     alert("click!");
+// 	var point = new BMap.Point(e.point.lng, e.point.lat);
+// 	var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));  // ´´½¨±ê×¢£¬ÎªÒª²éÑ¯µÄµØ·½¶ÔÓ¦µÄ¾­Î³¶È
+//     map.addOverlay(marker);
+// });
 
+function findPath(){
+	alert("findPath");
+	
 
-	var point = new BMap.Point(e.point.lng, e.point.lat);
-	// map.centerAndZoom(point,17);
-	var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));  // ´´½¨±ê×¢£¬ÎªÒª²éÑ¯µÄµØ·½¶ÔÓ¦µÄ¾­Î³¶È
-    map.addOverlay(marker);
-});
+	
+}
 
 // function addMaker(){
 //     var x = document.getElementById("place_locationx").value;
