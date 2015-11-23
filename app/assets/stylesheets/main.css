@@ -48,6 +48,9 @@
 	body {
 		-webkit-text-size-adjust: none;
 	}
+	#ssss{
+		 	display:block;overflow:hidden;word-break:keep-all;white-space:nowrap;text-overflow:ellipsis;
+	}
 
 /* Box Model */
 

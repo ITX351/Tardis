@@ -36,6 +36,8 @@ gem 'jquery-rails'
 gem 'carrierwave', '0.10.0'
 gem 'mini_magick'
 
+gem 'ajaxful_rating', '>= 3.0.0.beta8'
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

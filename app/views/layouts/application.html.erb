@@ -5,11 +5,13 @@
     <title><%= full_title(yield(:title)) %></title>
     <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=3cRFcokpwq7uPqnafOYNOfKX"></script>
-
-    <%= stylesheet_link_tag    "bootstrap.css", :media => "all" %>
+    <%= stylesheet_link_tag "ajaxful_rating" %>
+    <%= stylesheet_link_tag "bootstrap.css", :media => "all" %>
     <%= yield :head %>
     
     <%= javascript_include_tag "application" %>
+    <%= javascript_include_tag :defaults %>
+    <%= ajaxful_rating_style %>
     <%= csrf_meta_tags %>
     <style>
         body{   /*background-image: url(<%= asset_path("banner.jpg")%>);

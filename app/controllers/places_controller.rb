@@ -2,17 +2,17 @@ class PlacesController < ApplicationController
 
 	def index
 		if params[:search]
-			# @places = Place.any_of({name: /#{params[:search]}/i})
-			# @places = Place.where(name: /#{params[:search]}/i)
 			@places = Place.find(:all, :conditions => ['name LIKE ?', "%#{params[:search]}%"])
 		else
 			@places = Place.all
 		end
+		@places.sort_by! {|a| a.rates}
 	end
 
 	def new
 		@place = Place.new
 	end
+
 	def create
 		@place = Place.new(params[:place])
 		if @place.save
@@ -24,8 +24,25 @@ class PlacesController < ApplicationController
 
 	def show
 		@place = Place.find(params[:id])
-		
 	end
+
+	def edit
+    	@place = Place.find(params[:id])
+  	end
+
+  	def update
+	    @place = Place.find(params[:id])
+
+	    respond_to do |format|
+	      if @place.update_attributes(params[:place])
+	        format.html { redirect_to @place, notice: 'Place information was successfully updated.' }
+	        format.json { head :no_content }
+	      else
+	        format.html { render action: "edit" }
+	        format.json { render json: @comment.errors, status: :unprocessable_entity }
+	      end
+	    end
+	  end
 
 	def destroy
 		@place = Place.find(params[:id])
@@ -34,8 +51,15 @@ class PlacesController < ApplicationController
     	respond_to do |format|
 	      format.html { redirect_to places_url }
 	      format.json { head :no_content }
-    end
+    	end
 	end
 
-
+	def rate
+		@place = Place.find(params[:id])
+		@place.rate(params[:stars], current_user, params[:dimension])
+		render :update do |page|
+			page.replace_html @place.wrapper_dom_id(params), ratings_for(@lace, params.merge(:wrap => false))
+			page.visual_effect :highlight, @place.wrapper_dom_id(params)
+		end
+	end
 end

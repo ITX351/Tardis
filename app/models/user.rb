@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   validates :password, presence: true
   validates :classes, presence: true
 
+  ajaxful_rater
+
   #email validates abc@def.com
   #VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   #validates :email, presence: true, format: {with: VALID_EMAIL_REGEX}

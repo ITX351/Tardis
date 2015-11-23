@@ -16,16 +16,15 @@
 
 <% @places.each do |place| %>
 
-    <section id="one" class="col-md-6">
+    <section id = "ssss" class="col-md-6">
         <div class="inner">
           <article class="feature left">
           <span class="image"><%= image_tag(place.avatar_url(:big)) if place.avatar %></span>
                     
           <div class="content">
               <h3><%= link_to place.name, place %></h3>
+              <%= ratings_for place, :static %>
               <p>
-                Category: <%= place.category %><br/>
-                Pos: <%= place.locationx %>,<%= place.locationy%><br/>
                 Introduction: <%= place.intro %><br/>
               </p>
               <ul class="actions">

@@ -3,4 +3,5 @@ class Place < ActiveRecord::Base
   has_many :comments
 
   mount_uploader :avatar, AvatarUploader
+  ajaxful_rateable :stars => 5, :allow_update  => true
 end
