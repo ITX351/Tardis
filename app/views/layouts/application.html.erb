@@ -18,6 +18,7 @@
             `   background-repeat: no-repeat;
                 background-position: center;*/
                 background-image: url(<%= asset_path("banner.jpg")%>) no-repeat 50% 0;
+                background-color: #FFFFFF;
         };
     </style>
 </head>
@@ -28,6 +29,7 @@
     <% flash.each do |key, value| %>
       <div class="alert alert-<%= key %>"><%= value %></div>
     <% end %>
+
     
     <div align = "center">
         <%= yield %>

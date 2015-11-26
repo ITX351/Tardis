@@ -44,8 +44,12 @@ body {
 .mytitle{
   position: relative;
   color: #fff;
-  font-size: 200%;
-  margin: 4em 0em 0em 0em;
+  font-size: 300%;
+  margin: 2em 0em 0em 0em;
+  /*color: transparent;*/
+  background-color : black;
+  text-shadow : rgba(255,255,255,0.5) 0 5px 6px, rgba(255,255,255,0.2) 1px 3px 3px;
+  -webkit-background-clip : text;
 }
 .s-bar {
   width: 34%;
@@ -137,7 +141,7 @@ body {
 	text-decoration:none;
 }
 .copyright {
-  margin: 14em 0em 0em 0em;
+  margin: 12em 0em 0em 0em;
   text-align: center;
 }
 .copyright p {

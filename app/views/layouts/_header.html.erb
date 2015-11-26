@@ -1,11 +1,11 @@
 <nav class="navbar navbar-fixed-top navbar-default" role = "navigation">
     <div class="navbar-header">
-        <%= link_to "HIT Tutorial", home_path, class: "navbar-brand"%>
+        <%= link_to "HIT Navagation", home_path, class: "navbar-brand"%>
     </div>
     <div>
         <ul class="nav navbar-nav pull-right">
-            <li class = "active"><%= link_to "Home", home_path, :method => :get  %></li>
-            <li><%= link_to "Help", help_path, :method => :get %></li>
+            <li><%= link_to "Home", home_path, :method => :get  %></li>
+            <!-- <li><%= link_to "Help", help_path, :method => :get %></li> -->
             <li><%= link_to "Places", places_path, :method => :get %></li>
             <% if signed_in? %>
                 <li><%= link_to "Users", users_path, :method => :get%></li>

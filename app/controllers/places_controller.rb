@@ -6,7 +6,7 @@ class PlacesController < ApplicationController
 		else
 			@places = Place.all
 		end
-		@places.sort_by! {|a| a.rates}
+		# @places.sort_by! {|a| a.rates}
 	end
 
 	def new
