@@ -1,11 +1,10 @@
-source 'https://ruby.taobao.org'
+source 'https://rubygems.org'
 
 gem 'rails', '3.2.16'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
 gem 'bcrypt-ruby', '3.0.1'
 gem 'bootstrap-sass', '2.3.2.0'
 gem 'turbolinks'
@@ -37,6 +36,22 @@ gem 'carrierwave', '0.10.0'
 gem 'mini_magick'
 
 gem 'ajaxful_rating', '>= 3.0.0.beta8'
+
+
+
+group :development, :test do
+	gem 'sqlite3'
+end
+
+group :production do
+	gem 'pg'
+end
+
+group :production do
+	gem 'thin'
+end
+
+gem 'heroku'
 
 
 # To use ActiveModel has_secure_password
