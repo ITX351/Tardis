@@ -13,7 +13,6 @@
 
 ActiveRecord::Schema.define(:version => 20151123081133) do
 
-
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
     t.integer  "place_id"
@@ -22,6 +21,8 @@ ActiveRecord::Schema.define(:version => 20151123081133) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
 
   create_table "places", :force => true do |t|
     t.string   "name"

@@ -4,7 +4,9 @@
 <head>
     <title><%= full_title(yield(:title)) %></title>
     <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=3cRFcokpwq7uPqnafOYNOfKX"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/library/AreaRestriction/1.2/src/AreaRestriction_min.js"></script>
     <%= stylesheet_link_tag "ajaxful_rating" %>
     <%= stylesheet_link_tag "bootstrap.css", :media => "all" %>
     <%= yield :head %>

@@ -41,13 +41,13 @@
    aria-labelledby="myModalLabel" aria-hidden="true" style="width:800px">
    <div class="modal-dialog">
 
-        <div id="container" class = "col-md-10" align = "center"
+        <div id="newmap" class = "col-md-10" align = "center"
                 style="width: 500px; 
                     height: 500px; 
                     border: 1px solid gray;
                     overflow:hidden;">
         </div>
-        <%= javascript_include_tag "map.js" %>
+        <!-- <%= javascript_include_tag "map.js" %> -->
         <div class = "col-md-2">
             <button type="button" class="btn btn-primary" 
                data-dismiss="modal">OK
@@ -59,6 +59,11 @@
 <% end %>
 
 <script> 
+    var map = new BMap.Map("newmap");
+    var point = new BMap.Point(126.63843, 45.7494);
+    map.centerAndZoom(point,17);
+
+
     map.addEventListener("click", function(e){//µØÍ¼µ¥»÷ÊÂ¼þ
         map.clearOverlays();
         document.getElementById("place_locationx").value = e.point.lng;
@@ -68,10 +73,7 @@
         var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));  // ´´½¨±ê×¢£¬ÎªÒª²éÑ¯µÄµØ·½¶ÔÓ¦µÄ¾­Î³¶È
         map.addOverlay(marker);
     });
-    function setCenter(){
-        map.centerAndZoom(schoolcenter,17);
-    }
-    window.reload(setCenter());    
+   
 </script>
 
 

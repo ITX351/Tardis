@@ -63,6 +63,7 @@ GEM
     excon (0.45.4)
     execjs (2.6.0)
     ffi (1.9.10)
+    gravatar_image_tag (1.2.0)
     heroku (3.42.22)
       heroku-api (= 0.3.23)
       launchy (= 2.4.3)
@@ -184,6 +185,7 @@ DEPENDENCIES
   capybara (= 1.1.2)
   carrierwave (= 0.10.0)
   coffee-rails (~> 3.2.1)
+  gravatar_image_tag
   heroku
   jquery-rails
   mini_magick

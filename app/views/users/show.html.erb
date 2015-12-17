@@ -3,8 +3,10 @@
 </div>
 <%= stylesheet_link_tag    "style1.css", :media => "all" %>
 
-
 <h2> Personal Information </h2>
+
+<%= gravatar_image_tag(@user.email, :alt => @user.name, :gravatar => { :size => 80 }) %>
+<!-- :size => 80 for default, varifies from 15 to 512 -->
 
 <div id="container1">   
 
