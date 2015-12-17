@@ -34,7 +34,7 @@ end
 gem 'jquery-rails'
 
 
-gem 'carrierwave', '0.10.0'
+gem 'carrierwave', '0.10.0'		#用于图片处理的gem
 gem 'mini_magick'
 
 gem 'ajaxful_rating', '>= 3.0.0.beta8'
