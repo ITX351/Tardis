@@ -103,7 +103,7 @@
 	function work(){
 		<% @places.each do |place|%>
 		    	var marker = new addMaker(new BMap.Point(<%= place.locationx%>, <%= place.locationy%>));
-		    	var intro = ['<%= place.name%>', '<%= place.intro%>'];
+		    	var intro = ['<h3><%= place.name%></h3>', '<%= place.intro%><br/><%=link_to "More", place %>'];
 		    	addInfoWindow(marker, intro);
 		<% end %>
 	}
