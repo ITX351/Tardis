@@ -7,15 +7,15 @@
 	<div class = "col-md-6">
 		<h2><%= @place.name %></h2>
 		<div = class = "row">
-		<div class = "col-md-6">
-			<%= image_tag(@place.avatar_url(:verybig)) if @place.avatar %> <br/><br/>
-			<h3>Score it:</h3><%= ratings_for @place, :show_user_rating => true %> <br /><br/><br/><br/>
-	    </div>
-	    <div class = "col-md-6">
-	        <h3>Tot Score:</h3> <%= ratings_for @place, :static %><br />
-	    	<b>Introduction:</b> <%= @place.intro %><br/><br/><br/><br/><br/><br/>
-			<button class = "btn btn-primary btn-lg" onclick = "findPath()">Go here</button>
-		</div>
+			<div class = "col-md-6" style = "overflow:hidden">
+				<%= image_tag(@place.avatar_url(:verybig), :style => "max-width:100%") if @place.avatar%> <br/><br/>
+				<h3>Score it:</h3><%= ratings_for @place, :show_user_rating => true %> <br /><br/><br/><br/>
+		    	</div>
+		  	<div class = "col-md-6">
+		        		<h3>Tot Score:</h3> <%= ratings_for @place, :static %><br />
+		    		<b>Introduction:</b> <%= @place.intro %><br/><br/><br/><br/><br/><br/>
+				<button class = "btn btn-primary btn-lg" onclick = "findPath()">Go here</button>
+			</div>
 		</div>
 		<p>
 			<%= link_to "Back", places_path, :method => :get %>
@@ -24,8 +24,6 @@
 			|
 			<%= link_to "Delete", @place, :method => :delete, :confirm => "Are you sure?" %>
 		</p>
-
-
 	</div>
 
 <div class = "col-md-6">

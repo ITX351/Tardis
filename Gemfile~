@@ -1,5 +1,5 @@
-#source 'https://rubygems.org'
-source 'https://ruby.taobao.org'
+source 'https://rubygems.org'
+
 gem 'rails', '3.2.16'
 
 # Bundle edge Rails instead:
@@ -38,7 +38,7 @@ gem 'carrierwave', '0.10.0'
 gem 'mini_magick'
 
 gem 'ajaxful_rating', '>= 3.0.0.beta8'
-gem 'webrick'
+
 
 
 group :development, :test do
@@ -47,7 +47,10 @@ end
 
 group :production do
 	gem 'pg'
-	#gem 'thin'		#push到heroku时需要取消注释
+end
+
+group :production do
+	gem 'thin'
 end
 
 gem 'heroku'

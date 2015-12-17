@@ -1,77 +1,101 @@
 <%= stylesheet_link_tag    "main.css", :media => "all" %>
 <div style="position:fixed; left:0; top:0; width:100%; height:100%; z-index:-5000">
-  <%= image_tag("bg1.jpg", width: "100%", height: "100%") %>
+<!--   <%= image_tag("bg1.jpg", width: "100%", height: "100%") %> -->
 </div>
-
-
 <h1> Places information </h1>
-
 <h2> <%= link_to "New Place", new_place_path, :method => :get %> </h2>
-    
-    <div id="container" align = "center"
-            style="width: 800px; 
-                height: 600px; 
-                border: 1px solid gray;
-                overflow:hidden;">
-    </div>
-    <%= javascript_include_tag "map.js" %>
-    <script> map.centerAndZoom(schoolcenter,17);</script>
-<br/><br/><br/><br/><br/>
+
 
 <% @places.each do |place| %>
-
-    <section id = "ssss" class="col-md-6">
-        <div class="inner">
-          <article class="feature left">
-          <span class="image"><%= image_tag(place.avatar_url(:big)) if place.avatar %></span>
-                    
-          <div class="content">
-              <h3><%= link_to place.name, place %></h3>
-              <%= ratings_for place, :static %>
-              <p>
-                Introduction: <%= place.intro %><br/>
-              </p>
-              <ul class="actions">
-                <li>
-                  <%= link_to "More", place, :method => :get%>
-                </li>
-              </ul>
-
-            </div>
-          </article>
-        </div>
-    </section>
+    	<section class="col-md-4">
+        	<div class="inner">
+          		<article class="feature left">
+          		<span class="image"><%= image_tag(place.avatar_url(:big)) if place.avatar %></span>
+		<div class="content">
+		              <div class = "cont_one">
+		              	<h3><%= link_to place.name, place %></h3>
+		              </div>
+		              <%= ratings_for place, :static %>
+		              <div class = "cont_two">
+		                	<%= place.intro %>
+		              </div>
+		              <ul class="actions">
+		                	<li>
+		                  		<%= link_to "More", place, :method => :get%>
+		                	</li>
+		              </ul>
+		</div>
+          		</article>
+        	</div>
+    	</section>
 <% end %>
+<br/><br/><br/><br/><br/>
+<div id="container" align = "center"
+            		style="width: 800px; 
+                	height: 600px; 
+                	border: 1px solid gray;
+                	overflow:hidden;">
+</div>
+<%= javascript_include_tag "map.js" %>
+<br/><br/><br/><br/><br/>
+
+<style>
+	/*最多显示one or two行，多余的用...代替*/
+	.cont_one{ 
+	    width: 125px;
+	    height: 25px;
+	    line-height: 25px;
+	    text-align: left;
+	    text-overflow: -o-ellipsis-lastline;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    display: -webkit-box;
+	    -webkit-line-clamp: 1;
+	    -webkit-box-orient: vertical;
+	 }
+	.cont_two{  	
+	    width: 140px;
+	    height: 50px;
+	    line-height: 25px;
+	    text-align: left;
+	    text-overflow: -o-ellipsis-lastline;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    display: -webkit-box;
+	    -webkit-line-clamp: 2;
+	    -webkit-box-orient: vertical;
+	}
+</style>
 
 <script>
-    function addMaker(point){
-        var marker = new BMap.Marker(point);
-        map.addOverlay(marker);
-        return marker;
-    }
-    function addInfoWindow(marker, intro){
-        var opts = {
-            title: intro[0],
-            width: 250,
-            height: 200
-        }
-        var content = intro[1];
-        var info = new BMap.InfoWindow(content, opts);
-        var openInforWinFun = function(){
-            marker.openInfoWindow(info);
-        }
-        marker.addEventListener("click", openInforWinFun);
-        return openInforWinFun;
-    }
+	function addMaker(point){
+	    var marker = new BMap.Marker(point);
+	    map.addOverlay(marker);
+	    return marker;
+	}
+	function addInfoWindow(marker, intro){
+	    var opts = {
+	        title: intro[0],
+	        width: 250,
+	        height: 200
+	    }
+	    var content = intro[1];
+	    var info = new BMap.InfoWindow(content, opts);
+	    var openInforWinFun = function(){
+	        marker.openInfoWindow(info);
+	    }
+	    marker.addEventListener("click", openInforWinFun);
+	    return openInforWinFun;
+	}
 
-    function work(){
-        
-        <% @places.each do |place|%>
-            var marker = new addMaker(new BMap.Point(<%= place.locationx%>, <%= place.locationy%>));
-            var intro = ['<%= place.name%>', '<%= place.intro%>'];
-            addInfoWindow(marker, intro);
-        <% end %>
-    }
-    window.reload(work());
+	function work(){
+	    
+	    <% @places.each do |place|%>
+	        var marker = new addMaker(new BMap.Point(<%= place.locationx%>, <%= place.locationy%>));
+	        var intro = ['<%= place.name%>', '<%= place.intro%>'];
+	        addInfoWindow(marker, intro);
+	    <% end %>
+	}
+	window.reload(work());
 </script>
 
