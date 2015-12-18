@@ -13,7 +13,8 @@
 				<h3>Score it:</h3><%= ratings_for @place, :show_user_rating => true %> <br /><br/><br/><br/>
 		    	</div>
 		  	<div class = "col-md-6">
-		        		<h3>Tot Score:</h3> <%= ratings_for @place, :static %><br />
+		        		<h3>Tot Score:</h3> 
+		        		<%= ratings_for @place, :static, :dimensions => :tot%><%= @place.rates[0]%><br />
 		    		<b>Introduction:</b> <%= @place.intro %><br/><br/><br/><br/><br/><br/>
 				<button class = "btn btn-primary btn-lg" onclick = "findPath()">Go here</button>
 			</div>
@@ -79,6 +80,7 @@
 	var point = new BMap.Point(126.638718,45.749316);
 	var schoolcenter = new BMap.Point(126.638718,45.749316);
 	map.centerAndZoom(point,17);
+	map.setMinZoom(16);
 	//map.enableScrollWheelZoom();    //鼠标滚轮缩放
 	map.enableContinuousZoom();      //让地图启动滑动效果
 	var b = new BMap.Bounds(new BMap.Point(126.627938, 45.74145),

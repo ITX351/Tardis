@@ -1,12 +1,17 @@
 class PlacesController < ApplicationController
-
 	def index
 		if params[:search]
 			@places = Place.find(:all, :conditions => ['name LIKE ?', "%#{params[:search]}%"])
+			@places.each do |place|
+				place.hot =  place.hot + 1
+				place.save
+			end
 		else
 			@places = Place.all
 		end
 		# @places.sort_by! {|a| a.rates}
+		@places.sort_by! {|a| a.hot}
+		@places.reverse!
 	end
 
 	def new
@@ -15,6 +20,7 @@ class PlacesController < ApplicationController
 
 	def create
 		@place = Place.new(params[:place])
+		@place.hot = 0
 		if @place.save
 			redirect_to @place
 		else

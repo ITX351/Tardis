@@ -26,8 +26,8 @@
     	</div>
     	<br/><br/><br/><br/><br/><br/>
     	<div class = "field">
-        	<div class = "col-md-12"><%= f.file_field :avatar %> </div>
-        	<div class = "col-md-0"><%= f.hidden_field :avatar_cache %> </div>
+	        	<div class = "col-md-12"><%= f.file_field :avatar %></div>
+	        	<div class = "col-md-0"><%= f.hidden_field :avatar_cache %> </div>
     	</div>
     	<br/><br/><br/>
     	<div class="actions ">
@@ -55,6 +55,7 @@
 	var map = new BMap.Map("newmap");
 	var point = new BMap.Point(126.63843, 45.7494);
 	map.centerAndZoom(point,17);
+	map.setMinZoom(16);
 	var b = new BMap.Bounds(new BMap.Point(126.627938, 45.74145),
 						new BMap.Point(126.647629, 45.756771));
 	try {	
