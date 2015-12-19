@@ -44,7 +44,7 @@ Tardis::Application.configure do
      :port => 25,
      :domain => "163.com",
      :authentication => :login,
-     :user_name => "se_tardis",
+     :user_name => "se_tardis_development",
      :password => "goodhigh"
    }
 end
