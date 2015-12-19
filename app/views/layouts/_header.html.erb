@@ -18,12 +18,12 @@
                         <li><%= link_to "Settings", '#' %></li>
                         <li class="divider"></li>
                         <li>
-                            <%= link_to "Sign out", '/users/sign_out', method: "delete" %>
+                            <%= link_to "Sign out", '/signout', method: "delete" %>
                         </li>
                     </ul>
                 </li>
             <% else %>
-                <li><%= link_to "Sign in", '/users/sign_in' %></li>
+                <li><%= link_to "Sign in", '/signin' %></li><!-- Show as path? -->
             <% end %>
         </ul>
     </div>

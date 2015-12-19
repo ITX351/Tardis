@@ -1,8 +1,8 @@
 Tardis::Application.routes.draw do
-  devise_for :users#, controllers: { sessions: "users/sessions" }
-  # devise_for :users, path: "auth", path_names: 
-  # { sign_in: 'signin', sign_out: 'signout', registration: 'signup' }, 
-  # controllers: { sessions: "users/sessions", registrations: "users/registrations" }
+  # devise_for :users, controllers: { sessions: "users/sessions" }
+  devise_for :users, path: "/", path_names: 
+  { sign_in: 'signin', sign_out: 'signout', registration: 'signup' }, 
+  controllers: { sessions: "users/sessions", registrations: "users/registrations" }
 
   #get "static_pages/home"
   #get "static_pages/help"
