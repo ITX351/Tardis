@@ -65,14 +65,16 @@ Tardis::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-     :address => "smtp.163.com",
-     :port => 25,
-     :domain => "163.com",
-     :authentication => :login,
-     :user_name => "se_tardis_production",
-     :password => "goodhigh"
-   }
+  # config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.smtp_settings = {
+  #   :address => "smtp.163.com",
+  #   :port => 465, # default 25, ssl 465/994 for smtp.163.com
+  #   :domain => "163.com",
+  #   :user_name => "se_tardis",
+  #   :password => "mkniaomrkygissxo", # created by 163 smtp service.
+  #   :authentication => :login,
+  #   :ssl => true,
+  #   :tls => true 
+  # }
 
 end
