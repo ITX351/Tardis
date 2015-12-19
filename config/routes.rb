@@ -1,5 +1,5 @@
 Tardis::Application.routes.draw do
-  # devise_for :users, controllers: { sessions: "users/sessions" }
+  devise_for :users, controllers: { sessions: "users/sessions" }
 
   #get "static_pages/home"
   #get "static_pages/help"
@@ -16,6 +16,8 @@ Tardis::Application.routes.draw do
     post "rate", on: :member
   end
 
+  resources :users #user_path
+
   root :to => "static_pages#home"
 
   get '/' => 'static_pages#home'
@@ -28,7 +30,6 @@ Tardis::Application.routes.draw do
   # get '/signin' => 'sessions#new'
   # post '/signin' => 'sessions#create'
   # delete '/signout' => 'sessions#destroy'
-
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

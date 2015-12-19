@@ -8,7 +8,7 @@
             <!-- <li><%= link_to "Help", help_path, :method => :get %></li> -->
             <li><%= link_to "Places", places_path, :method => :get %></li>
             <% if signed_in? %>
-                <li><%= link_to "Users", users_path, :method => :get%></li>
+                <li><%= link_to "Users", '#', :method => :get%></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         Account <b class="caret"></b>
@@ -18,12 +18,12 @@
                         <li><%= link_to "Settings", '#' %></li>
                         <li class="divider"></li>
                         <li>
-                            <%= link_to "Sign out", signout_path, method: "delete" %>
+                            <%= link_to "Sign out", '#', method: "delete" %>
                         </li>
                     </ul>
                 </li>
             <% else %>
-                <li><%= link_to "Sign in", signin_path %></li>
+                <li><%= link_to "Sign in", '#' %></li>
             <% end %>
         </ul>
     </div>
