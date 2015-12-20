@@ -39,12 +39,22 @@ Tardis::Application.configure do
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
   config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.smtp_settings = {
+  #   :address => "smtp.163.com",
+  #   :port => 465, # default 25, ssl 465/994 for smtp.163.com
+  #   :domain => "163.com",
+  #   :user_name => "se_tardis",
+  #   :password => "mkniaomrkygissxo", # created by 163 smtp service.
+  #   :authentication => :login,
+  #   :ssl => true,
+  #   :tls => true 
+  # }
   config.action_mailer.smtp_settings = {
-    :address => "smtp.163.com",
-    :port => 465, # default 25, ssl 465/994 for smtp.163.com
-    :domain => "163.com",
-    :user_name => "se_tardis",
-    :password => "mkniaomrkygissxo", # created by 163 smtp service.
+    :address => "smtp.qq.com",
+    :port => 465, # ssl 465/587 for smtp.qq.com
+    :domain => "qq.com",
+    :user_name => "dcn748",
+    :password => "ujrnzcscycszbjfi", # created by qq
     :authentication => :login,
     :ssl => true,
     :tls => true 
