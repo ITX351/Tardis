@@ -26,8 +26,8 @@
 			        	</div>
 			        	<hr>
 			        	<div  style = "text-align:left">
-			    		<b>Introduction:</b> <%=@place.intro %>
-				</div>
+			    			<b>Introduction:</b> <%=@place.intro %>
+					</div>
 				<hr>
 			</div>
 		</div>
@@ -39,22 +39,23 @@
 			<%= link_to "Delete", @place, :method => :delete, :confirm => "Are you sure?" %>
 		</p>
 	</div>
-	<hr>
-	<br/><br/><br/>
-	<div id = "showinmap" class = "col-md-12">
-		<div id="showmap" class = "col-md-7"
-	            style="width: 600px; 
-	                height: 400px; 
-	                border: 1px solid gray;
-	                overflow:hidden;">
-	   	</div>
-	   	<div class = "col-md-5">
-	   		<button class = "btn btn-primary btn-lg" onclick = "findPath()">Go here</button>
-	   		<br/>
-	   		<div id="showtextroute"></div>
-		</div>
+</div>
+<hr>
+<div id = "showinmap" class = "row">
+	<br/><br/>
+	<div id="showmap" class = "col-md-7"
+            style="width: 600px; 
+                height: 400px; 
+                border: 1px solid gray;
+                overflow:hidden;">
+   	</div>
+   	<div class = "col-md-5">
+   		<button class = "btn btn-primary btn-lg" onclick = "findPath()">Go here</button>
+   		<br/>
+   		<div id="showtextroute"></div>
 	</div>
 </div>
+
 <hr>
 <div id = "comments" class = "row"  >
 	<div class = "col-md-5">
