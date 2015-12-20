@@ -35,12 +35,20 @@
 <div id = "showinmap">
 	<br/><br/>
 	<h3>Show in Map </h3>
-	<a href = "#">Back</a>
-	<div id="indexmap" align = "center"
-	            		style="width: 800px; 
-	                	height: 500px; 
-	                	border: 1px solid gray;
-	                	overflow:hidden;">
+	<div class = "">
+		<a href = "#">Back</a>
+	</div>
+	<div class="row">
+		<div id="indexmap" align = "center" class = "col-md-10"
+		            		style="width: 800px; 
+		                	height: 500px; 
+		                	border: 1px solid gray;
+		                	overflow:hidden;">
+		</div>
+		<div id="r-result" class = "col-md-2">
+			<label>Choose Map Style</label>
+			<select id="stylelist" onchange="changeMapStyle(this.value)"></select>
+		</div>
 	</div>
 </div>
 <br/><br/><br/><br/><br/>
@@ -78,6 +86,7 @@
 	var schoolcenter = new BMap.Point(126.638718,45.749316);
 	map.centerAndZoom(point,17);
 	map.setMinZoom(16);
+	map.addControl(new BMap.MapTypeControl());          //添加地图类型控件
 	var b = new BMap.Bounds(new BMap.Point(126.627938, 45.74145),
 						new BMap.Point(126.647629, 45.756771));
 	try {	
@@ -113,6 +122,24 @@
 		    	addInfoWindow(marker, intro);
 		<% end %>
 	}
+
+	//初始化模板选择的下拉框
+	var sel = document.getElementById('stylelist');
+	var item = new Option("Normal", "normal");
+	sel.options.add(item);
+	item = new Option("Light", "light");
+	sel.options.add(item);
+	item = new Option("Midnight", "midnight");
+	sel.options.add(item);
+	item = new Option("Dark", "dark");
+	sel.options.add(item);
+	
 	window.reload(work());
+	
+	changeMapStyle('normal')
+	function changeMapStyle(mystyle){
+		map.setMapStyle({style:mystyle});
+		$('#desc').html(mapstyles[style].desc);
+	}	
 </script>
 
