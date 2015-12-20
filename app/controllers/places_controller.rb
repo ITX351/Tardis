@@ -21,6 +21,12 @@ class PlacesController < ApplicationController
 	def create
 		@place = Place.new(params[:place])
 		@place.hot = 0
+		if current_user.nil?
+			@place.user_id = 1
+		else
+			@place.user_id = current_user.id
+			@place.user = current_user
+		end
 		if @place.save
 			redirect_to @place
 		else
@@ -33,7 +39,10 @@ class PlacesController < ApplicationController
 	end
 
 	def edit
-    	@place = Place.find(params[:id])
+    		@place = Place.find(params[:id])
+    		if(@place.user != current_user)
+    			redirect_to @place, notice: 'You do not have the authority to edit it' 
+    		end
   	end
 
   	def update
@@ -52,12 +61,12 @@ class PlacesController < ApplicationController
 
 	def destroy
 		@place = Place.find(params[:id])
-    	@place.destroy
-
-    	respond_to do |format|
-	      format.html { redirect_to places_url }
-	      format.json { head :no_content }
-    	end
+		if(@place.user != current_user)
+    			redirect_to @place, notice: 'You do not have the authority to edit it' 
+    		else
+    			@place.destroy	
+    			redirect_to :home
+    		end
 	end
 
 	def rate

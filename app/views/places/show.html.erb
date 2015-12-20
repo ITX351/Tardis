@@ -13,11 +13,12 @@
 				<h3>Score it:</h3><%= ratings_for @place, :show_user_rating => true %> <br /><br/><br/><br/>
 		    	</div>
 		  	<div class = "col-md-6">
-		        	<%= ratings_for @place, :static, :dimensions => :tot%>
-		        	<a href = "#comments">there are <%= @place.comments.size%> comments</a>
-		        	<hr>
-		        	<div  style = "text-align:left">
-		    			<b>Introduction:</b> <%= @place.intro %>
+			        	<%= ratings_for @place, :static, :dimensions => :tot%>
+			        	<a href = "#comments">there are <%= @place.comments.size%> comments</a><br/>
+			        	Maker: <%=@place.user.email%>
+			        	<hr>
+			        	<div  style = "text-align:left">
+			    		<b>Introduction:</b> <%=@place.intro %>
 				</div>
 				<button class = "btn btn-primary btn-lg" onclick = "findPath()">Go here</button>
 			</div>
