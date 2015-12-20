@@ -13,7 +13,7 @@ Email : <%= @user.email %><br/>
 <hr>
 <h3>Place Created by Me </h3>
 <% @user.places.each do|place|%>
-	|<%= link_to place.name, place%> | 
+	|<%= link_to place.name, place, :method => :get %> | 
 <% end %>
 <hr>
 <h3>My Comments </h3>

@@ -35,7 +35,11 @@
 		<p>
 			<%= link_to "Back", places_path, :method => :get %>
 			|
-			<%= link_to "Edit", edit_place_path(@place), :method => :get%>
+			<% if (current_user == @place.user)%>
+				<%= link_to "You can edit it", edit_place_path(@place), :method => :get%>
+			<% else %>
+				<%= link_to "Submit my update application", updateapply_url(@place), :method => :get%>
+			<% end %>
 			|
 			<%= link_to "Delete", @place, :method => :delete, :confirm => "Are you sure?" %>
 		</p>

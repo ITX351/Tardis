@@ -1,0 +1,77 @@
+<%= stylesheet_link_tag    "main.css", :media => "all" %>
+<div style="position:fixed; left:0; top:0; width:100%; height:100%; z-index:-5000">
+  	<%= image_tag("bg1.jpg", width: "100%", height: "100%") %>
+</div>
+
+<h1>Submitted Update Information</h1>
+
+<div class = "row">
+	<div class = "col-md-12">
+		<h2><%= @temp_place.name %></h2>
+		<hr>
+		<div = class = "row">
+			<div class = "col-md-6" style = "overflow:hidden">
+				<%= image_tag(@temp_place.avatar_url(:bigest), :style => "max-width:100%") if @temp_place.avatar%> <br/>
+				<a data-toggle="modal" href="#showimg" class="btn">view original image</a>
+		    	</div>
+		  	<div class = "col-md-6">
+			        	<div class = "row">
+			        		<div class = "col-md-12">
+			        			<a href = "#showinmap">Show it in map </a>
+			        		</div>
+			        	</div>
+			        	<hr>
+			        	<div  style = "text-align:left">
+			    			<b>Introduction:</b> <%=@temp_place.intro %>
+					</div>
+				<hr>
+			</div>
+		</div>
+	</div>
+</div>
+
+<hr>
+<div id = "showinmap" class = "row">
+	<br/><br/>
+	<div id="showmap" class = "col-md-7"
+            style="width: 600px; 
+                height: 400px; 
+                border: 1px solid gray;
+                overflow:hidden;">
+   	</div>
+</div>
+<hr>
+<div class = "btn btn-primary btn-lg">
+	<%= link_to "Accept It", auditapply_url(@temp_place), :method => :post %>
+ </div>
+ <br/><br/><br/>
+
+<script>
+	var map = new BMap.Map("showmap");
+	window.map = map;
+
+	var point = new BMap.Point(126.638718,45.749316);
+	var schoolcenter = new BMap.Point(126.638718,45.749316);
+	map.centerAndZoom(point,17);
+	map.setMinZoom(16);
+	//map.enableScrollWheelZoom();    //鼠标滚轮缩放
+	map.enableContinuousZoom();      //让地图启动滑动效果
+	var b = new BMap.Bounds(new BMap.Point(126.627938, 45.74145),
+							new BMap.Point(126.647629, 45.756771));
+	try {	
+		BMapLib.AreaRestriction.setBounds(map, b);
+	} catch (e) {
+		alert(e);
+	}
+	map.addControl(new BMap.NavigationControl());  
+	map.addControl(new BMap.MapTypeControl());          //添加地图类型控件
+
+	var nowPoint = new BMap.Point(<%= @temp_place.locationx%>, <%= @temp_place.locationy%>);
+	var des = new BMap.Marker(nowPoint); 
+	var src = new BMap.Marker(nowPoint); 
+	map.addOverlay(des);
+</script>
+
+
+
+

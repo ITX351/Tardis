@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
 
 	has_many :comments
 	has_many :places
+	has_many :temp_places
 
 	ajaxful_rater
 end

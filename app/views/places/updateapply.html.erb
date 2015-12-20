@@ -3,8 +3,13 @@
   	<%= image_tag("bg1.jpg", width: "100%", height: "100%") %>
 </div>
 
-<h1>Edit the Place</h1>
-<%= form_for @place do |f| %>
+<h1>Update This Place</h1>
+<%= form_for @temp_place, url: {:action => "updateapply"} do |f| %>
+	<div class="field row">
+		<div class = "col-md-2"><h2>Reason</h2></div>
+		<div class = "col-md-10"><%= f.text_area :reason, rows: 2, placeholder: "Input your reason to update this place" %> </div>
+	</div>
+	<br/>
 	<div class="field row">
 		<div class = "col-md-2"><h2><%= f.label :name, "font-size" => 20 %></h2></div>
 		<div class = "col-md-10"><%= f.text_field :name, placeholder: "Input name of place"%></div>

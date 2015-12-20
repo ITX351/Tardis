@@ -77,4 +77,30 @@ class PlacesController < ApplicationController
 			page.visual_effect :highlight, @place.wrapper_dom_id(params)
 		end
 	end
+
+	def updateapply
+		@place = Place.find(params[:id])
+		@temp_place = TempPlace.new(name: @place.name, intro: @place.intro, classes: @place.classes,
+			locationx: @place.locationx, locationy: @place.locationy, avatar: @place.avatar, avatar_cache: @place.avatar_cache)
+	end
+
+	def createtemp
+		@place = Place.find(params[:id])
+		@temp_place = TempPlace.new(params[:temp_place])
+		@temp_place.place_id = params[:id]
+		@temp_place.place = @place
+		if current_user.nil?
+			@temp_place.user_id = 1
+		else
+			@temp_place.user_id = current_user.id
+			@temp_place.user = current_user
+		end
+		@temp_place.state = 0 			# No Accept
+
+		if @temp_place.save
+			redirect_to @place
+		else
+			render "new"
+		end
+	end
 end

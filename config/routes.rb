@@ -30,7 +30,13 @@ Tardis::Application.routes.draw do
   get '/help' => 'static_pages#help'
   get '/home' => 'static_pages#home'
   get '/about' => 'static_pages#about'
+  get '/manage' => 'users#manage'
   #get '/help' => 'static_pages#help'
+
+  get 'places/:id/updateapply' => 'places#updateapply', :as => :updateapply
+  post 'places/:id/updateapply' => 'places#createtemp'
+  get 'auditapply/:id' => 'users#auditapply',  :as => :auditapply
+  post 'auditapply/:id' => 'users#accepted'
 
   # get '/signup' => 'users#new'
   # get '/signin' => 'users/sessions#new'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151220072029) do
+ActiveRecord::Schema.define(:version => 20151220155418) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -49,6 +49,21 @@ ActiveRecord::Schema.define(:version => 20151220072029) do
 
   add_index "rates", ["rateable_id", "rateable_type"], :name => "index_rates_on_rateable_id_and_rateable_type"
   add_index "rates", ["rater_id"], :name => "index_rates_on_rater_id"
+
+  create_table "temp_places", :force => true do |t|
+    t.string   "name"
+    t.integer  "classes"
+    t.float    "locationx"
+    t.float    "locationy"
+    t.text     "intro"
+    t.string   "avatar"
+    t.integer  "user_id"
+    t.integer  "place_id"
+    t.text     "reason"
+    t.integer  "state"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
