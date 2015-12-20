@@ -1,18 +1,25 @@
 Tardis::Application.routes.draw do
+  # devise_for :users, controllers: { sessions: "users/sessions" }
+  devise_for :users, path: "/", path_names: 
+  { sign_in: 'signin', sign_out: 'signout', registration: 'signup' }, 
+  controllers: { sessions: "users/sessions", registrations: "users/registrations" }
+
   #get "static_pages/home"
   #get "static_pages/help"
   #get "static_pages/about"
   resources :comments
-  resources :users do
-    resources :comments
-  end
+  # resources :users do
+  #   resources :comments
+  # end
 
-  resources :sessions, only: [:new, :create, :destroy]
+  # resources :sessions, only: [:new, :create, :destroy]
 
   resources :places do
     resources :comments
     post "rate", on: :member
   end
+
+  resources :users #user_path
 
   root :to => "static_pages#home"
 
@@ -22,11 +29,17 @@ Tardis::Application.routes.draw do
   get '/about' => 'static_pages#about'
   #get '/help' => 'static_pages#help'
 
-  get '/signup' => 'users#new'
-  get '/signin' => 'sessions#new'
-  post '/signin' => 'sessions#create'
-  delete '/signout' => 'sessions#destroy'
+  # get '/signup' => 'users#new'
+  # get '/signin' => 'users/sessions#new'
+  # post '/signin' => 'users/sessions#create'
+  # delete '/signout' => 'users/sessions#destroy'
 
+  # devise_scope :user do
+  #   get "signup", to: "devise/registrations#new"
+  #   get "signin", to: "users/sessions#new"
+  #   post "signin", to: "users/sessions#create"
+  #   delete "signout", to: "users/sessions#destroy"
+  # end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

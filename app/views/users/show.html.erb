@@ -5,7 +5,7 @@
 
 <h2> Personal Information </h2>
 
-<%= gravatar_image_tag(@user.email, :alt => @user.name, :gravatar => { :size => 80 }) %>
+<%= gravatar_image_tag(@user.email, :alt => @user.nickname, :gravatar => { :size => 80 }) %> <!-- TODO: nickname -->
 <!-- :size => 80 for default, varifies from 15 to 512 -->
 
 <div id="container1">   
@@ -14,13 +14,13 @@
     <caption>Personal Information</caption>
     <thead>
           <tr>
-        <th>Name</th>
+        <th>Nickname</th>
         <th>Email</th>
         </tr>
     </thead>
         <tbody>
           <tr>
-              <td><%= @user.name %></td>
+              <td> <%= @user.nickname %></td>
               <td> <%= @user.email %></td>
             </tr>
         </tbody>

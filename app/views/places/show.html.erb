@@ -50,7 +50,7 @@
 		<% @place.comments.each do |comment| %>
 			<%= comment.content %>
 			<br>
-			<i>By <%= find_user(comment.user_id).name %>
+			<i>By <%= find_user(comment.user_id).nickname %> <!--name-->
 			------<%= time_ago_in_words comment.created_at %> ago</i>
 			<hr/>
 		<% end %>

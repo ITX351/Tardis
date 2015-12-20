@@ -10,6 +10,8 @@ gem 'bootstrap-sass', '2.3.2.0'
 gem 'turbolinks'
 
 gem 'gravatar_image_tag'
+gem 'devise'
+#gem 'tlsmail' # seems not supported in Rails3
 
 group :development, :test do
 	gem 'rspec-rails', '2.13.1'
