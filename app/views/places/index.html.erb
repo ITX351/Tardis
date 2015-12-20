@@ -3,37 +3,45 @@
 <%= image_tag("bg1.jpg", width: "100%", height: "100%") %> 
 </div>
 <h1> Places information </h1>
-<h2> <%= link_to "New Place", new_place_path, :method => :get %> </h2>
+<hr>
+<div>There are <snum style = "font-weight: bold;color:blue"><%= @places.size %> </snum>places to meet your requirement</div>
+<a href = "#showinmap">Show them in map </a>
+<div class = "row">
+	<% @places.each do |place| %>
+	    	<section class="col-md-4">
+	        	<div class="inner">
+	          		<article class="feature left">
+		          		<span class="image"><%= image_tag(place.avatar_url(:big), :style => "width:100%") if place.avatar %></span>
+					<div class="content">
+					              <div class = "cont_one">
+					              		<h3><%= link_to place.name, place %></h3>
+					              </div>
+					              <%= ratings_for place, :static %>
+					              hot = <%= place.hot%>
+					              <div class = "cont_two">
+					                	<%= place.intro %>
+					              </div>
+					              <ul class="actions">
+					                	<li><%= link_to "More", place, :method => :get%></li>
+					              </ul>
+					</div>
+	          		</article>
+	        	</div>
+	    	</section>
+	<% end %>
+</div>
+<hr>
 
-<% @places.each do |place| %>
-    	<section class="col-md-4">
-        	<div class="inner">
-          		<article class="feature left">
-	          		<span class="image"><%= image_tag(place.avatar_url(:big)) if place.avatar %></span>
-								<div class="content">
-								  <div class = "cont_one">
-								  		<h3><%= link_to place.name, place %></h3>
-								  </div>
-								  <%= ratings_for place, :static %>
-								  <div class = "cont_two">
-								    	<%= place.intro %>
-								  </div>
-								  <ul class="actions">
-								    	<li>
-								      		<%= link_to "More", place, :method => :get%>
-								    	</li>
-								  </ul>
-								</div>
-          		</article>
-        	</div>
-    	</section>
-<% end %>
-<br/><br/><br/><br/><br/>
-<div id="indexmap" align = "center"
-            		style="width: 800px; 
-                	height: 500px; 
-                	border: 1px solid gray;
-                	overflow:hidden;">
+<div id = "showinmap">
+	<br/><br/>
+	<h3>Show in Map </h3>
+	<a href = "#">Back</a>
+	<div id="indexmap" align = "center"
+	            		style="width: 800px; 
+	                	height: 500px; 
+	                	border: 1px solid gray;
+	                	overflow:hidden;">
+	</div>
 </div>
 <br/><br/><br/><br/><br/>
 <style>
@@ -69,6 +77,7 @@
 	var point = new BMap.Point(126.638718,45.749316);
 	var schoolcenter = new BMap.Point(126.638718,45.749316);
 	map.centerAndZoom(point,17);
+	map.setMinZoom(16);
 	var b = new BMap.Bounds(new BMap.Point(126.627938, 45.74145),
 						new BMap.Point(126.647629, 45.756771));
 	try {	

@@ -26,16 +26,14 @@ ActiveRecord::Schema.define(:version => 20151219052432) do
 
   create_table "places", :force => true do |t|
     t.string   "name"
-    t.integer  "category"
+    t.integer  "classes"
     t.float    "locationx"
     t.float    "locationy"
     t.text     "intro"
-    t.string   "image1"
-    t.string   "image2"
-    t.string   "image3"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.string   "avatar"
+    t.integer  "hot"
   end
 
   create_table "rates", :force => true do |t|
