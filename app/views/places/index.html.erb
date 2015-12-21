@@ -95,12 +95,23 @@
 		<div class="divider">&nbsp;</div>
 	</div>
 
-	<div class = "container-thin">
+	<div class="container-thin">
 		<div class = "row">
 			<div class="col-md-2">
 				<div class="image-category">
 					<a href="#"><%= image_tag("express.png") %></a>
 				</div>
+			</div>
+			<div class="col-md-4">
+			</div>
+			<div class="col-md-3">
+				<div class="image-category image-more">
+					<a href="#"><%= image_tag("more2.png") %></a>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<br/><br/>
+				<span style="text-align:left;color:#009fc6"><h4><b>|</b> 点击排行榜</h4></span>
 			</div>
 		</div>
 
@@ -112,19 +123,18 @@
 						<a href="#" class="image"><%= image_tag(place.avatar_url(:big)) if place.avatar %></a>
 							<div class="content">
 								<div class = "row">	
-									<div class = "col-md-6">
-										<h5><%= link_to place.name, place, style: "color:black"%></h5>
+									<div class = "col-md-10" style = "text-align:left">
+										<h5 style="margin:0 0 0 1em"><%= link_to place.name, place, style: "color:black"%></h5>
 									</div>
-									<div class = "col-md-6">
-										<%= ratings_for place, :static, style: "width:10%"%>
+									<div class = "col-md-2">
 									</div>
 								</div>
 								<div class = "cont_two">
-									<%= place.intro %>
+									<small style: "color:#a3a3a3"><%= place.intro %></small>
 								</div>
-								
-								<%= link_to "Read More", "#", :method => :get, :class => "btn btn-primary"%>
-								
+								<div class="button">
+									<%= link_to " Read More", place, :method => :get, style: "color:white;		text-decoration: none;"%>
+								</div>
 							</div>
 					</section>
 				</div>
@@ -132,10 +142,13 @@
 			</div>
 
 			<div class="col-md-3">
-				<p>排行榜</p>
+				
 			</div>
+	
 		</div>
-	</div> <!-- end of container-thin -->
+
+		<div class="divider">&nbsp;</div>
+	</div><!-- end of container-thin -->
 
 	<div style="height:5px;width:1000px"> <!--tail -->
 	</div>
