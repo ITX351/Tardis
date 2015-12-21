@@ -17,7 +17,7 @@ class PlacesController < ApplicationController
 
 	def new
 		@place = Place.new
-		@placeclassify = getplaceclassify
+		@placeclassify = [[I18n.t(:unclassified), 0]] + getplaceclassify
 	end
 
 	def create
@@ -38,43 +38,47 @@ class PlacesController < ApplicationController
 
 	def show
 		@place = Place.find(params[:id])
-		@placeclassifyname = @place.placeclassify.name1
+		if @place.placeclassify_id != 0
+			@placeclassifyname = @place.placeclassify.name1
+		else
+			@placeclassifyname = I18n.t(:unclassified)
+		end
 	end
 
 	def edit
-  		@place = Place.find(params[:id])
-  		if(@place.user != current_user)
-  			redirect_to @place, notice: 'You do not have the authority to edit it' 
-  		end
+		@place = Place.find(params[:id])
+		if(@place.user != current_user)
+			redirect_to @place, notice: 'You do not have the authority to edit it' 
+		end
 	end
 
 	def update
-    @place = Place.find(params[:id])
+		@place = Place.find(params[:id])
 
-    respond_to do |format|
-      if @place.update_attributes(params[:place])
-        format.html { redirect_to @place, notice: 'Place information was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+		respond_to do |format|
+			if @place.update_attributes(params[:place])
+				format.html { redirect_to @place, notice: 'Place information was successfully updated.' }
+				format.json { head :no_content }
+			else
+				format.html { render action: "edit" }
+				format.json { render json: @comment.errors, status: :unprocessable_entity }
+			end
+		end
+	end
 
 	def destroy
 		@place = Place.find(params[:id])
 		if(@place.user != current_user)
-    			redirect_to @place, notice: 'You do not have the authority to edit it' 
-    		else
-    			@place.destroy
-    			@temp_places = @place.temp_places
-    			@temp_places.each do |temp_place|
-    				temp_place.state = -1		# origin has been deleted
-    				temp_place.state = -1
-    			end
-    			redirect_to :home
-    		end
+			redirect_to @place, notice: 'You do not have the authority to edit it' 
+		else
+			@place.destroy
+			@temp_places = @place.temp_places
+			@temp_places.each do |temp_place|
+				temp_place.state = -1    # origin has been deleted
+				temp_place.state = -1
+			end
+			redirect_to :home
+		end
 	end
 
 	def rate
@@ -103,7 +107,7 @@ class PlacesController < ApplicationController
 			@temp_place.user_id = current_user.id
 			@temp_place.user = current_user
 		end
-		@temp_place.state = 0 			# No Accept
+		@temp_place.state = 0       # No Accept
 
 		if @temp_place.save
 			redirect_to @place
@@ -111,12 +115,13 @@ class PlacesController < ApplicationController
 			render "new"
 		end
 	end
-
-	def getplaceclassify()
-		ret = []
-		Placeclassify.all.each do |x|
-			ret << [x.name1, x.id]
+	
+	private
+		def getplaceclassify
+			ret = []
+			Placeclassify.all.each do |x|
+				ret << [x.name1, x.id]
+			end
+			ret
 		end
-		return ret
-	end
 end

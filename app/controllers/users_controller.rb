@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 	def show
-	  	@user = User.find(params[:id])
+			@user = User.find(params[:id])
 	end
 
 	def manage
@@ -8,10 +8,11 @@ class UsersController < ApplicationController
 		# @places_ac = TempPlace.find(:all, :conditions => "state" => "1")
 		@places_ac = TempPlace.where(:state => 1)
 		@places_pending = TempPlace.where(:state => 0)
+		@temp_places = TempPlace.all
 
 	end
 
-	def auditapply	
+	def auditapply  
 		@temp_place = TempPlace.find(params[:id])
 	end
 
@@ -26,10 +27,16 @@ class UsersController < ApplicationController
 		redirect_to manage_path
 	end
 
+	def rejected
+		@temp_place = TempPlace.find(params[:id])
+		@temp_place.state = -2 			# Rejected It
+		@temp_place.save
+		redirect_to manage_path
+	end
+
 	def destroy
 		@temp_place = TempPlace.find(params[:id])
 		@temp_place.destroy
 		redirect_to manage_path
 	end
-
 end

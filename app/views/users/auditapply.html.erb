@@ -1,59 +1,88 @@
 <%= stylesheet_link_tag    "main.css", :media => "all" %>
 <div style="position:fixed; left:0; top:0; width:100%; height:100%; z-index:-5000">
-  	<%= image_tag("bg1.jpg", width: "100%", height: "100%") %>
+		<%= image_tag("bg1.jpg", width: "100%", height: "100%") %>
 </div>
 
 <h1>Submitted Update Information</h1>
 
-<div class = "row">
-	<div class = "col-md-12">
-		<h2><%= @temp_place.name %></h2>
-		<hr>
-		<div>
-			Reason: <%= @temp_place.reason%><hr>
-		</div>
-		<div = class = "row">
-			<div class = "col-md-6" style = "overflow:hidden">
-				<%= image_tag(@temp_place.avatar_url(:bigest), :style => "max-width:100%") if @temp_place.avatar%> <br/>
-				<a data-toggle="modal" href="#showimg" class="btn">view original image</a>
-		    	</div>
-		  	<div class = "col-md-6">
-			        	<div class = "row">
-			        		<div class = "col-md-12">
-			        			<a href = "#showinmap">Show it in map </a>
-			        		</div>
-			        	</div>
-			        	<hr>
-			        	<div  style = "text-align:left">
-			    			<b>Introduction:</b> <%=@temp_place.intro %>
+<div style = "width:80%; background-color: rgba(0, 255, 255, 0.1)">
+	<div class = "row">
+		<div class = "col-md-12">
+			<h2><%= @temp_place.name %></h2>
+			<hr>
+			<div = class = "row">
+				<div class = "col-md-6" style = "overflow:hidden">
+					<%= image_tag(@temp_place.avatar_url(:bigest), :style => "max-width:90%") if @temp_place.avatar%> <br/>
+					<a data-toggle="modal" href="#showimg" class="btn">view original image</a>
+				</div>
+				<div class = "col-md-6">
+					<div class = "row"  style = "margin: 0em 3em">
+						<div class = "col-md-6">
+							Maker: <%=@temp_place.user.email%>
+							Classify:<%= @temp_placeclassifyname %>
+						</div>
+						<div class = "col-md-6">
+							<a href = "#showinmap" class = " btn btn-default">Show it in map </a>
+						</div>
 					</div>
-					<div style = "text-aling:left">
-						location: (<%= @temp_place.locationx%>, <%= @temp_place.locationy%>)
+					<br>
+					<div class="panel panel-default" style = "text-align:left; margin: 0em 2em">
+						<div class="panel-heading">
+							<h3 class="panel-title">Introduction</h3>
+						</div>
+						<div class="panel-body">
+							<%=@temp_place.intro %>
+						</div>
 					</div>
-				<hr>
+					<hr>
+				</div>
 			</div>
 		</div>
 	</div>
+	<hr>
+
+	<div id = "showinmap" class = "row">
+		<br/><br/>
+		<div id="showmap" class = "col-md-8"
+							style="width: 600px; 
+									height: 400px;
+									margin: auto auto auto 2em; 
+									border: 1px solid gray;
+									overflow:hidden;">
+		</div>
+		<div class = "col-md-4">
+			<div id="r-result" class = "row" style = "margin: 0em 4em">
+				<div class="input-group">
+						<span class="input-group-addon" id="basic-addon1">Choose Map Style</span>
+					<select id="stylelist" onchange="changeMapStyle(this.value)" 
+						style = "width: 8em" class = "form-control btn btn-default"
+						 aria-describedby="basic-addon1"></select>
+				</div>
+			</div>  
+		</div>
+	</div>
+
 </div>
 
 <hr>
-<div id = "showinmap" class = "row">
-	<br/><br/>
-	<div id="showmap" class = "col-md-7"
-            style="width: 600px; 
-                height: 400px; 
-                border: 1px solid gray;
-                overflow:hidden;">
-   	</div>
-</div>
-<hr>
-<div class = "btn btn-primary btn-lg">
-	<% if(@temp_place.state != -1 and !@temp_place.place.nil?) %>
-		<%= link_to "Accept It", auditapply_url(@temp_place), :method => :post %>
- 	<% else %>
- 		The origin has been deleted, you cann't accept it. 
- 		<%= link_to "Delete It",  auditapply_url(@temp_place), :method => :delete, data: { confirm: 'Are you sure?' } %>
- 	<% end %>
+<div class = "">
+	<% if(@temp_place.state == 0 and !@temp_place.place.nil?) %>
+		<%= link_to "Accept It", auditapply_url(@temp_place), :method => :post,  :class => "btn btn-success btn-lg"%>
+		&nbsp; &nbsp; 	<%= link_to "Reject It", auditapply_url(@temp_place), :method => :put,  :class => "btn btn-danger btn-lg"%>
+		&nbsp; &nbsp;<%= link_to "Back to Manage", manage_path, :method => :get, :class => "btn btn-primary btn-lg"%>
+	<% elsif  @temp_place.state == 1 %>
+		<h3>It has been acceted!</h3>
+	 	<%= link_to "Back to Manage", manage_path, :method => :get, :class => "btn btn-primary btn-lg"%>
+	<% elsif @temp_place.state == -2%>
+		<h3> It has been rejected, do you want to accept it now?</h3>
+		<%= link_to "Accept It", auditapply_url(@temp_place), :method => :post,  :class => "btn btn-success btn-lg"%>
+		&nbsp; &nbsp;<%= link_to "Back to Manage", manage_path, :method => :get, :class => "btn btn-primary btn-lg"%>
+	<% else %>
+		 The origin has been deleted, you cann't accept it. <br>
+		<%= link_to "Delete It",  auditapply_url(@temp_place), :method => :delete, 
+		 	:class => "btn btn-danger btn-lg", data: { confirm: 'Are you sure?' } %>
+		&nbsp; &nbsp;  <%= link_to "Back to Manage", manage_path, :method => :get, :class => "btn btn-primary btn-lg"%>
+	<% end %>
  </div>
  <br/><br/><br/>
 
@@ -68,7 +97,7 @@
 	map.enableContinuousZoom();      //让地图启动滑动效果
 	var b = new BMap.Bounds(new BMap.Point(126.627938, 45.74145),
 							new BMap.Point(126.647629, 45.756771));
-	try {	
+	try {  
 		BMapLib.AreaRestriction.setBounds(map, b);
 	} catch (e) {
 		alert(e);
@@ -80,6 +109,25 @@
 	var des = new BMap.Marker(nowPoint); 
 	map.addOverlay(des);
 	map.centerAndZoom(nowPoint, 18);
+
+		//初始化模板选择的下拉框
+	var sel = document.getElementById('stylelist');
+	var item = new Option("Normal", "normal");
+	sel.options.add(item);
+	item = new Option("Light", "light");
+	sel.options.add(item);
+	item = new Option("Midnight", "midnight");
+	sel.options.add(item);
+	item = new Option("Dark", "dark");
+	sel.options.add(item);
+
+	changeMapStyle('normal')
+	function changeMapStyle(mystyle){
+		map.setMapStyle({style:mystyle});
+		$('#desc').html(mapstyles[style].desc);
+		return false;
+	}
+
 </script>
 
 
