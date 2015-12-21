@@ -1,33 +1,99 @@
-<%= stylesheet_link_tag    "main.css", :media => "all" %>
-<div style="position:fixed; left:0; top:0; width:100%; height:100%; z-index:-5000">
-<%= image_tag("bg1.jpg", width: "100%", height: "100%") %> 
-</div>
-<h1> Places information </h1>
-<h2> <%= link_to "New Place", new_place_path, :method => :get %> </h2>
+<!DOCTYPE HTML>
+<!--<%= stylesheet_link_tag "place/skel-noscript"%>
+<%= stylesheet_link_tag "place/style"%> -->
+<% provide(:title, "HIT NAV | Place Information") %> 
 
-<% @places.each do |place| %>
+<div id="banner">
+	<div class="container">
+					
+	<!-- Logo -->
+		<span class="title-image"><a href="#"><%= image_tag("place2.png") %></a></span>
+	
+	<!-- Search -->
+		<div class="search">
+			<%= form_tag places_path, method: :get, class: "" do%>
+	            <%= text_field_tag :search, params[:search], placeholder: "去哪儿~"%>
+	            <%= submit_tag ""%>
+	        <% end %>
+    	</div>
+
+	</div>
+</div>
+
+<div id="nav">
+	<ul class="nav nav-tabs">
+		<li><a href="#">餐厅</a></li>
+		<li><a href="#">快递</a></li>
+		<li><a href="#">教学楼</a></li>
+		<li><a href="#">公寓</a></li>
+		<li><a href="#">打印店</a></li>
+		<li><a href="#">超市</a></li>
+
+	</ul>
+</div>
+
+<div id="main">
+	<div class="container">
+
+		<header>
+			<h2>餐厅</h2>
+		</header>
+		<div class="row">
+			<% @places.each do |place| %>
+			<div class="3u">
+				<section>
+					<a href="#" class="image full"><%= image_tag(place.avatar_url(:big)) if place.avatar %></a>
+						<div class="content">
+							  <div class = "cont_one">
+							  		<h3><%= link_to place.name, place %></h3>
+							  </div>
+							  <%= ratings_for place, :static %>
+							  <div class = "cont_two">
+							    	<%= place.intro %>
+							  </div>
+							  <div class="button">
+							   
+							      		<%= link_to " Read More", place, :method => :get%>
+							   
+							  </div>
+						</div>
+					<a href="" class="button">Read More</a>
+				</section>
+			</div>
+			<% end %>
+		</div>
+
+		<div class="divider">&nbsp;</div>
+	
+	</div>
+</div> <!-- end of main -->
+
+<!-- 
+<br/><br/>
+	<% @places.each do |place| %>
     	<section class="col-md-4">
         	<div class="inner">
           		<article class="feature left">
 	          		<span class="image"><%= image_tag(place.avatar_url(:big)) if place.avatar %></span>
-								<div class="content">
-								  <div class = "cont_one">
-								  		<h3><%= link_to place.name, place %></h3>
-								  </div>
-								  <%= ratings_for place, :static %>
-								  <div class = "cont_two">
-								    	<%= place.intro %>
-								  </div>
-								  <ul class="actions">
-								    	<li>
-								      		<%= link_to "More", place, :method => :get%>
-								    	</li>
-								  </ul>
-								</div>
+						<div class="content">
+						  <div class = "cont_one">
+						  		<h3><%= link_to place.name, place %></h3>
+						  </div>
+						  <%= ratings_for place, :static %>
+						  <div class = "cont_two">
+						    	<%= place.intro %>
+						  </div>
+						  <ul class="actions">
+						    	<li>
+						      		<%= link_to "More", place, :method => :get%>
+						    	</li>
+						  </ul>
+						</div>
           		</article>
         	</div>
     	</section>
-<% end %>
+	<% end %>
+</div>
 <br/><br/><br/><br/><br/>
 <div id="indexmap" align = "center"
             		style="width: 800px; 
@@ -35,7 +101,88 @@
                 	border: 1px solid gray;
                 	overflow:hidden;">
 </div>
-<br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/> -->
+
+
+
+
+<style>
+	.title-image
+	{
+		width:400px;
+		position:absolute;
+		margin-top: -55px; margin-bottom: -57px; margin-left: -550px; overflow: hidden;
+	}
+	.container {
+		width: 1200px;
+		margin-top: 0;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	#banner
+	{
+		position: relative;
+		padding: 7em 0em;
+		background: #ddd url(<%= asset_path("backgroundimage.jpg")%>) no-repeat center;
+		background-size: cover;
+	}
+	.search {
+		position: absolute;
+		background: #fff; 
+		opacity: 0.6; 
+		margin-top: 30px; margin-bottom: -57px; margin-left: 850px;
+		width: 20%;
+		border-radius:5px;
+	}
+	.search:hover {
+		opacity:1;
+	}
+	.search input[type="text"] {
+	  	margin: 0px 0;
+	  	padding: 6px 10px 6px 15px;
+	  	outline: none;
+	  	color: #5a5a5a;
+	  	background: none;
+	  	border: none;
+	  	width: 89.33333%;
+	  	position: relative;
+	  	font-size: 1em;
+	  	-webkit-appearance: none;
+	}
+	.search input[type="submit"] {
+	  	background: url(<%= asset_path("search_icon2.png") %>) no-repeat 0px 1px;
+	  	border: none;
+	  	cursor: pointer;
+	  	width: 24px;
+	  	outline: none;
+	  	position: absolute;
+	  	height: 24px;
+	    top: 3px;
+	  	right: 8px;
+	} 
+	#nav
+	{
+		align:center;
+		background: #fff;
+	}
+	#main
+	{
+		position: relative;
+		background: #ffffe0 url(<%= asset_path("overlay.png") %>) repeat;
+	}
+</style>
+
+
+<!-- <%= stylesheet_link_tag "jquery.min.js" %>
+<%= stylesheet_link_tag "place/skel-noscript"%>
+<%= stylesheet_link_tag "place/style2"%>
+<%= stylesheet_link_tag "place/style-desktop"%>
+
+<%= javascript_include_tag "place/skel.min.js" %>
+<%= javascript_include_tag "place/skel-panels.min.js" %>
+<%= javascript_include_tag "place/init.js" %> -->
+
+
 <style>
 	/*最多显示one or two行，多余的用...代替*/
 	.cont_one{ 

@@ -1,11 +1,11 @@
-<nav class="navbar navbar-fixed-top navbar-default" role = "navigation">
+
+<nav class="navbar navbar-fixed-top navbar-default" role = "navigation" style="opacity:0.5">
     <div class="navbar-header">
-        <%= link_to "HIT Navagation", home_path, class: "navbar-brand"%>
+       <%= link_to " HIT校园导航", home_path, class: "navbar-brand"%>
     </div>
     <div>
         <ul class="nav navbar-nav pull-right">
             <li><%= link_to "Home", home_path, :method => :get  %></li>
-            <!-- <li><%= link_to "Help", help_path, :method => :get %></li> -->
             <li><%= link_to "Places", places_path, :method => :get %></li>
             <% if signed_in? %>
                 <li><%= link_to "Users", '#', :method => :get%></li>
@@ -27,4 +27,5 @@
             <% end %>
         </ul>
     </div>
-</nav>
+</nav> 
+
