@@ -1,51 +1,43 @@
 <div style="position:fixed; left:0; top:0; width:100%; height:100%; z-index:-5000">
-  <%= image_tag("bg1.jpg", width: "100%", height: "100%") %>
-</div>
-<%= stylesheet_link_tag    "style1.css", :media => "all" %>
+<!--   <%= image_tag("bg1.jpg", width: "100%", height: "100%") %>
+ --></div>
+<!--<%= stylesheet_link_tag    "style1.css", :media => "all" %> -->
 
 <h2> Personal Information </h2>
 
-<%= gravatar_image_tag(@user.email, :alt => @user.nickname, :gravatar => { :size => 80 }) %> <!-- TODO: nickname -->
+<%= gravatar_image_tag(@user.email, :alt => @user.nickname, :gravatar => { :size => 80 }) %> <br/> <!-- TODO: nickname -->
 <!-- :size => 80 for default, varifies from 15 to 512 -->
 
-<div id="container1">   
+Nickname:  <%= @user.nickname %><br/>
+Email : <%= @user.email %><br/>
+<hr>
+<h3>Place Created by Me </h3>
+<% @user.places.each do|place|%>
+	|<%= link_to place.name, place, :method => :get %> | 
+<% end %>
+<hr>
+<h3>My Submission for Updating Places</h3>
+<% @user.temp_places.each do|temp_place|%>
+	<%= link_to temp_place.name,  auditapply_url(temp_place), :method => :get %><br>
+	State:
+	<% if temp_place.state == 0 %>
+		<state style = "color:red">pending </state>
+	<% else %>
+		<state style = "color:green">Accepted </state>
+	<% end %>
+	<br><br>
+<% end %>
 
-  <table class="zebra">
-    <caption>Personal Information</caption>
-    <thead>
-          <tr>
-        <th>Nickname</th>
-        <th>Email</th>
-        </tr>
-    </thead>
-        <tbody>
-          <tr>
-              <td> <%= @user.nickname %></td>
-              <td> <%= @user.email %></td>
-            </tr>
-        </tbody>
-  </table>
-
-      <table class="zebra">
-    <caption>Content</caption>
-    <thead>
-          <tr>
-        <th>Content</th>
-        <th>Time</th>
-            </tr>
-    </thead>
-        <tbody>
-          
-              <% @user.comments.each do |comment| %>
-                <tr>
-                <td><%= comment.content%></td>
-                <td><%= time_ago_in_words comment.created_at %> ago</td>
-                <hr/>
-              </tr>
-              <% end %>
-        </tbody>
-  </table>
-</div>
+<hr>
+<h3>My Comments </h3>
+<% @user.comments.each do |comment| %>
+	Content: <%= comment.content%><br/>
+	For Place: <%= link_to comment.place.name, comment.place%><br/>
+	Time: <%= time_ago_in_words comment.created_at %> ago<br/>
+	<%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %><br/>
+	<br/>
+<% end %>
+<hr>
 <p>
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Home', home_path %>

@@ -2,7 +2,10 @@ Tardis::Application.routes.draw do
   # devise_for :users, controllers: { sessions: "users/sessions" }
   devise_for :users, path: "/", path_names: 
   { sign_in: 'signin', sign_out: 'signout', registration: 'signup' }, 
-  controllers: { sessions: "users/sessions", registrations: "users/registrations" }
+  controllers: { sessions: "users/sessions", registrations: "users/registrations", 
+  confirmations:"users/confirmations", passwords: "users/passwords",
+  shared: "users/shared", unlocks: "users/unlocks", mailer: "users/mailer" 
+   }
 
   #get "static_pages/home"
   #get "static_pages/help"
@@ -27,7 +30,15 @@ Tardis::Application.routes.draw do
   get '/help' => 'static_pages#help'
   get '/home' => 'static_pages#home'
   get '/about' => 'static_pages#about'
+
   #get '/help' => 'static_pages#help'
+
+  get '/manage' => 'users#manage', :as => :manage
+  get 'places/:id/updateapply' => 'places#updateapply', :as => :updateapply
+  post 'places/:id/updateapply' => 'places#createtemp'
+  get 'auditapply/:id' => 'users#auditapply',  :as => :auditapply
+  post 'auditapply/:id' => 'users#accepted'
+  delete 'auditapply/:id' => 'users#destroy'
 
   # get '/signup' => 'users#new'
   # get '/signin' => 'users/sessions#new'

@@ -46,6 +46,7 @@ class CommentsController < ApplicationController
         @comment.user_id = 1
     else
         @comment.user_id = current_user.id
+        @comment.user = current_user
     end
 
     @comment.save
@@ -76,9 +77,10 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     @comment.destroy
 
-    respond_to do |format|
-      format.html { redirect_to comments_url }
-      format.json { head :no_content }
-    end
+    redirect_to :back
+    # respond_to do |format|
+    #   format.html { redirect_to comments_url }
+    #   format.json { head :no_content }
+    # end
   end
 end

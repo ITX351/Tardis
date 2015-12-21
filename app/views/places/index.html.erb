@@ -101,10 +101,8 @@
                 	border: 1px solid gray;
                 	overflow:hidden;">
 </div>
-<br/><br/><br/><br/><br/> -->
-
-
-
+<br/><br/><br/><br/><br/>
+ -->
 
 <style>
 	.title-image
@@ -216,6 +214,8 @@
 	var point = new BMap.Point(126.638718,45.749316);
 	var schoolcenter = new BMap.Point(126.638718,45.749316);
 	map.centerAndZoom(point,17);
+	map.setMinZoom(16);
+	map.addControl(new BMap.MapTypeControl());          //添加地图类型控件
 	var b = new BMap.Bounds(new BMap.Point(126.627938, 45.74145),
 						new BMap.Point(126.647629, 45.756771));
 	try {	
@@ -251,6 +251,24 @@
 		    	addInfoWindow(marker, intro);
 		<% end %>
 	}
+
+	//初始化模板选择的下拉框
+	var sel = document.getElementById('stylelist');
+	var item = new Option("Normal", "normal");
+	sel.options.add(item);
+	item = new Option("Light", "light");
+	sel.options.add(item);
+	item = new Option("Midnight", "midnight");
+	sel.options.add(item);
+	item = new Option("Dark", "dark");
+	sel.options.add(item);
+	
 	window.reload(work());
+	
+	changeMapStyle('normal')
+	function changeMapStyle(mystyle){
+		map.setMapStyle({style:mystyle});
+		$('#desc').html(mapstyles[style].desc);
+	}	
 </script>
 

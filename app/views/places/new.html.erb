@@ -6,28 +6,34 @@
 <h1>Add New Place</h1>
 <%= form_for(@place) do |f| %>
     	<div class="field">
-       		<div class = "col-md-2"><h2><%= f.label :name, "font-size" => 20 %></div></h2>
+       		<div class = "col-md-2"><h2><%= f.label :name, "font-size" => 20 %></h2></div>
         	<div class = "col-md-10"><%= f.text_field :name, placeholder: "Input name of place"%></div>
     	</div>
     	<br/><br/><br/>
     	<div class="field">
-        	<div class = "col-md-2"> <button class = "btn btn-primary btn-lg" data-toggle = "modal" data-target = "#myModal">Set Position</button></div>
-       		 <div class = "col-md-5">
-            		<%= f.text_field :locationx, placeholder: "location-x" %>
-        	</div>
-        	<div class = "col-md-5">
-            		<%= f.text_field :locationy, placeholder: "location-y" %>
-        	</div>
+       		<div class = "col-md-2"><h2><%= f.label :classes, "font-size" => 20 %></h2></div>
+        	<div class = "col-md-10"><%= f.select :classes, [['All',nil], ['Canteen', '1'], ['Express', '2'], ['Academic', '3']], {}, {class: ""} %>
+    	</div>
+
+    	<br/><br/><br/>
+    	<div class="field">
+	        	<div class = "col-md-2"> <button class = "btn btn-primary btn-lg" data-toggle = "modal" data-target = "#myModal">Set Position</button></div>
+	       		 <div class = "col-md-5">
+	            		<%= f.text_field :locationx, placeholder: "location-x" %>
+	        	</div>
+	        	<div class = "col-md-5">
+	            		<%= f.text_field :locationy, placeholder: "location-y" %>
+	        	</div>
     	</div>
     	<br/><br/><br/>
     	<div class="field">
        	 	<div class = "col-md-2"><h2>Introduction</h2></div>
-        	<div class = "col-md-10"><%= f.text_area :intro, rows: 10, placeholder: "Input some brief descriptions..." %> </div>
+        		<div class = "col-md-10"><%= f.text_area :intro, rows: 10, placeholder: "Input some brief descriptions..." %> </div>
     	</div>
     	<br/><br/><br/><br/><br/><br/>
     	<div class = "field">
-        	<div class = "col-md-12"><%= f.file_field :avatar %> </div>
-        	<div class = "col-md-0"><%= f.hidden_field :avatar_cache %> </div>
+	        	<div class = "col-md-12"><%= f.file_field :avatar %></div>
+	        	<div class = "col-md-0"><%= f.hidden_field :avatar_cache %> </div>
     	</div>
     	<br/><br/><br/>
     	<div class="actions ">
@@ -55,6 +61,7 @@
 	var map = new BMap.Map("newmap");
 	var point = new BMap.Point(126.63843, 45.7494);
 	map.centerAndZoom(point,17);
+	map.setMinZoom(16);
 	var b = new BMap.Bounds(new BMap.Point(126.627938, 45.74145),
 						new BMap.Point(126.647629, 45.756771));
 	try {	
