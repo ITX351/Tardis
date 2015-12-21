@@ -38,6 +38,7 @@ Tardis::Application.routes.draw do
   post 'places/:id/updateapply' => 'places#createtemp'
   get 'auditapply/:id' => 'users#auditapply',  :as => :auditapply
   post 'auditapply/:id' => 'users#accepted'
+  put 'auditapply/:id' => 'users#rejected'
   delete 'auditapply/:id' => 'users#destroy'
 
   # get '/signup' => 'users#new'
