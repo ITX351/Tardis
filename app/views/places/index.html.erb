@@ -4,238 +4,238 @@
 <% provide(:title, "HIT NAV | Place Information") %> 
 
 <div id="banner">
-	<div class="container">
-					
-	<!-- Logo -->
-		<span class="title-image"><a href="#"><%= image_tag("place2.png") %></a></span>
-	
-	<!-- Search -->
-		<div class="search">
-			<%= form_tag places_path, method: :get, class: "" do%>
-	            <%= text_field_tag :search, params[:search], placeholder: "去哪儿~"%>
-	            <%= submit_tag ""%>
-	        <% end %>
-    	</div>
+  <div class="container">
+          
+  <!-- Logo -->
+    <span class="title-image"><a href="#"><%= image_tag("place2.png") %></a></span>
+  
+  <!-- Search -->
+    <div class="search">
+      <%= form_tag places_path, method: :get, class: "" do%>
+              <%= text_field_tag :search, params[:search], placeholder: "去哪儿~"%>
+              <%= submit_tag ""%>
+          <% end %>
+      </div>
 
-	</div>
+  </div>
 </div>
 
 <div id="nav">
-	<ul class="nav nav-tabs">
-		<% @placeclassify.each do |name| %>
-			<li><a href="#"><%= name[0] %></a></li>
-		<% end %>
-		<li><a href="#">饮品店</a></li>
-		<li><a href="#">机房</a></li>
-		<li><a href='#'>图书馆</a></li>
-		<li><a href="#">电影院</a></li>
-		<li><a href="#">活动中心</a></li>
-	</ul>
+  <ul class="nav nav-tabs">
+    <% @placeclassify.each do |name| %>
+      <li><a href="#"><%= name[0] %></a></li>
+    <% end %>
+    <li><a href="#">饮品店</a></li>
+    <li><a href="#">机房</a></li>
+    <li><a href='#'>图书馆</a></li>
+    <li><a href="#">电影院</a></li>
+    <li><a href="#">活动中心</a></li>
+  </ul>
 </div>
 
 <div id="main">
-	<br/><br/>
-	<div class="container-thin">
+  <br/><br/>
+  <div class="container-thin">
 
-		<div class="image-category">
-			<a href="#"><%= image_tag("dininghall.png") %></a>
-		</div>
+    <div class="image-category">
+      <a href="#"><%= image_tag("dininghall.png") %></a>
+    </div>
 
-		<div class="row">
-			<div class="col-md-9">
-				<% @places.each do |place| %>
-				<div class="col-md-4">
-					<section>
-						<a href="#" class="image full"><%= image_tag(place.avatar_url(:big)) if place.avatar %></a>
-							<div class="content">
-								<div class = "row">	
-									<div class = "cont_one col-md-6">
-										<h5><%= link_to place.name, place, style: "color:black"%></h5>
-									</div>
-									<div class = "col-md-6">
-										<%= ratings_for place, :static, style: "width:10%"%>
-									</div>
-								</div>
-								<div class = "cont_two">
-									<%= place.intro %>
-								</div>
-								<div class="button">
-									<%= link_to " Read More", place, :method => :get%>
-								</div>
-							</div>
-					</section>
-				</div>
-				<% end %>
-			</div>
+    <div class="row">
+      <div class="col-md-9">
+        <% @places.each do |place| %>
+        <div class="col-md-4">
+          <section>
+            <a href="#" class="image full"><%= image_tag(place.avatar_url(:big)) if place.avatar %></a>
+              <div class="content">
+                <div class = "row">  
+                  <div class = "cont_one col-md-6">
+                    <h5><%= link_to place.name, place, style: "color:black"%></h5>
+                  </div>
+                  <div class = "col-md-6">
+                    <%= ratings_for place, :static, style: "width:10%"%>
+                  </div>
+                </div>
+                <div class = "cont_two">
+                  <%= place.intro %>
+                </div>
+                <div class="button">
+                  <%= link_to " Read More", place, :method => :get%>
+                </div>
+              </div>
+          </section>
+        </div>
+        <% end %>
+      </div>
 
-			<div class="col-md-3">
-				<p>排行榜</p>
-			</div>
-	
-		</div>
+      <div class="col-md-3">
+        <p>排行榜</p>
+      </div>
+  
+    </div>
 
-		<div class="divider">&nbsp;</div>
-	</div>
+    <div class="divider">&nbsp;</div>
+  </div>
 
-	<div class = "container-thin">
-		<div class="image-category">
-			<a href="#"><%= image_tag("express.png") %></a>
-		</div>
+  <div class = "container-thin">
+    <div class="image-category">
+      <a href="#"><%= image_tag("express.png") %></a>
+    </div>
 
-		<div class="row">
-			<div class="col-md-9">
-				<% @places.each do |place| %>
-				<div class="col-md-4">
-					<section>
-						<a href="#" class="image full"><%= image_tag(place.avatar_url(:big)) if place.avatar %></a>
-							<div class="content">
-								<div class = "row">	
-									<div class = "cont_one col-md-6">
-										<h5><%= link_to place.name, place, style: "color:black"%></h5>
-									</div>
-									<div class = "col-md-6">
-										<%= ratings_for place, :static, style: "width:10%"%>
-									</div>
-								</div>
-								<div class = "cont_two">
-									<%= place.intro %>
-								</div>
-								<div class="button">
-									<%= link_to " Read More", place, :method => :get%>
-								</div>
-							</div>
-					</section>
-				</div>
-				<% end %>
-			</div>
+    <div class="row">
+      <div class="col-md-9">
+        <% @places.each do |place| %>
+        <div class="col-md-4">
+          <section>
+            <a href="#" class="image full"><%= image_tag(place.avatar_url(:big)) if place.avatar %></a>
+              <div class="content">
+                <div class = "row">  
+                  <div class = "cont_one col-md-6">
+                    <h5><%= link_to place.name, place, style: "color:black"%></h5>
+                  </div>
+                  <div class = "col-md-6">
+                    <%= ratings_for place, :static, style: "width:10%"%>
+                  </div>
+                </div>
+                <div class = "cont_two">
+                  <%= place.intro %>
+                </div>
+                <div class="button">
+                  <%= link_to " Read More", place, :method => :get%>
+                </div>
+              </div>
+          </section>
+        </div>
+        <% end %>
+      </div>
 
-			<div class="col-md-3">
-				<p>排行榜</p>
-			</div>
-		</div>
-	</div> <!-- end of container-thin -->
+      <div class="col-md-3">
+        <p>排行榜</p>
+      </div>
+    </div>
+  </div> <!-- end of container-thin -->
 
-	<div style="height:5px;width:1000px"> <!--tail -->
-	</div>
+  <div style="height:5px;width:1000px"> <!--tail -->
+  </div>
 </div> <!-- end of main -->
 
 <div id="tail">
-	<p>Copyright &#169 Tardis 2015</p>
+  <p>Copyright &#169 Tardis 2015</p>
 </div>
 
 <style>
-	.title-image
-	{
-		width:400px;
-		position:absolute;
-		margin-top: -55px; margin-bottom: -57px; margin-left: -550px; overflow: hidden;
-	}
-	.container {
-		width: 1200px;
-		margin-top: 0;
-		margin-left: auto;
-		margin-right: auto;
-	}
-	#banner
-	{
-		position: relative;
-		padding: 7em 0em;
-		background: #ddd url(<%= asset_path("backgroundimage.jpg")%>) no-repeat center;
-		background-size: cover;
-	}
-	.search {
-		position: absolute;
-		background: #fff; 
-		opacity: 0.6; 
-		margin-top: 30px; margin-bottom: -57px; margin-left: 850px;
-		width: 20%;
-		border-radius:5px;
-	}
-	.search:hover {
-		opacity:1;
-	}
-	.search input[type="text"] {
-	  	margin: 0px 0;
-	  	padding: 6px 10px 6px 15px;
-	  	outline: none;
-	  	color: #5a5a5a;
-	  	background: none;
-	  	border: none;
-	  	width: 89.33333%;
-	  	position: relative;
-	  	font-size: 1em;
-	  	-webkit-appearance: none;
-	}
-	.search input[type="submit"] {
-	  	background: url(<%= asset_path("search_icon2.png") %>) no-repeat 0px 1px;
-	  	border: none;
-	  	cursor: pointer;
-	  	width: 24px;
-	  	outline: none;
-	  	position: absolute;
-	  	height: 24px;
-	    top: 3px;
-	  	right: 8px;
-	} 
-	#nav
-	{
-		align:center;
-		background: #fffacd url(<%= asset_path("overlay2.png") %>) repeat;
-	}
-	#main
-	{
-		position: relative;
-		background: #fffacd url(<%= asset_path("overlay2.png") %>) repeat;
-	}
-	.container-thin
-	{
-		margin: 0em 0em 4em 0em;
-		width:1000px;
-		height: 400px;
-		background-color: rgba(255, 255, 255, 0.6);
-		border-radius: 8px;
-	}
-	/*header h3
-	{
-		letter-spacing: -1px;
-		font-weight: 400;
-		color: #009fc6;
-		text-align: left;
-	}
-	header
-	{
-		margin:0em, 4em, auto, auto;
-		padding:0;border:0;font-size:100%;
-		display:block;
-	}*/
-	.image-category
-	{
-		width:20px;
-		position:relative;
-		left:-450px; right:50px;
-	}
-	.image
-	{
-		display: inline-block;
-	}
-	
-	.image img
-	{
-		display: block;
-		width: 100%;
-		border-radius: 6px;
-	}
-	#tail
-	{
-		position: relative;
-		padding: 3em 0em;
-		background: #ffec8b url(<%= asset_path("overlay.png")%>) repeat center;
-		/*background: #ffec8b url(<%= asset_path("img01.jpg")%>) repeat center;*/
-	}
-	#tail p
-	{
-		color:#c1cdcd;
-	}
+  .title-image
+  {
+    width:400px;
+    position:absolute;
+    margin-top: -55px; margin-bottom: -57px; margin-left: -550px; overflow: hidden;
+  }
+  .container {
+    width: 1200px;
+    margin-top: 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #banner
+  {
+    position: relative;
+    padding: 7em 0em;
+    background: #ddd url(<%= asset_path("backgroundimage.jpg")%>) no-repeat center;
+    background-size: cover;
+  }
+  .search {
+    position: absolute;
+    background: #fff; 
+    opacity: 0.6; 
+    margin-top: 30px; margin-bottom: -57px; margin-left: 850px;
+    width: 20%;
+    border-radius:5px;
+  }
+  .search:hover {
+    opacity:1;
+  }
+  .search input[type="text"] {
+      margin: 0px 0;
+      padding: 6px 10px 6px 15px;
+      outline: none;
+      color: #5a5a5a;
+      background: none;
+      border: none;
+      width: 89.33333%;
+      position: relative;
+      font-size: 1em;
+      -webkit-appearance: none;
+  }
+  .search input[type="submit"] {
+      background: url(<%= asset_path("search_icon2.png") %>) no-repeat 0px 1px;
+      border: none;
+      cursor: pointer;
+      width: 24px;
+      outline: none;
+      position: absolute;
+      height: 24px;
+      top: 3px;
+      right: 8px;
+  } 
+  #nav
+  {
+    align:center;
+    background: #fffacd url(<%= asset_path("overlay2.png") %>) repeat;
+  }
+  #main
+  {
+    position: relative;
+    background: #fffacd url(<%= asset_path("overlay2.png") %>) repeat;
+  }
+  .container-thin
+  {
+    margin: 0em 0em 4em 0em;
+    width:1000px;
+    height: 400px;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 8px;
+  }
+  /*header h3
+  {
+    letter-spacing: -1px;
+    font-weight: 400;
+    color: #009fc6;
+    text-align: left;
+  }
+  header
+  {
+    margin:0em, 4em, auto, auto;
+    padding:0;border:0;font-size:100%;
+    display:block;
+  }*/
+  .image-category
+  {
+    width:20px;
+    position:relative;
+    left:-450px; right:50px;
+  }
+  .image
+  {
+    display: inline-block;
+  }
+  
+  .image img
+  {
+    display: block;
+    width: 100%;
+    border-radius: 6px;
+  }
+  #tail
+  {
+    position: relative;
+    padding: 3em 0em;
+    background: #ffec8b url(<%= asset_path("overlay.png")%>) repeat center;
+    /*background: #ffec8b url(<%= asset_path("img01.jpg")%>) repeat center;*/
+  }
+  #tail p
+  {
+    color:#c1cdcd;
+  }
 </style>
 
 
@@ -250,93 +250,93 @@
 
 
 <style>
-	/*最多显示one or two行，多余的用...代替*/
-	.cont_one{ 
-		width: 125px;
-		height: 25px;
-		line-height: 25px;
-		text-align: left;
-		text-overflow: -o-ellipsis-lastline;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		display: -webkit-box;
-		-webkit-line-clamp: 1;
-		-webkit-box-orient: vertical;
-	 }
-	.cont_two{  	
-		width: 140px;
-		height: 50px;
-		line-height: 25px;
-		text-align: left;
-		text-overflow: -o-ellipsis-lastline;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		display: -webkit-box;
-		-webkit-line-clamp: 2;
-		-webkit-box-orient: vertical;
-	}
+  /*最多显示one or two行，多余的用...代替*/
+  .cont_one{ 
+    width: 125px;
+    height: 25px;
+    line-height: 25px;
+    text-align: left;
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+   }
+  .cont_two{    
+    width: 140px;
+    height: 50px;
+    line-height: 25px;
+    text-align: left;
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
 </style>
 
 <script>
-	var map = new BMap.Map("indexmap");
-	var point = new BMap.Point(126.638718,45.749316);
-	var schoolcenter = new BMap.Point(126.638718,45.749316);
-	map.centerAndZoom(point,17);
-	map.setMinZoom(16);
-	map.addControl(new BMap.MapTypeControl());          //添加地图类型控件
-	var b = new BMap.Bounds(new BMap.Point(126.627938, 45.74145),
-						new BMap.Point(126.647629, 45.756771));
-	try {	
-		BMapLib.AreaRestriction.setBounds(map, b);
-	} catch (e) {
-		alert(e);
-	}
+  var map = new BMap.Map("indexmap");
+  var point = new BMap.Point(126.638718,45.749316);
+  var schoolcenter = new BMap.Point(126.638718,45.749316);
+  map.centerAndZoom(point,17);
+  map.setMinZoom(16);
+  map.addControl(new BMap.MapTypeControl());          //添加地图类型控件
+  var b = new BMap.Bounds(new BMap.Point(126.627938, 45.74145),
+            new BMap.Point(126.647629, 45.756771));
+  try {  
+    BMapLib.AreaRestriction.setBounds(map, b);
+  } catch (e) {
+    alert(e);
+  }
 
-	function addMaker(point){
-	    	var marker = new BMap.Marker(point);
-	    	map.addOverlay(marker);
-	    	return marker;
-	}
-	function addInfoWindow(marker, intro){
-		var opts = {
-		    	title: intro[0],
-		    	width: 250,
-		    	height: 200
-		}
-		var content = intro[1];
-		var info = new BMap.InfoWindow(content, opts);
-		var openInforWinFun = function(){
-		    	marker.openInfoWindow(info);
-		}
-		marker.addEventListener("click", openInforWinFun);
-		return openInforWinFun;
-	}
+  function addMaker(point){
+        var marker = new BMap.Marker(point);
+        map.addOverlay(marker);
+        return marker;
+  }
+  function addInfoWindow(marker, intro){
+    var opts = {
+          title: intro[0],
+          width: 250,
+          height: 200
+    }
+    var content = intro[1];
+    var info = new BMap.InfoWindow(content, opts);
+    var openInforWinFun = function(){
+          marker.openInfoWindow(info);
+    }
+    marker.addEventListener("click", openInforWinFun);
+    return openInforWinFun;
+  }
 
-	function work(){
-		<% @places.each do |place|%>
-		    	var marker = new addMaker(new BMap.Point(<%= place.locationx%>, <%= place.locationy%>));
-		    	var intro = ['<h3><%= place.name%></h3>', '<%= place.intro%><br/><%=link_to "More", place %>'];
-		    	addInfoWindow(marker, intro);
-		<% end %>
-	}
+  function work(){
+    <% @places.each do |place|%>
+          var marker = new addMaker(new BMap.Point(<%= place.locationx%>, <%= place.locationy%>));
+          var intro = ['<h3><%= place.name%></h3>', '<%= place.intro%><br/><%=link_to "More", place %>'];
+          addInfoWindow(marker, intro);
+    <% end %>
+  }
 
-	//初始化模板选择的下拉框
-	var sel = document.getElementById('stylelist');
-	var item = new Option("Normal", "normal");
-	sel.options.add(item);
-	item = new Option("Light", "light");
-	sel.options.add(item);
-	item = new Option("Midnight", "midnight");
-	sel.options.add(item);
-	item = new Option("Dark", "dark");
-	sel.options.add(item);
-	
-	window.reload(work());
-	
-	changeMapStyle('normal')
-	function changeMapStyle(mystyle){
-		map.setMapStyle({style:mystyle});
-		$('#desc').html(mapstyles[style].desc);
-	}	
+  //初始化模板选择的下拉框
+  var sel = document.getElementById('stylelist');
+  var item = new Option("Normal", "normal");
+  sel.options.add(item);
+  item = new Option("Light", "light");
+  sel.options.add(item);
+  item = new Option("Midnight", "midnight");
+  sel.options.add(item);
+  item = new Option("Dark", "dark");
+  sel.options.add(item);
+  
+  window.reload(work());
+  
+  changeMapStyle('normal')
+  function changeMapStyle(mystyle){
+    map.setMapStyle({style:mystyle});
+    $('#desc').html(mapstyles[style].desc);
+  }  
 </script>
 

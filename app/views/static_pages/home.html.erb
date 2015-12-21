@@ -10,20 +10,20 @@
 <h1 class = "mytitle">HIT NAVIGATION</h1>
 
 <div class="search">
-    	<i> </i>
-    	<div class="s-bar">
-     		<%= form_tag places_path, method: :get, class: "" do%>
-      		<%= text_field_tag :search, params[:search], placeholder: "Enter something you want to search"%>
-      		<%= submit_tag "Search"%>
-      	<% end %>
-    	</div>
-      <% if !@places.first.nil? %>
-    	<p>Popular searches: &nbsp; &nbsp;
-      	<%=link_to @places.first.name, @places.first,  :method => :get %> &nbsp;
-        <% if @places.count > 1 %>
-      	<%=link_to @places.second.name, @places.second,  :method => :get %> &nbsp;&nbsp;
+      <i> </i>
+      <div class="s-bar">
+         <%= form_tag places_path, method: :get, class: "" do%>
+          <%= text_field_tag :search, params[:search], placeholder: "Enter something you want to search"%>
+          <%= submit_tag "Search"%>
         <% end %>
-    	</p>
+      </div>
+      <% if !@places.first.nil? %>
+      <p>Popular searches: &nbsp; &nbsp;
+        <%=link_to @places.first.name, @places.first,  :method => :get %> &nbsp;
+        <% if @places.count > 1 %>
+        <%=link_to @places.second.name, @places.second,  :method => :get %> &nbsp;&nbsp;
+        <% end %>
+      </p>
       <% end %>
 </div>
 <!--search end here-->  
