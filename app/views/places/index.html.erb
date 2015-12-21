@@ -1,46 +1,44 @@
-<!DOCTYPE HTML>
 <!--<%= stylesheet_link_tag "place/skel-noscript"%>
 <%= stylesheet_link_tag "place/style"%> -->
 <% provide(:title, "HIT NAV | Place Information") %> 
 
 <div id="banner">
-	<div class="container">
-					
+	<div class="container">	
 	<!-- Logo -->
 		<span class="title-image"><a href="#"><%= image_tag("place2.png") %></a></span>
 	
 	<!-- Search -->
 		<div class="search">
 			<%= form_tag places_path, method: :get, class: "" do%>
-	            <%= text_field_tag :search, params[:search], placeholder: "去哪儿~"%>
-	            <%= submit_tag ""%>
-	        <% end %>
-    	</div>
-
+	            	<%= text_field_tag :search, params[:search], placeholder: "去哪儿~"%>
+	            	<%= submit_tag ""%>
+	        	<% end %>
+    		</div>
 	</div>
 </div>
 
-<div id="nav">
-	<ul class="nav nav-tabs">
-		<li><a href="#">餐厅</a></li>
-		<li><a href="#">快递</a></li>
-		<li><a href="#">教学楼</a></li>
-		<li><a href="#">公寓</a></li>
-		<li><a href="#">打印店</a></li>
-		<li><a href="#">超市</a></li>
-
-	</ul>
+<div id = "mynav">
+	<div  style = "text-align:center">
+		<ul class="nav nav-tabs">
+			<li><a href="#">餐厅</a></li>
+			<li><a href="#">快递</a></li>
+			<li><a href="#">教学楼</a></li>
+			<li><a href="#">公寓</a></li>
+			<li><a href="#">打印店</a></li>
+			<li><a href="#">超市</a></li>
+		</ul>
+	</div>
 </div>
 
 <div id="main">
-	<div class="container">
+	<div class="container row">
 
-		<header>
+		<header style = "">
 			<h2>餐厅</h2>
 		</header>
-		<div class="row">
+		<div class="row col-md-9">
 			<% @places.each do |place| %>
-			<div class="3u">
+			<div class="col-md-4">
 				<section>
 					<a href="#" class="image full"><%= image_tag(place.avatar_url(:big)) if place.avatar %></a>
 						<div class="content">
@@ -61,6 +59,9 @@
 				</section>
 			</div>
 			<% end %>
+		</div>
+		<div class = "col-md-3">
+			Test
 		</div>
 
 		<div class="divider">&nbsp;</div>
@@ -158,9 +159,9 @@
 	    top: 3px;
 	  	right: 8px;
 	} 
-	#nav
+	#mynav
 	{
-		align:center;
+		margin: 0em 6em;
 		background: #fff;
 	}
 	#main
