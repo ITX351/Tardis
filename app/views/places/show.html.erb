@@ -6,10 +6,10 @@
 	<!-- Search -->
 		<div class="search">
 			<%= form_tag places_path, method: :get, class: "" do%>
-	            	<%= text_field_tag :search, params[:search], placeholder: "去哪儿~"%>
-	            	<%= submit_tag ""%>
-	        	<% end %>
-    		</div>
+								<%= text_field_tag :search, params[:search], placeholder: "去哪儿~"%>
+								<%= submit_tag ""%>
+						<% end %>
+				</div>
 	</div>
 </div>
 
@@ -22,37 +22,37 @@
 				<div class = "col-md-6" style = "overflow:hidden">
 					<%= image_tag(@place.avatar_url(:bigest), :style => "max-width:90%") if @place.avatar%> <br/>
 					<a data-toggle="modal" href="#showimg" class="btn">view original image</a>
-			    	</div>
-			  	<div class = "col-md-6">
-				        	<div class="input-group" style = "margin: 0em 10em">
-						  	<span class="input-group-addon" id="basic-addon3">
-						  		 &nbsp; &nbsp; Stars&nbsp; &nbsp; </span>
+						</div>
+					<div class = "col-md-6">
+									<div class="input-group" style = "margin: 0em 10em">
+								<span class="input-group-addon" id="basic-addon3">
+									 &nbsp; &nbsp; Stars&nbsp; &nbsp; </span>
 							<button class = "form-control"
 								style = "width: 11em" aria-describedby="basic-addon2">
 								<%= ratings_for @place, :static, :dimensions => :tot%></button>
 						</div>
 						<br>
 						<div class="input-group" style = "margin: 0em 10em">
-						  	<span class="input-group-addon" id="basic-addon3">
-						  		&nbsp;&nbsp;Score It&nbsp;</span>
+								<span class="input-group-addon" id="basic-addon3">
+									&nbsp;&nbsp;Score It&nbsp;</span>
 							<button class = "form-control"
 								style = "width: 11em" aria-describedby="basic-addon2">
 								<%= ratings_for @place, :show_user_rating => true %></button>
 						</div>
 						<hr>
-				        	
-				        	<hr>
-				        	<div class = "row"  style = "margin: 0em 3em">
-				        		<div class = "col-md-6">
-				        			<a href = "#comments">there are <%= @place.comments.size%> comments</a><br/>
-				        			Maker: <%=@place.user.email%>
-				        			Classify:<%= @placeclassifyname %>
-				        		</div>
-				        		<div class = "col-md-6">
-				        			<a href = "#showinmap" class = " btn btn-default">Show it in map </a>
-				        		</div>
-				        	</div>
-				        	<br>
+									
+									<hr>
+									<div class = "row"  style = "margin: 0em 3em">
+										<div class = "col-md-6">
+											<a href = "#comments">there are <%= @place.comments.size%> comments</a><br/>
+											Maker: <%=@place.user.email%>
+											Classify:<%= @placeclassifyname %>
+										</div>
+										<div class = "col-md-6">
+											<a href = "#showinmap" class = " btn btn-default">Show it in map </a>
+										</div>
+									</div>
+									<br>
 						<div class="panel panel-default" style = "text-align:left; margin: 0em 2em">
 							<div class="panel-heading">
 								<h3 class="panel-title">Introduction</h3>
@@ -84,33 +84,33 @@
 	<div id = "showinmap" class = "row">
 		<br/><br/>
 		<div id="showmap" class = "col-md-8"
-	            style="width: 600px; 
-	                height: 400px;
-	                margin: auto auto auto 2em; 
-	                border: 1px solid gray;
-	                overflow:hidden;">
-	   	</div>
-	   	<div class = "col-md-4">
-	   		<div id="r-result" class = "row" style = "margin: 0em 4em">
+							style="width: 600px; 
+									height: 400px;
+									margin: auto auto auto 2em; 
+									border: 1px solid gray;
+									overflow:hidden;">
+			</div>
+			<div class = "col-md-4">
+				<div id="r-result" class = "row" style = "margin: 0em 4em">
 				<div class="input-group">
-				  	<span class="input-group-addon" id="basic-addon1">Choose Map Style</span>
+						<span class="input-group-addon" id="basic-addon1">Choose Map Style</span>
 					<select id="stylelist" onchange="changeMapStyle(this.value)" 
 						style = "width: 8em" class = "form-control btn btn-default"
 						 aria-describedby="basic-addon1"></select>
 				</div>
 			</div>  
 			<br/>
-	   		<div class = "row" style = "margin: 0em 4em">
-	   			<div class="input-group">
-				  	<span class="input-group-addon" id="basic-addon2">
-				  		&nbsp;&nbsp;Set Start Point &nbsp;&nbsp;&nbsp;</span>
+				<div class = "row" style = "margin: 0em 4em">
+					<div class="input-group">
+						<span class="input-group-addon" id="basic-addon2">
+							&nbsp;&nbsp;Set Start Point &nbsp;&nbsp;&nbsp;</span>
 					<button class = "form-control  btn btn-primary" onclick = "findPath()"
 						style = "width: 8em" aria-describedby="basic-addon2">
 						Go here</button>
 				</div>
-	   		</div>
-	   		<br/>
-	   		<div id="showtextroute" style = "margin: 0em 1em"></div>
+				</div>
+				<br/>
+				<div id="showtextroute" style = "margin: 0em 1em"></div>
 		</div>
 	</div>
 
@@ -145,16 +145,15 @@
 
 	<!-- 模态框（Modal） -->
 	<div id="showimg"  class="modal fade" tabindex="-1" role="dialog" 
-	  	 aria-labelledby="myModalLabel" aria-hidden="true">
-	   	<div class="modal-dialog">
-	   		<%= image_tag(@place.avatar_url, :style => "max-width:100%") if @place.avatar%>
-	      		<button type="button" class="btn btn-primary" 
-	             		data-dismiss="modal">OK
-	      		</button>
-	    	</div>
+			 aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<%= image_tag(@place.avatar_url, :style => "max-width:100%") if @place.avatar%>
+						<button type="button" class="btn btn-primary" 
+									data-dismiss="modal">OK
+						</button>
+				</div>
 	</div><!-- /.modal -->
 </div>
-
 
 <script>
 	var map = new BMap.Map("showmap");
@@ -168,7 +167,7 @@
 	map.enableContinuousZoom();      //让地图启动滑动效果
 	var b = new BMap.Bounds(new BMap.Point(126.627938, 45.74145),
 							new BMap.Point(126.647629, 45.756771));
-	try {	
+	try {  
 		BMapLib.AreaRestriction.setBounds(map, b);
 	} catch (e) {
 		alert(e);
@@ -212,6 +211,7 @@
 	item = new Option("Dark", "dark");
 	sel.options.add(item);
 
+<<<<<<< HEAD
 	changeMapStyle('normal')
 	function changeMapStyle(mystyle){
 		map.setMapStyle({style:mystyle});
@@ -254,27 +254,27 @@
 		opacity:1;
 	}
 	.search input[type="text"] {
-	  	margin: 0px 0;
-	  	padding: 6px 10px 6px 15px;
-	  	outline: none;
-	  	color: #5a5a5a;
-	  	background: none;
-	  	border: none;
-	  	width: 89.33333%;
-	  	position: relative;
-	  	font-size: 1em;
-	  	-webkit-appearance: none;
+			margin: 0px 0;
+			padding: 6px 10px 6px 15px;
+			outline: none;
+			color: #5a5a5a;
+			background: none;
+			border: none;
+			width: 89.33333%;
+			position: relative;
+			font-size: 1em;
+			-webkit-appearance: none;
 	}
 	.search input[type="submit"] {
-	  	background: url(<%= asset_path("search_icon2.png") %>) no-repeat 0px 1px;
-	  	border: none;
-	  	cursor: pointer;
-	  	width: 24px;
-	  	outline: none;
-	  	position: absolute;
-	  	height: 24px;
-	    top: 3px;
-	  	right: 8px;
+			background: url(<%= asset_path("search_icon2.png") %>) no-repeat 0px 1px;
+			border: none;
+			cursor: pointer;
+			width: 24px;
+			outline: none;
+			position: absolute;
+			height: 24px;
+			top: 3px;
+			right: 8px;
 	} 
 	#mynav
 	{
@@ -287,3 +287,11 @@
 		background: #ffffe0 url(<%= asset_path("overlay.png") %>) repeat;
 	}
 </style>
+=======
+	changeMapStyle('normal')
+	function changeMapStyle(mystyle){
+		map.setMapStyle({style:mystyle});
+		$('#desc').html(mapstyles[style].desc);
+	}
+</script>
+>>>>>>> 142b1725088f1b0bda6e99f69f3c75fd715952ae

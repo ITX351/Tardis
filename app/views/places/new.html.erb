@@ -59,27 +59,27 @@
 </div >
 
 <script> 
-	var map = new BMap.Map("newmap");
-	var point = new BMap.Point(126.63843, 45.7494);
-	map.centerAndZoom(point,17);
-	map.setMinZoom(16);
-	var b = new BMap.Bounds(new BMap.Point(126.627938, 45.74145),
-						new BMap.Point(126.647629, 45.756771));
-	try {	
-		BMapLib.AreaRestriction.setBounds(map, b);
-	} catch (e) {
-		alert(e);
-	}
+  var map = new BMap.Map("newmap");
+  var point = new BMap.Point(126.63843, 45.7494);
+  map.centerAndZoom(point,17);
+  map.setMinZoom(16);
+  var b = new BMap.Bounds(new BMap.Point(126.627938, 45.74145),
+    new BMap.Point(126.647629, 45.756771));
+  try {  
+    BMapLib.AreaRestriction.setBounds(map, b);
+  } catch (e) {
+    alert(e);
+  }
 
-	map.addEventListener("click", function(e){
-	    map.clearOverlays();
-	    document.getElementById("place_locationx").value = e.point.lng;
-	    document.getElementById("place_locationy").value = e.point.lat;
+  map.addEventListener("click", function(e){
+    map.clearOverlays();
+    document.getElementById("place_locationx").value = e.point.lng;
+    document.getElementById("place_locationy").value = e.point.lat;
 
-	    var point = new BMap.Point(e.point.lng, e.point.lat);
-	    var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
-	    map.addOverlay(marker);
-	});
+    var point = new BMap.Point(e.point.lng, e.point.lat);
+    var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
+    map.addOverlay(marker);
+  });
 </script>
 
 
