@@ -21,10 +21,14 @@
 </div>
 
 <div id="nav">
-	<ul class="nav nav-tabs">
-		<% @placeclassify.each do |name| %>
-			<li><a href="#"><%= name[0] %></a></li>
-		<% end %>
+	<ul class="nav nav-tabs"  style = "margin: 0em 10em">
+		<li><a href="#">餐厅</a></li>
+		<li><a href="#">快递</a></li>
+		<li><a href="#">教学楼</a></li>
+		<li><a href="#">公寓</a></li>
+		<li><a href="#">打印店</a></li>
+		<li><a href="#">超市</a></li>
+		<li><a href="#">发廊</a></li>
 		<li><a href="#">饮品店</a></li>
 		<li><a href="#">机房</a></li>
 		<li><a href='#'>图书馆</a></li>
@@ -35,10 +39,25 @@
 
 <div id="main">
 	<br/><br/>
-	<div class="container-thin">
 
-		<div class="image-category">
-			<a href="#"><%= image_tag("dininghall.png") %></a>
+	<div class="container-thin">
+		<div class = "row">
+			<div class="col-md-2">
+				<div class="image-category">
+					<a href="#"><%= image_tag("dininghall.png") %></a>
+				</div>
+			</div>
+			<div class="col-md-4">
+			</div>
+			<div class="col-md-3">
+				<div class="image-category image-more">
+					<a href="#"><%= image_tag("more2.png") %></a>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<br/><br/>
+				<span style="text-align:left;color:#009fc6"><h4><b>|</b> 点击排行榜</h4></span>
+			</div>
 		</div>
 
 		<div class="row">
@@ -46,21 +65,20 @@
 				<% @places.each do |place| %>
 				<div class="col-md-4">
 					<section>
-						<a href="#" class="image full"><%= image_tag(place.avatar_url(:big)) if place.avatar %></a>
+						<a href="#" class="image"><%= image_tag(place.avatar_url(:big)) if place.avatar %></a>
 							<div class="content">
 								<div class = "row">	
-									<div class = "cont_one col-md-6">
-										<h5><%= link_to place.name, place, style: "color:black"%></h5>
+									<div class = "col-md-10" style = "text-align:left">
+										<h5 style="margin:0 0 0 1em"><%= link_to place.name, place, style: "color:black"%></h5>
 									</div>
-									<div class = "col-md-6">
-										<%= ratings_for place, :static, style: "width:10%"%>
+									<div class = "col-md-2">
 									</div>
 								</div>
 								<div class = "cont_two">
-									<%= place.intro %>
+									<small style: "color:#a3a3a3"><%= place.intro %></small>
 								</div>
 								<div class="button">
-									<%= link_to " Read More", place, :method => :get%>
+									<%= link_to " Read More", place, :method => :get, style: "color:white;		text-decoration: none;"%>
 								</div>
 							</div>
 					</section>
@@ -69,7 +87,7 @@
 			</div>
 
 			<div class="col-md-3">
-				<p>排行榜</p>
+				
 			</div>
 	
 		</div>
@@ -78,8 +96,12 @@
 	</div>
 
 	<div class = "container-thin">
-		<div class="image-category">
-			<a href="#"><%= image_tag("express.png") %></a>
+		<div class = "row">
+			<div class="col-md-2">
+				<div class="image-category">
+					<a href="#"><%= image_tag("express.png") %></a>
+				</div>
+			</div>
 		</div>
 
 		<div class="row">
@@ -87,10 +109,10 @@
 				<% @places.each do |place| %>
 				<div class="col-md-4">
 					<section>
-						<a href="#" class="image full"><%= image_tag(place.avatar_url(:big)) if place.avatar %></a>
+						<a href="#" class="image"><%= image_tag(place.avatar_url(:big)) if place.avatar %></a>
 							<div class="content">
 								<div class = "row">	
-									<div class = "cont_one col-md-6">
+									<div class = "col-md-6">
 										<h5><%= link_to place.name, place, style: "color:black"%></h5>
 									</div>
 									<div class = "col-md-6">
@@ -100,9 +122,9 @@
 								<div class = "cont_two">
 									<%= place.intro %>
 								</div>
-								<div class="button">
-									<%= link_to " Read More", place, :method => :get%>
-								</div>
+								
+								<%= link_to "Read More", "#", :method => :get, :class => "btn btn-primary"%>
+								
 							</div>
 					</section>
 				</div>
@@ -181,38 +203,33 @@
 	{
 		align:center;
 		background: #fffacd url(<%= asset_path("overlay2.png") %>) repeat;
+		/*background: #fff;*/
 	}
 	#main
 	{
 		position: relative;
 		background: #fffacd url(<%= asset_path("overlay2.png") %>) repeat;
+		/*background: #fff;*/
 	}
 	.container-thin
 	{
 		margin: 0em 0em 4em 0em;
 		width:1000px;
 		height: 400px;
+		/*background: #fffacd url(<%= asset_path("overlay2.png") %>) repeat;*/
+		/*background-color: rgba(255, 250, 205, 0.6);*/
 		background-color: rgba(255, 255, 255, 0.6);
 		border-radius: 8px;
 	}
-	/*header h3
-	{
-		letter-spacing: -1px;
-		font-weight: 400;
-		color: #009fc6;
-		text-align: left;
-	}
-	header
-	{
-		margin:0em, 4em, auto, auto;
-		padding:0;border:0;font-size:100%;
-		display:block;
-	}*/
 	.image-category
 	{
 		width:20px;
 		position:relative;
-		left:-450px; right:50px;
+		left:-25px; right:0px;
+	}
+	.image-more
+	{
+		top:18px;
 	}
 	.image
 	{
@@ -224,6 +241,32 @@
 		display: block;
 		width: 100%;
 		border-radius: 6px;
+	}
+	.button
+	{
+		position: relative;
+		display: inline-block;
+		margin-top: 0.3em;
+		margin-right: 7em;
+		padding: 0.3em 1em;
+		background: #b2dfee;
+		border-radius: 6px;
+		text-decoration: none;
+		text-transform: uppercase;
+		font-size: 0.9em;
+		color: #FFF;
+		-moz-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+		-webkit-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+		-o-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+		-ms-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+		transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+		cursor: pointer;
+	}
+
+	.button:hover
+	{
+		background: #009fc6;
+		color: #FFF !important;
 	}
 	#tail
 	{
