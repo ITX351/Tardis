@@ -13,29 +13,29 @@ Email : <%= @user.email %><br/>
 <hr>
 <h3>Place Created by Me </h3>
 <% @user.places.each do |place|%>
-  |<%= link_to place.name, place, :method => :get %> | 
+	|<%= link_to place.name, place, :method => :get %> | 
 <% end %>
 <hr>
 <h3>My Submission for Updating Places</h3>
 <% @user.temp_places.each do|temp_place|%>
-  <%= link_to temp_place.name,  auditapply_url(temp_place), :method => :get %><br>
-  State:
-  <% if temp_place.state == 0 %>
-    <state style = "color:red">pending </state>
-  <% else %>
-    <state style = "color:green">Accepted </state>
-  <% end %>
-  <br><br>
+	<%= link_to temp_place.name,  auditapply_url(temp_place), :method => :get %><br>
+	State:
+	<% if temp_place.state == 0 %>
+		<state style = "color:red">pending </state>
+	<% else %>
+		<state style = "color:green">Accepted </state>
+	<% end %>
+	<br><br>
 <% end %>
 
 <hr>
 <h3>My Comments </h3>
 <% @user.comments.each do |comment| %>
-  Content: <%= comment.content%><br/>
-  For Place: <%= link_to comment.place.name, comment.place%><br/>
-  Time: <%= time_ago_in_words comment.created_at %> ago<br/>
-  <%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %><br/>
-  <br/>
+	Content: <%= comment.content%><br/>
+	For Place: <%= link_to comment.place.name, comment.place%><br/>
+	Time: <%= time_ago_in_words comment.created_at %> ago<br/>
+	<%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %><br/>
+	<br/>
 <% end %>
 <hr>
 <p>

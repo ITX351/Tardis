@@ -13,18 +13,18 @@
 								<%= text_field_tag :search, params[:search], placeholder: "去哪儿~"%>
 								<%= submit_tag ""%>
 						<% end %>
-				</div>
+		</div>
 	</div>
 </div>
 
 <div id="nav">
-  <ul class="nav nav-tabs">
-    <li><%= link_to t(:allplaces), places_path %></li>
-    <% @placeclassify.each do |name| %>
-      <li><%= link_to name[0], classifyshowing_url(name[1]) %></a></li>
-    <% end %>
-    <li><%= link_to t(:unclassifiedplaces), classifyshowing_url(0) %></li>
-  </ul>
+	<ul class="nav nav-tabs" style = "margin: 0em 10em">
+		<li><%= link_to t(:allplaces), places_path %></li>
+		<% @placeclassify.each do |name| %>
+			<li><%= link_to name[0], classifyshowing_url(name[1]) %></a></li>
+		<% end %>
+		<li><%= link_to t(:unclassifiedplaces), classifyshowing_url(0) %></li>
+	</ul>
 </div>
 
 <div id="main">
@@ -106,31 +106,30 @@
 		<div class="row">
 			<div class="col-md-9">
 				<% @places.each do |place| %>
-				<div class="col-md-4">
-					<section>
-						<a href="#" class="image"><%= image_tag(place.avatar_url(:big)) if place.avatar %></a>
-							<div class="content">
-								<div class = "row">	
-									<div class = "col-md-10" style = "text-align:left">
-										<h5 style="margin:0 0 0 1em"><%= link_to place.name, place, style: "color:black"%></h5>
+					<div class="col-md-4">
+						<section>
+							<a href="#" class="image"><%= image_tag(place.avatar_url(:big)) if place.avatar %></a>
+								<div class="content">
+									<div class = "row">	
+										<div class = "col-md-10" style = "text-align:left">
+											<h5 style="margin:0 0 0 1em"><%= link_to place.name, place, style: "color:black"%></h5>
+										</div>
+										<div class = "col-md-2">
+										</div>
 									</div>
-									<div class = "col-md-2">
+									<div class = "cont_two">
+										<small style: "color:#a3a3a3"><%= place.intro %></small>
+									</div>
+									<div class="button">
+										<%= link_to " Read More", place, :method => :get, style: "color:white; text-decoration: none;"%>
 									</div>
 								</div>
-								<div class = "cont_two">
-									<small style: "color:#a3a3a3"><%= place.intro %></small>
-								</div>
-								<div class="button">
-									<%= link_to " Read More", place, :method => :get, style: "color:white;		text-decoration: none;"%>
-								</div>
-							</div>
-					</section>
-				</div>
+						</section>
+					</div>
 				<% end %>
 			</div>
 
 			<div class="col-md-3">
-				
 			</div>
 	
 		</div>
@@ -213,6 +212,7 @@
 		position: relative;
 		background: #fffacd url(<%= asset_path("overlay2.png") %>) repeat;
 		/*background: #fff;*/
+		/*z-index:  -666;*/
 	}
 	.container-thin
 	{
