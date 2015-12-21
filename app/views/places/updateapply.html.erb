@@ -44,7 +44,7 @@
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
 		aria-labelledby="myModalLabel" aria-hidden="true" style="width:800px">
 		<div class="modal-dialog">
-			<div id="container" class = "col-md-10" align = "center"
+			<div id="updatemap" class = "col-md-10" align = "center"
 				style="width: 500px; 
 				height: 500px; 
 				border: 1px solid gray;
@@ -62,19 +62,32 @@
 <% end %>
 
 <script> 
-	map.addEventListener("click", function(e){//µØÍ¼µ¥»÷ÊÂ¼þ
-	    map.clearOverlays();
-	    document.getElementById("place_locationx").value = e.point.lng;
-	    document.getElementById("place_locationy").value = e.point.lat;
-
-	    var point = new BMap.Point(e.point.lng, e.point.lat);
-	    var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));  // ´´½¨±ê×¢£¬ÎªÒª²éÑ¯µÄµØ·½¶ÔÓ¦µÄ¾­Î³¶È
-	    map.addOverlay(marker);
-	});
-	function setCenter(){
-	    map.centerAndZoom(schoolcenter,17);
+	var map = new BMap.Map("updatemap");
+	var point = new BMap.Point(126.63843, 45.7494);
+	map.centerAndZoom(point,17);
+	map.setMinZoom(16);
+	var b = new BMap.Bounds(new BMap.Point(126.627938, 45.74145),
+						new BMap.Point(126.647629, 45.756771));
+	try {	
+		BMapLib.AreaRestriction.setBounds(map, b);
+	} catch (e) {
+		alert(e);
 	}
-	window.reload(setCenter());    
+
+	var nowPoint = new BMap.Point(<%= @temp_place.locationx%>, <%= @temp_place.locationy%>);
+	var des = new BMap.Marker(nowPoint); 
+	map.addOverlay(des);
+	map.centerAndZoom(nowPoint, 18);
+
+	map.addEventListener("click", function(e){
+		map.clearOverlays();
+		document.getElementById("temp_place_locationx").value = e.point.lng;
+		document.getElementById("temp_place_locationy").value = e.point.lat;
+
+		var point = new BMap.Point(e.point.lng, e.point.lat);
+		var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
+		map.addOverlay(marker);
+	});
 </script>
 
 
