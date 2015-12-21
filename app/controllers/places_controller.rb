@@ -38,7 +38,7 @@ class PlacesController < ApplicationController
 
 	def show
 		@place = Place.find(params[:id])
-		@placeclassifyname = Placeclassify.find(@place.placeclassify_id).name1
+		@placeclassifyname = @place.placeclassify.name1
 	end
 
 	def edit
