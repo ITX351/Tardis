@@ -21,88 +21,111 @@
 </div>
 
 <div id="nav">
-	<ul class="nav nav-tabs">
+	<ul class="nav nav-tabs"  style = "margin: 0em 10em">
 		<li><a href="#">餐厅</a></li>
 		<li><a href="#">快递</a></li>
 		<li><a href="#">教学楼</a></li>
 		<li><a href="#">公寓</a></li>
 		<li><a href="#">打印店</a></li>
 		<li><a href="#">超市</a></li>
-
+		<li><a href="#">发廊</a></li>
+		<li><a href="#">饮品店</a></li>
+		<li><a href="#">机房</a></li>
+		<li><a href='#'>图书馆</a></li>
+		<li><a href="#">电影院</a></li>
+		<li><a href="#">活动中心</a></li>
 	</ul>
 </div>
 
 <div id="main">
-	<div class="container">
+	<br/><br/>
+	<div class="container-thin">
 
-		<header>
-			<h2>餐厅</h2>
-		</header>
+		<div class="image-category">
+			<a href="#"><%= image_tag("dininghall.png") %></a>
+		</div>
+
 		<div class="row">
-			<% @places.each do |place| %>
-			<div class="3u">
-				<section>
-					<a href="#" class="image full"><%= image_tag(place.avatar_url(:big)) if place.avatar %></a>
-						<div class="content">
-							  <div class = "cont_one">
-							  		<h3><%= link_to place.name, place %></h3>
-							  </div>
-							  <%= ratings_for place, :static %>
-							  <div class = "cont_two">
-							    	<%= place.intro %>
-							  </div>
-							  <div class="button">
-							   
-							      		<%= link_to " Read More", place, :method => :get%>
-							   
-							  </div>
-						</div>
-					<a href="" class="button">Read More</a>
-				</section>
+			<div class="col-md-9">
+				<% @places.each do |place| %>
+				<div class="col-md-4">
+					<section>
+						<a href="#" class="image full"><%= image_tag(place.avatar_url(:big)) if place.avatar %></a>
+							<div class="content">
+								<div class = "row">	
+									<div class = "cont_one col-md-6">
+										<h5><%= link_to place.name, place, style: "color:black"%></h5>
+									</div>
+									<div class = "col-md-6">
+										<%= ratings_for place, :static, style: "width:10%"%>
+									</div>
+								</div>
+								<div class = "cont_two">
+									<%= place.intro %>
+								</div>
+								<div class="button">
+									<%= link_to " Read More", place, :method => :get%>
+								</div>
+							</div>
+					</section>
+				</div>
+				<% end %>
 			</div>
-			<% end %>
+
+			<div class="col-md-3">
+				<p>排行榜</p>
+			</div>
+	
 		</div>
 
 		<div class="divider">&nbsp;</div>
-	
+	</div>
+
+	<div class = "container-thin">
+		<div class="image-category">
+			<a href="#"><%= image_tag("express.png") %></a>
+		</div>
+
+		<div class="row">
+			<div class="col-md-9">
+				<% @places.each do |place| %>
+				<div class="col-md-4">
+					<section>
+						<a href="#" class="image full"><%= image_tag(place.avatar_url(:big)) if place.avatar %></a>
+							<div class="content">
+								<div class = "row">	
+									<div class = "cont_one col-md-6">
+										<h5><%= link_to place.name, place, style: "color:black"%></h5>
+									</div>
+									<div class = "col-md-6">
+										<%= ratings_for place, :static, style: "width:10%"%>
+									</div>
+								</div>
+								<div class = "cont_two">
+									<%= place.intro %>
+								</div>
+								<div class="button">
+									<%= link_to " Read More", place, :method => :get%>
+								</div>
+							</div>
+					</section>
+				</div>
+				<% end %>
+			</div>
+
+			<div class="col-md-3">
+				<p>排行榜</p>
+			</div>
+		</div>
+	</div> <!-- end of container-thin -->
+
+	<div style="height:5px;width:1000px"> <!--tail -->
 	</div>
 </div> <!-- end of main -->
 
-<!-- 
-<br/><br/>
-	<% @places.each do |place| %>
-    	<section class="col-md-4">
-        	<div class="inner">
-          		<article class="feature left">
-	          		<span class="image"><%= image_tag(place.avatar_url(:big)) if place.avatar %></span>
-						<div class="content">
-						  <div class = "cont_one">
-						  		<h3><%= link_to place.name, place %></h3>
-						  </div>
-						  <%= ratings_for place, :static %>
-						  <div class = "cont_two">
-						    	<%= place.intro %>
-						  </div>
-						  <ul class="actions">
-						    	<li>
-						      		<%= link_to "More", place, :method => :get%>
-						    	</li>
-						  </ul>
-						</div>
-          		</article>
-        	</div>
-    	</section>
-	<% end %>
+<div id="tail">
+	<p>Copyright &#169 Tardis 2015</p>
 </div>
-<br/><br/><br/><br/><br/>
-<div id="indexmap" align = "center"
-            		style="width: 800px; 
-                	height: 500px; 
-                	border: 1px solid gray;
-                	overflow:hidden;">
-</div>
-<br/><br/><br/><br/><br/>
- -->
 
 <style>
 	.title-image
@@ -161,12 +184,61 @@
 	#nav
 	{
 		align:center;
-		background: #fff;
+		background: #fffacd url(<%= asset_path("overlay2.png") %>) repeat;
 	}
 	#main
 	{
 		position: relative;
-		background: #ffffe0 url(<%= asset_path("overlay.png") %>) repeat;
+		background: #fffacd url(<%= asset_path("overlay2.png") %>) repeat;
+	}
+	.container-thin
+	{
+		margin: 0em 0em 4em 0em;
+		width:1000px;
+		height: 400px;
+		background-color: rgba(255, 255, 255, 0.6);
+		border-radius: 8px;
+	}
+	/*header h3
+	{
+		letter-spacing: -1px;
+		font-weight: 400;
+		color: #009fc6;
+		text-align: left;
+	}
+	header
+	{
+		margin:0em, 4em, auto, auto;
+		padding:0;border:0;font-size:100%;
+		display:block;
+	}*/
+	.image-category
+	{
+		width:20px;
+		position:relative;
+		left:-450px; right:50px;
+	}
+	.image
+	{
+		display: inline-block;
+	}
+	
+	.image img
+	{
+		display: block;
+		width: 100%;
+		border-radius: 6px;
+	}
+	#tail
+	{
+		position: relative;
+		padding: 3em 0em;
+		background: #ffec8b url(<%= asset_path("overlay.png")%>) repeat center;
+		/*background: #ffec8b url(<%= asset_path("img01.jpg")%>) repeat center;*/
+	}
+	#tail p
+	{
+		color:#c1cdcd;
 	}
 </style>
 
