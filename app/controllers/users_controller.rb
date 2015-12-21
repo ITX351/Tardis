@@ -31,5 +31,4 @@ class UsersController < ApplicationController
     @temp_place.destroy
     redirect_to manage_path
   end
-
 end

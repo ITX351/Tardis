@@ -5,18 +5,16 @@
 
 <div id="banner">
   <div class="container">
-          
-  <!-- Logo -->
+    <!-- Logo -->
     <span class="title-image"><a href="#"><%= image_tag("place2.png") %></a></span>
-  
-  <!-- Search -->
+
+    <!-- Search -->
     <div class="search">
       <%= form_tag places_path, method: :get, class: "" do%>
-              <%= text_field_tag :search, params[:search], placeholder: "去哪儿~"%>
-              <%= submit_tag ""%>
-          <% end %>
-      </div>
-
+        <%= text_field_tag :search, params[:search], placeholder: "去哪儿~"%>
+        <%= submit_tag ""%>
+      <% end %>
+    </div>
   </div>
 </div>
 
@@ -36,11 +34,9 @@
 <div id="main">
   <br/><br/>
   <div class="container-thin">
-
     <div class="image-category">
       <a href="#"><%= image_tag("dininghall.png") %></a>
     </div>
-
     <div class="row">
       <div class="col-md-9">
         <% @places.each do |place| %>
@@ -67,11 +63,9 @@
         </div>
         <% end %>
       </div>
-
       <div class="col-md-3">
         <p>排行榜</p>
       </div>
-  
     </div>
 
     <div class="divider">&nbsp;</div>
@@ -155,27 +149,27 @@
     opacity:1;
   }
   .search input[type="text"] {
-      margin: 0px 0;
-      padding: 6px 10px 6px 15px;
-      outline: none;
-      color: #5a5a5a;
-      background: none;
-      border: none;
-      width: 89.33333%;
-      position: relative;
-      font-size: 1em;
-      -webkit-appearance: none;
+    margin: 0px 0;
+    padding: 6px 10px 6px 15px;
+    outline: none;
+    color: #5a5a5a;
+    background: none;
+    border: none;
+    width: 89.33333%;
+    position: relative;
+    font-size: 1em;
+    -webkit-appearance: none;
   }
   .search input[type="submit"] {
-      background: url(<%= asset_path("search_icon2.png") %>) no-repeat 0px 1px;
-      border: none;
-      cursor: pointer;
-      width: 24px;
-      outline: none;
-      position: absolute;
-      height: 24px;
-      top: 3px;
-      right: 8px;
+    background: url(<%= asset_path("search_icon2.png") %>) no-repeat 0px 1px;
+    border: none;
+    cursor: pointer;
+    width: 24px;
+    outline: none;
+    position: absolute;
+    height: 24px;
+    top: 3px;
+    right: 8px;
   } 
   #nav
   {
@@ -248,7 +242,6 @@
 <%= javascript_include_tag "place/skel-panels.min.js" %>
 <%= javascript_include_tag "place/init.js" %> -->
 
-
 <style>
   /*最多显示one or two行，多余的用...代替*/
   .cont_one{ 
@@ -293,20 +286,20 @@
   }
 
   function addMaker(point){
-        var marker = new BMap.Marker(point);
-        map.addOverlay(marker);
-        return marker;
+    var marker = new BMap.Marker(point);
+    map.addOverlay(marker);
+    return marker;
   }
   function addInfoWindow(marker, intro){
     var opts = {
-          title: intro[0],
-          width: 250,
-          height: 200
+      title: intro[0],
+      width: 250,
+      height: 200
     }
     var content = intro[1];
     var info = new BMap.InfoWindow(content, opts);
     var openInforWinFun = function(){
-          marker.openInfoWindow(info);
+      marker.openInfoWindow(info);
     }
     marker.addEventListener("click", openInforWinFun);
     return openInforWinFun;
@@ -314,9 +307,9 @@
 
   function work(){
     <% @places.each do |place|%>
-          var marker = new addMaker(new BMap.Point(<%= place.locationx%>, <%= place.locationy%>));
-          var intro = ['<h3><%= place.name%></h3>', '<%= place.intro%><br/><%=link_to "More", place %>'];
-          addInfoWindow(marker, intro);
+      var marker = new addMaker(new BMap.Point(<%= place.locationx%>, <%= place.locationy%>));
+      var intro = ['<h3><%= place.name%></h3>', '<%= place.intro%><br/><%=link_to "More", place %>'];
+      addInfoWindow(marker, intro);
     <% end %>
   }
 

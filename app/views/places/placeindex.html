@@ -8,26 +8,26 @@
 <a href = "#showinmap">Show them in map </a>
 <div class = "row">
   <% @places.each do |place| %>
-        <section class="col-md-4">
-            <div class="inner">
-                <article class="feature left">
-                  <span class="image"><%= image_tag(place.avatar_url(:big), :style => "width:100%") if place.avatar %></span>
+    <section class="col-md-4">
+      <div class="inner">
+        <article class="feature left">
+          <span class="image"><%= image_tag(place.avatar_url(:big), :style => "width:100%") if place.avatar %></span>
           <div class="content">
-                        <div class = "cont_one">
-                            <h3><%= link_to place.name, place %></h3>
-                        </div>
-                        <%= ratings_for place, :static %>
-                        hot = <%= place.hot%>
-                        <div class = "cont_two">
-                            <%= place.intro %>
-                        </div>
-                        <ul class="actions">
-                            <li><%= link_to "More", place, :method => :get%></li>
-                        </ul>
-          </div>
-                </article>
+            <div class = "cont_one">
+              <h3><%= link_to place.name, place %></h3>
             </div>
-        </section>
+            <%= ratings_for place, :static %>
+            hot = <%= place.hot%>
+            <div class = "cont_two">
+              <%= place.intro %>
+            </div>
+            <ul class="actions">
+              <li><%= link_to "More", place, :method => :get%></li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
   <% end %>
 </div>
 <hr>
@@ -40,10 +40,8 @@
   </div>
   <div class="row">
     <div id="indexmap" align = "center" class = "col-md-10"
-                    style="width: 800px; 
-                      height: 500px; 
-                      border: 1px solid gray;
-                      overflow:hidden;">
+      style="width: 800px; height: 500px; border: 1px solid gray; 
+      overflow:hidden;">
     </div>
     <div id="r-result" class = "col-md-2">
       <label>Choose Map Style</label>
@@ -86,7 +84,7 @@
   var schoolcenter = new BMap.Point(126.638718,45.749316);
   map.centerAndZoom(point,17);
   var b = new BMap.Bounds(new BMap.Point(126.627938, 45.74145),
-            new BMap.Point(126.647629, 45.756771));
+    new BMap.Point(126.647629, 45.756771));
   try {  
     BMapLib.AreaRestriction.setBounds(map, b);
   } catch (e) {
@@ -94,20 +92,20 @@
   }
 
   function addMaker(point){
-        var marker = new BMap.Marker(point);
-        map.addOverlay(marker);
-        return marker;
+    var marker = new BMap.Marker(point);
+    map.addOverlay(marker);
+    return marker;
   }
   function addInfoWindow(marker, intro){
     var opts = {
-          title: intro[0],
-          width: 250,
-          height: 200
+      title: intro[0],
+      width: 250,
+      height: 200
     }
     var content = intro[1];
     var info = new BMap.InfoWindow(content, opts);
     var openInforWinFun = function(){
-          marker.openInfoWindow(info);
+      marker.openInfoWindow(info);
     }
     marker.addEventListener("click", openInforWinFun);
     return openInforWinFun;
@@ -115,9 +113,9 @@
 
   function work(){
     <% @places.each do |place|%>
-          var marker = new addMaker(new BMap.Point(<%= place.locationx%>, <%= place.locationy%>));
-          var intro = ['<h3><%= place.name%></h3>', '<%= place.intro%><br/><%=link_to "More", place %>'];
-          addInfoWindow(marker, intro);
+      var marker = new addMaker(new BMap.Point(<%= place.locationx%>, <%= place.locationy%>));
+      var intro = ['<h3><%= place.name%></h3>', '<%= place.intro%><br/><%=link_to "More", place %>'];
+      addInfoWindow(marker, intro);
     <% end %>
   }
   window.reload(work());

@@ -14,31 +14,31 @@
     <div class = "col-md-2"><h2><%= f.label :name, "font-size" => 20 %></h2></div>
     <div class = "col-md-10"><%= f.text_field :name, placeholder: "Input name of place"%></div>
   </div>
-      <br/>
-      <div class="field row">
-          <div class = "col-md-2"> <button class = "btn btn-primary btn-lg" data-toggle = "modal" data-target = "#myModal">Set Position</button></div>
-          <div class = "col-md-5">
-                <%= f.text_field :locationx, placeholder: "location-x" %>
-          </div>
-         <div class = "col-md-5">
-                <%= f.text_field :locationy, placeholder: "location-y" %>
-         </div>
-     </div>
-      <br/>
+  <br/>
+  <div class="field row">
+    <div class = "col-md-2"> <button class = "btn btn-primary btn-lg" data-toggle = "modal" data-target = "#myModal">Set Position</button></div>
+    <div class = "col-md-5">
+      <%= f.text_field :locationx, placeholder: "location-x" %>
+    </div>
+    <div class = "col-md-5">
+      <%= f.text_field :locationy, placeholder: "location-y" %>
+    </div>
+  </div>
+  <br/>
   <div class="field row">
     <div class = "col-md-2"><h2>Introduction</h2></div>
     <div class = "col-md-10"><%= f.text_area :intro, rows: 10, placeholder: "Input some brief descriptions..." %> </div>
   </div>
   <br/>
-      <div class = "field row">
-        <div class = "col-md-2"><h2>Upload some image</h2></div>
-           <div class = "col-md-10"><%= f.file_field :avatar %> </div>
-           <div class = "col-md-0"><%= f.hidden_field :avatar_cache %> </div>
-      </div>
-      <br/>
-      <div class="actions ">
-         <%= f.submit "Submit my update application", class: "actions special"%>
-      </div>
+  <div class = "field row">
+    <div class = "col-md-2"><h2>Upload some image</h2></div>
+       <div class = "col-md-10"><%= f.file_field :avatar %> </div>
+       <div class = "col-md-0"><%= f.hidden_field :avatar_cache %> </div>
+  </div>
+  <br/>
+  <div class="actions ">
+     <%= f.submit "Submit my update application", class: "actions special"%>
+  </div>
 
   <!-- 模态框（Modal） -->
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
@@ -89,7 +89,3 @@
     map.addOverlay(marker);
   });
 </script>
-
-
-
-
