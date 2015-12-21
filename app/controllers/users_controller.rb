@@ -12,7 +12,7 @@ class UsersController < ApplicationController
 
 	end
 
-	def auditapply  
+	def auditapply	
 		@temp_place = TempPlace.find(params[:id])
 	end
 

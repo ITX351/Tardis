@@ -1,15 +1,14 @@
 <div id="banner">
 	<div class="container">	
-	<!-- Logo -->
+		<!-- Logo -->
 		<span class="title-image"><a href="#"><%= image_tag("place2.png") %></a></span>
-	
-	<!-- Search -->
+		<!-- Search -->
 		<div class="search">
 			<%= form_tag places_path, method: :get, class: "" do%>
-								<%= text_field_tag :search, params[:search], placeholder: "去哪儿~"%>
-								<%= submit_tag ""%>
-						<% end %>
-				</div>
+				<%= text_field_tag :search, params[:search], placeholder: "去哪儿~"%>
+				<%= submit_tag ""%>
+			<% end %>
+		</div>
 	</div>
 </div>
 
@@ -24,17 +23,17 @@
 					<a data-toggle="modal" href="#showimg" class="btn">view original image</a>
 						</div>
 					<div class = "col-md-6">
-									<div class="input-group" style = "margin: 0em 10em">
-								<span class="input-group-addon" id="basic-addon3">
-									 &nbsp; &nbsp; Stars&nbsp; &nbsp; </span>
+						<div class="input-group" style = "margin: 0em 10em">
+							<span class="input-group-addon" id="basic-addon3">
+								&nbsp; &nbsp; Stars&nbsp; &nbsp; </span>
 							<button class = "form-control"
 								style = "width: 11em" aria-describedby="basic-addon2">
-								<%= ratings_for @place, :static, :dimensions => :tot%></button>
+							<%= ratings_for @place, :static, :dimensions => :tot%></button>
 						</div>
 						<br>
 						<div class="input-group" style = "margin: 0em 10em">
-								<span class="input-group-addon" id="basic-addon3">
-									&nbsp;&nbsp;Score It&nbsp;</span>
+							<span class="input-group-addon" id="basic-addon3">
+								&nbsp;&nbsp;Score It&nbsp;</span>
 							<button class = "form-control"
 								style = "width: 11em" aria-describedby="basic-addon2">
 								<%= ratings_for @place, :show_user_rating => true %></button>
@@ -42,7 +41,7 @@
 						<hr>
 									
 						<hr>
-						<div class = "row"  style = "margin: 0em 3em">
+						<div class = "row"	style = "margin: 0em 3em">
 							<div class = "col-md-6">
 								<a href = "#comments">there are <%= @place.comments.size%> comments</a><br/>
 								Maker: <%= link_to @place.user.nickname, user_url(@place.user_id) %>
@@ -96,13 +95,13 @@
 						style = "width: 8em" class = "form-control btn btn-default"
 						 aria-describedby="basic-addon1"></select>
 				</div>
-			</div>  
+			</div>	
 			<br/>
 				<div class = "row" style = "margin: 0em 4em">
 					<div class="input-group">
 						<span class="input-group-addon" id="basic-addon2">
 							&nbsp;&nbsp;Set Start Point &nbsp;&nbsp;&nbsp;</span>
-					<button class = "form-control  btn btn-primary" onclick = "findPath()"
+					<button class = "form-control	btn btn-primary" onclick = "findPath()"
 						style = "width: 8em" aria-describedby="basic-addon2">
 						Go here</button>
 				</div>
@@ -116,7 +115,7 @@
 
 	
 
-	<div id = "comments" class = "row"  style = "margin: 0em 4em">
+	<div id = "comments" class = "row"	style = "margin: 0em 4em">
 		<h3>Comments &nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;
 				<s1 style = "font-size:10px"><a href = "#">Back </a> </s1> 
@@ -142,7 +141,7 @@
 	</div>
 
 	<!-- 模态框（Modal） -->
-	<div id="showimg"  class="modal fade" tabindex="-1" role="dialog" 
+	<div id="showimg"	class="modal fade" tabindex="-1" role="dialog" 
 			 aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<%= image_tag(@place.avatar_url, :style => "max-width:100%") if @place.avatar%>
@@ -161,17 +160,17 @@
 	var schoolcenter = new BMap.Point(126.638718,45.749316);
 	map.centerAndZoom(point,17);
 	map.setMinZoom(16);
-	//map.enableScrollWheelZoom();    //鼠标滚轮缩放
-	map.enableContinuousZoom();      //让地图启动滑动效果
+	//map.enableScrollWheelZoom();		//鼠标滚轮缩放
+	map.enableContinuousZoom();			//让地图启动滑动效果
 	var b = new BMap.Bounds(new BMap.Point(126.627938, 45.74145),
 							new BMap.Point(126.647629, 45.756771));
-	try {  
+	try {	
 		BMapLib.AreaRestriction.setBounds(map, b);
 	} catch (e) {
 		alert(e);
 	}
-	map.addControl(new BMap.NavigationControl());  
-	map.addControl(new BMap.MapTypeControl());          //添加地图类型控件
+	map.addControl(new BMap.NavigationControl());	
+	map.addControl(new BMap.MapTypeControl());					//添加地图类型控件
 
 	var nowPoint = new BMap.Point(<%= @place.locationx%>, <%= @place.locationy%>);
 	var des = new BMap.Marker(nowPoint); 
@@ -182,7 +181,7 @@
 	map.addEventListener("click", function(e){
 		map.removeOverlay(src);
 		var point = new BMap.Point(e.point.lng, e.point.lat);
-		var focus = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));   
+		var focus = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));	 
 		map.addOverlay(focus);
 		src = focus;
 		Find = 1;
