@@ -26,10 +26,12 @@
 			<li><a href="#">公寓</a></li>
 			<li><a href="#">打印店</a></li>
 			<li><a href="#">超市</a></li>
+			<% @placeclassify.each do |name| %>
+				<li><a href="#"><%= name[0] %></a></li>
+			<% end %>
 		</ul>
 	</div>
 </div>
-
 <div id="main">
 	<div class="container row">
 
@@ -68,42 +70,6 @@
 	
 	</div>
 </div> <!-- end of main -->
-
-<!-- 
-<br/><br/>
-	<% @places.each do |place| %>
-    	<section class="col-md-4">
-        	<div class="inner">
-          		<article class="feature left">
-	          		<span class="image"><%= image_tag(place.avatar_url(:big)) if place.avatar %></span>
-						<div class="content">
-						  <div class = "cont_one">
-						  		<h3><%= link_to place.name, place %></h3>
-						  </div>
-						  <%= ratings_for place, :static %>
-						  <div class = "cont_two">
-						    	<%= place.intro %>
-						  </div>
-						  <ul class="actions">
-						    	<li>
-						      		<%= link_to "More", place, :method => :get%>
-						    	</li>
-						  </ul>
-						</div>
-          		</article>
-        	</div>
-    	</section>
-	<% end %>
-</div>
-<br/><br/><br/><br/><br/>
-<div id="indexmap" align = "center"
-            		style="width: 800px; 
-                	height: 500px; 
-                	border: 1px solid gray;
-                	overflow:hidden;">
-</div>
-<br/><br/><br/><br/><br/>
- -->
 
 <style>
 	.title-image

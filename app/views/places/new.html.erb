@@ -11,10 +11,9 @@
     	</div>
     	<br/><br/><br/>
     	<div class="field">
-       		<div class = "col-md-2"><h2><%= f.label :classes, "font-size" => 20 %></h2></div>
-        	<div class = "col-md-10"><%= f.select :classes, [['All',nil], ['Canteen', '1'], ['Express', '2'], ['Academic', '3']], {}, {class: ""} %>
+       		<div class = "col-md-2"><h2><%= f.label :placeclassify_id, "font-size" => 20 %></h2></div>
+        	<div class = "col-md-10"><%= f.select :placeclassify_id, @placeclassify, {}, {class: ""} %>
     	</div>
-
     	<br/><br/><br/>
     	<div class="field">
 	        	<div class = "col-md-2"> <button class = "btn btn-primary btn-lg" data-toggle = "modal" data-target = "#myModal">Set Position</button></div>
