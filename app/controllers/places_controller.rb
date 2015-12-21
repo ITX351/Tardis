@@ -17,7 +17,7 @@ class PlacesController < ApplicationController
 
 	def new
 		@place = Place.new
-		@placeclassify = getplaceclassify
+		@placeclassify = [[I18n.t(:unclassified), 0]] + getplaceclassify
 	end
 
 	def create
@@ -38,7 +38,11 @@ class PlacesController < ApplicationController
 
 	def show
 		@place = Place.find(params[:id])
-		@placeclassifyname = @place.placeclassify.name1
+		if @place.placeclassify_id != 0
+			@placeclassifyname = @place.placeclassify.name1
+		else
+			@placeclassifyname = I18n.t(:unclassified)
+		end
 	end
 
 	def edit
@@ -65,16 +69,16 @@ class PlacesController < ApplicationController
 	def destroy
 		@place = Place.find(params[:id])
 		if(@place.user != current_user)
-					redirect_to @place, notice: 'You do not have the authority to edit it' 
-				else
-					@place.destroy
-					@temp_places = @place.temp_places
-					@temp_places.each do |temp_place|
-						temp_place.state = -1    # origin has been deleted
-						temp_place.state = -1
-					end
-					redirect_to :home
-				end
+			redirect_to @place, notice: 'You do not have the authority to edit it' 
+		else
+			@place.destroy
+			@temp_places = @place.temp_places
+			@temp_places.each do |temp_place|
+				temp_place.state = -1    # origin has been deleted
+				temp_place.state = -1
+			end
+			redirect_to :home
+		end
 	end
 
 	def rate
@@ -111,12 +115,13 @@ class PlacesController < ApplicationController
 			render "new"
 		end
 	end
-
-	def getplaceclassify
-		ret = []
-		Placeclassify.all.each do |x|
-			ret << [x.name1, x.id]
+	
+	private
+		def getplaceclassify
+			ret = []
+			Placeclassify.all.each do |x|
+				ret << [x.name1, x.id]
+			end
+			ret
 		end
-		return ret
-	end
 end

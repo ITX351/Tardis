@@ -1,0 +1,27 @@
+<h1>Listing placeclassifies</h1>
+
+<table>
+  <tr>
+    <th>Name1</th>
+    <th>Name2</th>
+    <th>Name3</th>
+    <th>Instruction</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @placeclassifies.each do |placeclassify| %>
+  <tr>
+    <td><%= placeclassify.name1 %></td>
+    <td><%= placeclassify.name2 %></td>
+    <td><%= placeclassify.name3 %></td>
+    <td><%= placeclassify.instruction %></td>
+    <td><%= link_to 'Edit', edit_placeclassify_path(placeclassify) %></td>
+    <td><%= link_to 'Destroy', placeclassify, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Placeclassify', new_placeclassify_path %>
