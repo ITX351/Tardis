@@ -9,6 +9,9 @@
 	<div class = "col-md-12">
 		<h2><%= @temp_place.name %></h2>
 		<hr>
+		<div>
+			Reason: <%= @temp_place.reason%><hr>
+		</div>
 		<div = class = "row">
 			<div class = "col-md-6" style = "overflow:hidden">
 				<%= image_tag(@temp_place.avatar_url(:bigest), :style => "max-width:100%") if @temp_place.avatar%> <br/>
@@ -23,6 +26,9 @@
 			        	<hr>
 			        	<div  style = "text-align:left">
 			    			<b>Introduction:</b> <%=@temp_place.intro %>
+					</div>
+					<div style = "text-aling:left">
+						location: (<%= @temp_place.locationx%>, <%= @temp_place.locationy%>)
 					</div>
 				<hr>
 			</div>
@@ -42,7 +48,12 @@
 </div>
 <hr>
 <div class = "btn btn-primary btn-lg">
-	<%= link_to "Accept It", auditapply_url(@temp_place), :method => :post %>
+	<% if(@temp_place.state != -1 and !@temp_place.place.nil?) %>
+		<%= link_to "Accept It", auditapply_url(@temp_place), :method => :post %>
+ 	<% else %>
+ 		The origin has been deleted, you cann't accept it. 
+ 		<%= link_to "Delete It",  auditapply_url(@temp_place), :method => :delete, data: { confirm: 'Are you sure?' } %>
+ 	<% end %>
  </div>
  <br/><br/><br/>
 
@@ -51,7 +62,6 @@
 	window.map = map;
 
 	var point = new BMap.Point(126.638718,45.749316);
-	var schoolcenter = new BMap.Point(126.638718,45.749316);
 	map.centerAndZoom(point,17);
 	map.setMinZoom(16);
 	//map.enableScrollWheelZoom();    //鼠标滚轮缩放
@@ -68,8 +78,8 @@
 
 	var nowPoint = new BMap.Point(<%= @temp_place.locationx%>, <%= @temp_place.locationy%>);
 	var des = new BMap.Marker(nowPoint); 
-	var src = new BMap.Marker(nowPoint); 
 	map.addOverlay(des);
+	map.centerAndZoom(nowPoint, 18);
 </script>
 
 

@@ -20,10 +20,16 @@ class UsersController < ApplicationController
 		@temp_place.state = 1
 		@temp_place.save
 
-		
 		@place = Place.find(@temp_place.place_id)
+		@place.update_attributes(name: @temp_place.name, intro: @temp_place.intro, classes: @temp_place.classes,
+			locationx: @temp_place.locationx, locationy: @temp_place.locationy, avatar: @temp_place.avatar, avatar_cache: @temp_place.avatar_cache)
+		redirect_to manage_path
+	end
 
-		redirect_to @place
+	def destroy
+		@temp_place = TempPlace.find(params[:id])
+		@temp_place.destroy
+		redirect_to manage_path
 	end
 
 end

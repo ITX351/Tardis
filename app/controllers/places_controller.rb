@@ -28,7 +28,7 @@ class PlacesController < ApplicationController
 			@place.user = current_user
 		end
 		if @place.save
-			redirect_to @place
+			redirect_to @place, :notice => "Submit Successfully!"
 		else
 			render "new"
 		end
@@ -64,7 +64,12 @@ class PlacesController < ApplicationController
 		if(@place.user != current_user)
     			redirect_to @place, notice: 'You do not have the authority to edit it' 
     		else
-    			@place.destroy	
+    			@place.destroy
+    			@temp_places = @place.temp_places
+    			@temp_places.each do |temp_place|
+    				temp_place.state = -1		# origin has been deleted
+    				temp_place.state = -1
+    			end
     			redirect_to :home
     		end
 	end
