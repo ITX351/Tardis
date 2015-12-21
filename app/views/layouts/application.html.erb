@@ -33,16 +33,23 @@
 <body style="min-width:1200px">
   <div style="position:absolute"><%= render 'layouts/header' %></div>
   <!--  <br/><br/> -->
+  
+  <!--<p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>-->
   <!-- <div class="container">
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p> -->
-
-  <!--   <% flash.each do |key, value| %>
+  <% flash.each do |key, value| %>
   <div class="alert alert-<%= key %>"><%= value %></div>
-  <% end %> -->
+  <% end %>
+  </div> -->
+
+
   <div align = "center">
   <%= yield %>
   </div>
+
+  <!-- <% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>"><%= value %></div>
+  <% end %> -->
   <!--   <%= render 'layouts/footer' %> -->
   <!--   </div> -->
 </body>

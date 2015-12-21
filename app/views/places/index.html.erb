@@ -20,14 +20,11 @@
 
 <div id="nav">
   <ul class="nav nav-tabs">
+    <li><%= link_to t(:allplaces), places_path %></li>
     <% @placeclassify.each do |name| %>
-      <li><a href="#"><%= name[0] %></a></li>
+      <li><%= link_to name[0], classifyshowing_url(name[1]) %></a></li>
     <% end %>
-    <li><a href="#">饮品店</a></li>
-    <li><a href="#">机房</a></li>
-    <li><a href='#'>图书馆</a></li>
-    <li><a href="#">电影院</a></li>
-    <li><a href="#">活动中心</a></li>
+    <li><%= link_to t(:unclassifiedplaces), classifyshowing_url(0) %></li>
   </ul>
 </div>
 

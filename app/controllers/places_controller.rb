@@ -1,11 +1,15 @@
 class PlacesController < ApplicationController
   def index
     if params[:search]
+      flash[:search] = I18n.t(:search_hint) + params[:search]
       @places = Place.find(:all, :conditions => ['name LIKE ?', "%#{params[:search]}%"])
       @places.each do |place|
         place.hot =  place.hot + 1
         place.save
       end
+    elsif params[:classify]
+      flash[:classify] = I18n.t(:classifyshowing_hint) + getplaceclassifyname(params[:classify])
+      @places = Place.where(:"placeclassify_id" => params[:classify])
     else
       @places = Place.all
     end
@@ -17,7 +21,7 @@ class PlacesController < ApplicationController
 
   def new
     @place = Place.new
-    @placeclassify = [[I18n.t(:unclassified), 0]] + getplaceclassify
+    @placeclassify = [[I18n.t(:unclassifiedplaces), 0]] + getplaceclassify
   end
 
   def create
@@ -38,15 +42,12 @@ class PlacesController < ApplicationController
 
   def show
     @place = Place.find(params[:id])
-    if @place.placeclassify_id != 0
-      @placeclassifyname = @place.placeclassify.name1
-    else
-      @placeclassifyname = I18n.t(:unclassified)
-    end
+    @placeclassifyname = getplaceclassifyname(@place.placeclassify_id)
   end
 
   def edit
     @place = Place.find(params[:id])
+    @placeclassify = [[I18n.t(:unclassifiedplaces), 0]] + getplaceclassify
     if(@place.user != current_user)
       redirect_to @place, notice: 'You do not have the authority to edit it' 
     end
@@ -117,11 +118,15 @@ class PlacesController < ApplicationController
   end
   
   private
-    def getplaceclassify
+    def getplaceclassify # return an Array of Pair(Placeclassify.name1, Placeclassify.id)
       ret = []
       Placeclassify.all.each do |x|
         ret << [x.name1, x.id]
       end
       ret
+    end
+    def getplaceclassifyname(id) # return name1 of specific ID, and "Unclassified" of 0
+      return I18n.t(:unclassifiedplaces) if id == 0 or id == '0'
+      Placeclassify.find(id).name1
     end
 end

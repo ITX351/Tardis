@@ -1,7 +1,6 @@
 Tardis::Application.routes.draw do
   resources :placeclassifies
 
-
   # devise_for :users, controllers: { sessions: "users/sessions" }
   devise_for :users, path: "/", path_names: 
   { sign_in: 'signin', sign_out: 'signout', registration: 'signup' }, 
@@ -26,7 +25,7 @@ Tardis::Application.routes.draw do
   end
 
   resources :users #user_path
-  resources :placeclassifies#, only: [:new, :create, :destroy, :index, :edit, :update]
+  resources :placeclassifies, only: [:new, :create, :destroy, :index, :edit, :update]
 
   root :to => "static_pages#home"
 
@@ -43,6 +42,8 @@ Tardis::Application.routes.draw do
   get 'auditapply/:id' => 'users#auditapply',  :as => :auditapply
   post 'auditapply/:id' => 'users#accepted'
   delete 'auditapply/:id' => 'users#destroy'
+
+  get '/places?classify=:id' => 'places#index', :as => :classifyshowing
 
   # get '/signup' => 'users#new'
   # get '/signin' => 'users/sessions#new'
