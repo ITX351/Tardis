@@ -12,10 +12,12 @@ class PlacesController < ApplicationController
 		# @places.sort_by! {|a| a.rates}
 		@places.sort_by! {|a| a.hot}
 		@places.reverse!
+		@placeclassify = getplaceclassify
 	end
 
 	def new
 		@place = Place.new
+		@placeclassify = getplaceclassify
 	end
 
 	def create
@@ -36,28 +38,29 @@ class PlacesController < ApplicationController
 
 	def show
 		@place = Place.find(params[:id])
+		@placeclassifyname = @place.placeclassify.name1
 	end
 
 	def edit
-    		@place = Place.find(params[:id])
-    		if(@place.user != current_user)
-    			redirect_to @place, notice: 'You do not have the authority to edit it' 
-    		end
-  	end
+  		@place = Place.find(params[:id])
+  		if(@place.user != current_user)
+  			redirect_to @place, notice: 'You do not have the authority to edit it' 
+  		end
+	end
 
-  	def update
-	    @place = Place.find(params[:id])
+	def update
+    @place = Place.find(params[:id])
 
-	    respond_to do |format|
-	      if @place.update_attributes(params[:place])
-	        format.html { redirect_to @place, notice: 'Place information was successfully updated.' }
-	        format.json { head :no_content }
-	      else
-	        format.html { render action: "edit" }
-	        format.json { render json: @comment.errors, status: :unprocessable_entity }
-	      end
-	    end
-	  end
+    respond_to do |format|
+      if @place.update_attributes(params[:place])
+        format.html { redirect_to @place, notice: 'Place information was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @comment.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
 	def destroy
 		@place = Place.find(params[:id])
@@ -107,5 +110,13 @@ class PlacesController < ApplicationController
 		else
 			render "new"
 		end
+	end
+
+	def getplaceclassify()
+		ret = []
+		Placeclassify.all.each do |x|
+			ret << [x.name1, x.id]
+		end
+		return ret
 	end
 end

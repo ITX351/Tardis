@@ -21,14 +21,10 @@
 </div>
 
 <div id="nav">
-	<ul class="nav nav-tabs"  style = "margin: 0em 10em">
-		<li><a href="#">餐厅</a></li>
-		<li><a href="#">快递</a></li>
-		<li><a href="#">教学楼</a></li>
-		<li><a href="#">公寓</a></li>
-		<li><a href="#">打印店</a></li>
-		<li><a href="#">超市</a></li>
-		<li><a href="#">发廊</a></li>
+	<ul class="nav nav-tabs">
+		<% @placeclassify.each do |name| %>
+			<li><a href="#"><%= name[0] %></a></li>
+		<% end %>
 		<li><a href="#">饮品店</a></li>
 		<li><a href="#">机房</a></li>
 		<li><a href='#'>图书馆</a></li>
