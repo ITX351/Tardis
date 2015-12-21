@@ -1,27 +1,39 @@
 class PlacesController < ApplicationController
 	def index
-		if params[:search]
+		if params[:search] #normal search
 			flash[:search] = I18n.t(:search_hint) + params[:search]
-			@places = Place.find(:all, :conditions => ['name LIKE ?', "%#{params[:search]}%"])
-			@places.each do |place|
+
+			withpercent = "%" + params[:search] + "%"
+			tclassify, tplace = Placeclassify.arel_table, Place.arel_table
+			classifies = Placeclassify.where(tclassify[:name1].matches(withpercent).or(
+				tclassify[:name2].matches(withpercent).or(tclassify[:name3].matches(withpercent))))
+
+			# @places = Place.find(:all, :conditions => ['name LIKE ?', "%#{params[:search]}%"])
+			if classifies.count > 0 # admit/suppose at most one alias matches
+				@places = Place.where(tplace[:name].matches(withpercent).or(tplace[:placeclassify_id].eq(classifies[0].id)))
+			else # for them not matches classifyname
+				@places = Place.where(tplace[:name].matches(withpercent))
+			end
+
+			@places.each do |place| # hot count
 				place.hot =	place.hot + 1
 				place.save
 			end
-		elsif params[:classify]
+		elsif params[:classify] #click in classify
 			flash[:classify] = I18n.t(:classifyshowing_hint) + getplaceclassifyname(params[:classify])
 			@places = Place.where(:"placeclassify_id" => params[:classify])
-		else
+		else #view all
 			@places = Place.all
 		end
 		# @places.sort_by! {|a| a.rates}
-		@places.sort_by! {|a| a.hot}
+		@places.sort_by! {|a| a.hot} #sort in descending order
 		@places.reverse!
 		@placeclassify = getplaceclassify
 	end
 
 	def new
 		@place = Place.new
-		@placeclassify = [[I18n.t(:unclassifiedplaces), 0]] + getplaceclassify
+		@placeclassify = [[I18n.t(:unclassifiedplaces), 0]] + getplaceclassify #for select label
 	end
 
 	def create
