@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151220155418) do
+ActiveRecord::Schema.define(:version => 20151221081937) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -24,17 +24,27 @@ ActiveRecord::Schema.define(:version => 20151220155418) do
 
   add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
 
+  create_table "placeclassifies", :force => true do |t|
+    t.string   "name1",       :default => "", :null => false
+    t.string   "name2"
+    t.string   "name3"
+    t.text     "instruction"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+  end
+
   create_table "places", :force => true do |t|
     t.string   "name"
     t.integer  "classes"
     t.float    "locationx"
     t.float    "locationy"
     t.text     "intro"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
     t.string   "avatar"
     t.integer  "hot"
     t.integer  "user_id"
+    t.integer  "placeclassify_id", :default => 0, :null => false
   end
 
   create_table "rates", :force => true do |t|
@@ -76,6 +86,10 @@ ActiveRecord::Schema.define(:version => 20151220155418) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
     t.string   "nickname",               :default => "", :null => false
