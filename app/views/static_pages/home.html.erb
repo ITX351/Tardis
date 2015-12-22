@@ -3,26 +3,24 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
   <meta charset="utf-8" />
 
-  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'> -->
-  <!-- <%= stylesheet_link_tag    "style.css", :media => "all" %>  -->
   <%= stylesheet_link_tag "home.css", :media => "all" %>
-  <%= stylesheet_link_tag "font-awesome.min.css" %>
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 <% end %>
 
 <!-- Header -->
 	<header id="header" class="alt">
 		<h1><a href="#">Tardis</a></h1>
-		<a href="#mynav">Menu</a>
+		<!-- <a href="#mynav">Menu</a> -->
 	</header>
 
 <!-- Nav -->
-	<nav id="mynav">
+	<!-- <nav id="mynav">
 		<ul class="links">
 			<li><a href="#">Home</a></li>
 			<li><a href="#">Generic</a></li>
 			<li><a href="#">Elements</a></li>
 		</ul>
-	</nav>
+	</nav> -->
 
 <!-- Banner (include search)-->
 	<section id="banner">
@@ -96,33 +94,91 @@
 			</ul>
 		</div>
 	</section>
-<!--search start here-->
-<h1 class = "mytitle">HIT NAVIGATION</h1>
 
-<div class="search">
-  <i> </i>
-  <div class="s-bar">
-	<%= form_tag places_path, method: :get, class: "" do%>
-	  <%= text_field_tag :search, params[:search], placeholder: "Enter some place you want to go ..."%>
-	  <%= submit_tag "Search"%>
-	<% end %>
-  </div>
-  <% if !@places.first.nil? %>
-  <p>Popular searches: &nbsp; &nbsp;
-	<%=link_to @places.first.name, @places.first,  :method => :get %> &nbsp;
-	<% if @places.count > 1 %>
-	<%=link_to @places.second.name, @places.second,  :method => :get %> &nbsp;&nbsp;
-	<% end %>
-  </p>
-  <% end %>
-</div>
-<!--search end here-->  
-<div class="copyright">
-   <p>2015 &copy; Made By Tardis</p>
-</div>  
+<!-- Three -->
+	<section id="three" class="wrapper style3 special">
+		<div class="inner">
+			<header class="major narrow	">
+				<h2>哈工大校园导航 HIT Navigation</h2>
+				<p>更多功能正在开发中……<br/>感谢您的支持，期待您对于地点信息的完善！</p>
+			</header>
+		</div>
+	</section>
+
+<!-- Footer -->
+	<footer id="footer">
+		<div class="inner">
+			<ul class="copyright">
+				<li><span class="icon fa-envelope">
+				</span></li>
+				<li>Main Address to contact us: </li>
+				<li>jlnemuru@foxmail.com</li>
+			</ul>
+			<ul class="copyright">
+				<li>Copyright &copy; Tardis 2015<br/>Harbin Institute of Technology</li>
+			</ul>
+		</div>
+	</footer>
 
 <!-- Scripts -->
-	<script src="home/jquery.min.js"></script>
-	<script src="home/skel.min.js"></script>
-	<script src="home/util.js"></script>
-	<script src="home/main.js"></script>
+<script type="text/javascript">
+(function($) {
+
+	skel
+		.breakpoints({
+			xlarge: '(max-width: 1680px)',
+			large: '(max-width: 1280px)',
+			medium: '(max-width: 980px)',
+			small: '(max-width: 736px)',
+			xsmall: '(max-width: 480px)'
+		});
+
+	$(function() {
+
+		var	$window = $(window),
+			$body = $('body');
+
+		// Disable animations/transitions until the page has loaded.
+			$body.addClass('is-loading');
+
+			$window.on('load', function() {
+				window.setTimeout(function() {
+					$body.removeClass('is-loading');
+				}, 100);
+			});
+
+		// Fix: Placeholder polyfill.
+			$('form').placeholder();
+
+		// Prioritize "important" elements on medium.
+			skel.on('+medium -medium', function() {
+				$.prioritize(
+					'.important\\28 medium\\29',
+					skel.breakpoint('medium').active
+				);
+			});
+
+		// Nav.
+			$('#mynav')
+				.append('<a href="#mynav" class="close"></a>')
+				.appendTo($body)
+				.panel({
+					delay: 500,
+					hideOnClick: true,
+					hideOnSwipe: true,
+					resetScroll: true,
+					resetForms: true,
+					side: 'right'
+				});
+
+	});
+
+})(jQuery);
+
+
+</script>
+
+<%= javascript_include_tag "home/jquery.min.js" %>
+<%= javascript_include_tag "home/skel.min.js" %>
+<%= javascript_include_tag "home/util.js" %>
+<%= javascript_include_tag "home/main.js" %>

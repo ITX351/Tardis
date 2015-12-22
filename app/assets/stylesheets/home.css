@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/*@import url(font-awesome.min.css);*/
+/*@import url("font-awesome.min.css");*/
 @import url("https://fonts.googleapis.com/css?family=Raleway:400,500,700");
 
 /* Reset */
@@ -15,6 +15,7 @@
 
 	article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
 		display: block;
+		text-decoration: none;
 	}
 
 	body {
@@ -3326,7 +3327,7 @@
 			background-color: #1E2832;
 			color: rgba(255, 255, 255, 0.75);
 			background-attachment: fixed;
-			background-image: url("images/overlay.png"), url("../../images/pic11.jpg");
+			background-image: url("overlay3.png"), url("banner1.jpg");
 			background-size: cover;
 		}
 
@@ -3627,7 +3628,7 @@
 		line-height: 3.25em;
 		position: fixed;
 		text-align: right;
-		top: 0;
+		top: 1em;
 		width: 100%;
 		z-index: 10001;
 	}
@@ -3638,7 +3639,7 @@
 			height: inherit;
 			left: 1.25em;
 			line-height: inherit;
-			margin: 0;
+			margin: 0em 0 0 0;
 			padding: 0;
 			position: absolute;
 			top: 0;
@@ -4170,7 +4171,7 @@
 
 		#footer .inner {
 			padding: 6em 0 4em 0;
-			border-top: solid 1px rgba(255, 255, 255, 0.1);
+			/*border-top: solid 1px rgba(255, 255, 255, 0.1);*/
 			margin: 0 auto;
 			width: 75%;
 		}
