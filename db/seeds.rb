@@ -18,3 +18,20 @@ Placeclassify.create!(:name1 => "打印店", :name2 => "打印社", :instruction
 Placeclassify.create!(:name1 => "超市", :name2 => "便利店", :instruction => "supermarket.png")
 Placeclassify.create!(:name1 => "图书馆", :instruction => "library.png")
 Placeclassify.create!(:name1 => "电影院", :instruction => "cinema.png")
+
+=begin
+学苑楼
+学士楼
+友来餐厅
+美食长廊
+饺子园餐厅
+正心楼
+格物楼
+诚意楼
+致知楼
+十八公寓
+一公寓
+二公寓
+七公寓
+学子超市
+=end
