@@ -27,8 +27,8 @@
     </style>
 </head>
 
-<body style="min-width:1200px">
-	<div style="position:absolute"><%= render 'layouts/header' %></div>
+<body style="min-width:1200px" class="landing">
+	<div style="position:absolute; z-index:100000"><%= render 'layouts/header' %></div>
 	<!--  <br/><br/> -->
 	<!-- <div class="container">
 	<p class="notice"><%= notice %></p>
@@ -38,7 +38,7 @@
 	<div class="alert alert-<%= key %>"><%= value %></div>
 	<% end %> -->
 	<div align = "center">
-	<%= yield %>
+	   <%= yield %>
 	</div>
 	<!--   <%= render 'layouts/footer' %> -->
 	<!--   </div> -->
