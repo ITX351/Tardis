@@ -1,5 +1,9 @@
 class PlacesController < ApplicationController
 	def index
+		@placeclassify = getplaceclassify
+		@indexshow = false
+		@classifyshow = []
+
 		if params[:search] #normal search
 			flash[:search] = I18n.t(:search_hint) + params[:search]
 
@@ -10,30 +14,45 @@ class PlacesController < ApplicationController
 
 			# @places = Place.find(:all, :conditions => ['name LIKE ?', "%#{params[:search]}%"])
 			if classifies.count > 0 # admit/suppose at most one alias matches
-				@places = Place.where(tplace[:name].matches(withpercent).or(tplace[:placeclassify_id].eq(classifies[0].id)))
+				places = Place.where(tplace[:name].matches(withpercent).or(tplace[:placeclassify_id].eq(classifies[0].id)))
 			else # for them not matches classifyname
-				@places = Place.where(tplace[:name].matches(withpercent))
+				places = Place.where(tplace[:name].matches(withpercent))
 			end
 
-			@places.each do |place| # hot count
+			places.each do |place| # hot count
 				place.hot =	place.hot + 1
 				place.save
 			end
 		elsif params[:classify] #click in classify
-			flash[:classify] = I18n.t(:classifyshowing_hint) + getplaceclassifyname(params[:classify])
-			@places = Place.where(:"placeclassify_id" => params[:classify])
-		else #view all
-			@places = Place.all
+			#flash[:classify] = I18n.t(:classifyshowing_hint) + getplaceclassifyname(params[:classify])
+			places = Place.where(:"placeclassify_id" => params[:classify])
+		elsif params[:all] #view all
+			places = Place.all
+		else # show index, each classify with 3 places
+			@indexshow = true
+			Placeclassify.all.each do |classify|
+				next if classify.places.count == 0
+				now = {:id => classify.id, :name => classify.name1, :places => [], :imagename => classify.imagename }
+				classifyplaces = classify.places
+				classifyplaces.sort_by! { |a| a.hot }
+				classifyplaces.reverse!
+				classifyplaces.each_with_index do |place, i|
+					now[:places] << place
+					break if i == 2 # only 
+				end
+				@classifyshow << now
+			end
+			return
 		end
 		# @places.sort_by! {|a| a.rates}
-		@places.sort_by! {|a| a.hot} #sort in descending order
-		@places.reverse!
-		@placeclassify = getplaceclassify
+		places.sort_by! {|a| a.hot} #sort in descending order
+		places.reverse!
+		@classifyshow << { :places => places }
 	end
 
 	def new
 		@place = Place.new
-		@placeclassify = [[I18n.t(:unclassifiedplaces), 0]] + getplaceclassify #for select label
+		@placeclassify = unclassifyhash + getplaceclassify #for select label
 	end
 
 	def create
@@ -59,7 +78,7 @@ class PlacesController < ApplicationController
 
 	def edit
 		@place = Place.find(params[:id])
-		@placeclassify = [[I18n.t(:unclassifiedplaces), 0]] + getplaceclassify
+		@placeclassify = unclassifyhash + getplaceclassify
 		if(@place.user != current_user)
 			redirect_to @place, notice: 'You do not have the authority to edit it' 
 		end
@@ -142,5 +161,9 @@ class PlacesController < ApplicationController
 		def getplaceclassifyname(id) # return name1 of specific ID, and "Unclassified" of 0
 			return I18n.t(:unclassifiedplaces) if id == 0 or id == '0'
 			Placeclassify.find(id).name1
+		end
+
+		def unclassifyhash
+			[[I18n.t(:unclassifiedplaces), 0]]
 		end
 end

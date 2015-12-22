@@ -2,94 +2,43 @@
 
 <div id="nav">
 	<ul class="nav nav-tabs" style = "margin: 0em 10em">
-		<li><%= link_to t(:allplaces), places_path %></li>
-		<% @placeclassify.each do |name| %>
-			<li><%= link_to name[0], classifyshowing_url(name[1]) %></a></li>
+		<li><%= link_to t(:placeshome), places_path %></li>
+		<li><%= link_to t(:allplaces), allplaces_path %></li>
+		<% @placeclassify.each do |classify| %>
+			<li><%= link_to classify[0], classifyshowing_url(classify[1]) %></a></li>
 		<% end %>
 		<li><%= link_to t(:unclassifiedplaces), classifyshowing_url(0) %></li>
 	</ul>
 </div>
 
 <div id="main">
-	<br/><br/>
-
-	<div class="container-thin">
-		<div class = "row">
-			<div class="col-md-2">
-				<div class="image-category">
-					<a href="#"><%= image_tag("dininghall.png") %></a>
+	<% @classifyshow.each do |classify| %>
+		<br/><br/>
+		<div class="container-thin">
+			<% if @indexshow %>
+				<div class = "row">
+					<div class="col-md-2">
+						<div class="image-category">
+							<%= image_tag(classify[:imagename]) %>
+						</div>
+					</div>
+					<div class="col-md-4">
+					</div>
+					<div class="col-md-3">
+						<div class="image-category image-more">
+							<%= link_to image_tag("more2.png"), classifyshowing_url(classify[:id]) %></a>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<br/><br/>
+						<span style="text-align:left;color:#009fc6"><h4><b>|</b> 点击排行榜</h4></span>
+					</div>
 				</div>
-			</div>
-			<div class="col-md-4">
-			</div>
-			<div class="col-md-3">
-				<div class="image-category image-more">
-					<a href="#"><%= image_tag("more2.png") %></a>
-				</div>
-			</div>
-			<div class="col-md-3">
-				<br/><br/>
-				<span style="text-align:left;color:#009fc6"><h4><b>|</b> 点击排行榜</h4></span>
-			</div>
-		</div>
+			<% end %>
 
-		<div class="row">
-			<div class="col-md-9">
-				<% @places.each do |place| %>
-				<div class="col-md-4">
-					<section>
-						<a href="#" class="image"><%= image_tag(place.avatar_url(:big)) if place.avatar %></a>
-							<div class="content">
-								<div class = "row">	
-									<div class = "col-md-10" style = "text-align:left">
-										<h5 style="margin:0 0 0 1em"><%= link_to place.name, place, style: "color:black"%></h5>
-
-									</div>
-									<div class = "col-md-2">
-									</div>
-								</div>
-								<div class = "cont_two">
-									<small style: "color:#a3a3a3"><%= place.intro %></small>
-								</div>
-								<div class="button">
-									<%= link_to " Read More", place, :method => :get, style: "color:white;		text-decoration: none;"%>
-								</div>
-							</div>
-					</section>
-				</div>
-				<% end %>
-			</div>
-			<div class="col-md-3">
-				
-			</div>
-		</div>
-
-		<div class="divider">&nbsp;</div>
-	</div>
-
-	<div class="container-thin">
-		<div class = "row">
-			<div class="col-md-2">
-				<div class="image-category">
-					<a href="#"><%= image_tag("express.png") %></a>
-				</div>
-			</div>
-			<div class="col-md-4">
-			</div>
-			<div class="col-md-3">
-				<div class="image-category image-more">
-					<a href="#"><%= image_tag("more2.png") %></a>
-				</div>
-			</div>
-			<div class="col-md-3">
-				<br/><br/>
-				<span style="text-align:left;color:#009fc6"><h4><b>|</b> 点击排行榜</h4></span>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-md-9">
-				<% @places.each do |place| %>
+			<div class="row">
+				<div class="col-md-9">
+					<% classify[:places].each do |place| %>
 					<div class="col-md-4">
 						<section>
 							<a href="#" class="image"><%= image_tag(place.avatar_url(:big)) if place.avatar %></a>
@@ -97,6 +46,7 @@
 									<div class = "row">	
 										<div class = "col-md-10" style = "text-align:left">
 											<h5 style="margin:0 0 0 1em"><%= link_to place.name, place, style: "color:black"%></h5>
+
 										</div>
 										<div class = "col-md-2">
 										</div>
@@ -105,26 +55,25 @@
 										<small style: "color:#a3a3a3"><%= place.intro %></small>
 									</div>
 									<div class="button">
-										<%= link_to " Read More", place, :method => :get, style: "color:white; text-decoration: none;"%>
+										<%= link_to " Read More", place, :method => :get, style: "color:white;		text-decoration: none;"%>
 									</div>
 								</div>
 						</section>
 					</div>
-				<% end %>
+					<% end %>
+				</div>
+				<div class="col-md-3">
+					
+				</div>
 			</div>
 
-			<div class="col-md-3">
-			</div>
-	
+			<div class="divider">&nbsp;</div>
 		</div>
 
-		<div class="divider">&nbsp;</div>
-	</div>
-	<!-- end of container-thin -->
+		<div style="height:5px;width:1000px"> <!--tail -->
+		</div>
 
-
-	<div style="height:5px;width:1000px"> <!--tail -->
-	</div>
+	<% end %>
 </div> <!-- end of main -->
 
 <div id="tail">
@@ -294,10 +243,12 @@
 	}
 
 	function work(){
-		<% @places.each do |place|%>
-			var marker = new addMaker(new BMap.Point(<%= place.locationx%>, <%= place.locationy%>));
-			var intro = ['<h3><%= place.name%></h3>', '<%= place.intro%><br/><%=link_to "More", place %>'];
-			addInfoWindow(marker, intro);
+		<% if !@indexshow and @classifyshow.count > 0 %>
+			<% @classifyshow[0][:places].each do |place| %>
+				var marker = new addMaker(new BMap.Point(<%= place.locationx%>, <%= place.locationy%>));
+				var intro = ['<h3><%= place.name%></h3>', '<%= place.intro%><br/><%=link_to "More", place %>'];
+				addInfoWindow(marker, intro);
+			<% end %>
 		<% end %>
 	}
 
