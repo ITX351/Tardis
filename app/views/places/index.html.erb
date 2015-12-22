@@ -1,33 +1,12 @@
-<!--<%= stylesheet_link_tag "place/skel-noscript"%>
-<%= stylesheet_link_tag "place/style"%> -->
 <% provide(:title, "HIT NAV | Place Information") %> 
 
-<div id="banner">
-	<div class="container"> 
-	<!-- Logo -->
-		<span class="title-image"><a href="#"><%= image_tag("place2.png") %></a></span>
-	
-	<!-- Search -->
-		<div class="search">
-			<%= form_tag places_path, method: :get, class: "" do%>
-								<%= text_field_tag :search, params[:search], placeholder: "去哪儿~"%>
-								<%= submit_tag ""%>
-						<% end %>
-				</div>
-	</div>
-</div>
-
-
 <div id="nav">
-	<ul class="nav nav-tabs"  style = "margin: 0em 10em">
+	<ul class="nav nav-tabs" style = "margin: 0em 10em">
+		<li><%= link_to t(:allplaces), places_path %></li>
 		<% @placeclassify.each do |name| %>
-			<li><a href="#"><%= name[0] %></a></li>
+			<li><%= link_to name[0], classifyshowing_url(name[1]) %></a></li>
 		<% end %>
-		<li><a href="#">饮品店</a></li>
-		<li><a href="#">机房</a></li>
-		<li><a href='#'>图书馆</a></li>
-		<li><a href="#">电影院</a></li>
-		<li><a href="#">活动中心</a></li>
+		<li><%= link_to t(:unclassifiedplaces), classifyshowing_url(0) %></li>
 	</ul>
 </div>
 
@@ -53,6 +32,7 @@
 				<span style="text-align:left;color:#009fc6"><h4><b>|</b> 点击排行榜</h4></span>
 			</div>
 		</div>
+
 		<div class="row">
 			<div class="col-md-9">
 				<% @places.each do |place| %>
@@ -110,37 +90,37 @@
 		<div class="row">
 			<div class="col-md-9">
 				<% @places.each do |place| %>
-				<div class="col-md-4">
-					<section>
-						<a href="#" class="image"><%= image_tag(place.avatar_url(:big)) if place.avatar %></a>
-							<div class="content">
-								<div class = "row">	
-									<div class = "col-md-10" style = "text-align:left">
-										<h5 style="margin:0 0 0 1em"><%= link_to place.name, place, style: "color:black"%></h5>
+					<div class="col-md-4">
+						<section>
+							<a href="#" class="image"><%= image_tag(place.avatar_url(:big)) if place.avatar %></a>
+								<div class="content">
+									<div class = "row">	
+										<div class = "col-md-10" style = "text-align:left">
+											<h5 style="margin:0 0 0 1em"><%= link_to place.name, place, style: "color:black"%></h5>
+										</div>
+										<div class = "col-md-2">
+										</div>
 									</div>
-									<div class = "col-md-2">
+									<div class = "cont_two">
+										<small style: "color:#a3a3a3"><%= place.intro %></small>
+									</div>
+									<div class="button">
+										<%= link_to " Read More", place, :method => :get, style: "color:white; text-decoration: none;"%>
 									</div>
 								</div>
-								<div class = "cont_two">
-									<small style: "color:#a3a3a3"><%= place.intro %></small>
-								</div>
-								<div class="button">
-									<%= link_to " Read More", place, :method => :get, style: "color:white;		text-decoration: none;"%>
-								</div>
-							</div>
-					</section>
-				</div>
+						</section>
+					</div>
 				<% end %>
 			</div>
 
 			<div class="col-md-3">
-				
 			</div>
 	
 		</div>
 
 		<div class="divider">&nbsp;</div>
-	</div><!-- end of container-thin -->
+	</div>
+	<!-- end of container-thin -->
 
 
 	<div style="height:5px;width:1000px"> <!--tail -->
@@ -148,64 +128,11 @@
 </div> <!-- end of main -->
 
 <div id="tail">
-	<p>Copyright &#169 Tardis 2015</p>
+	<p>Copyright &copy; Tardis 2015</p>
 </div>
 
 <style>
-	.title-image
-	{
-		width:400px;
-		position:absolute;
-		margin-top: -55px; margin-bottom: -57px; margin-left: -550px; overflow: hidden;
-	}
-	.container {
-		width: 1200px;
-		margin-top: 0;
-		margin-left: auto;
-		margin-right: auto;
-	}
-	#banner
-	{
-
-		position: relative;
-		padding: 7em 0em;
-		background: #ddd url(<%= asset_path("backgroundimage.jpg")%>) no-repeat center;
-		background-size: cover;
-	}
-	.search {
-		position: absolute;
-		background: #fff; 
-		opacity: 0.6; 
-		margin-top: 30px; margin-bottom: -57px; margin-left: 850px;
-		width: 20%;
-		border-radius:5px;
-	}
-	.search:hover {
-		opacity:1;
-	}
-	.search input[type="text"] {
-			margin: 0px 0;
-			padding: 6px 10px 6px 15px;
-			outline: none;
-			color: #5a5a5a;
-			background: none;
-			border: none;
-			width: 89.33333%;
-			position: relative;
-			font-size: 1em;
-			-webkit-appearance: none;
-	}
-	.search input[type="submit"] {
-			background: url(<%= asset_path("search_icon2.png") %>) no-repeat 0px 1px;
-			border: none;
-			cursor: pointer;
-			width: 24px;
-			outline: none;
-			position: absolute;
-			height: 24px;
-			top: 3px;
-			right: 8px;
-	} 
+	
 	#nav
 	{
 		align:center;
@@ -217,6 +144,7 @@
 		position: relative;
 		background: #fffacd url(<%= asset_path("overlay2.png") %>) repeat;
 		/*background: #fff;*/
+		/*z-index:  -666;*/
 	}
 	.container-thin
 	{
@@ -228,14 +156,18 @@
 		background-color: rgba(255, 255, 255, 0.6);
 		border-radius: 8px;
 	}
+
+
 	.image-category
 	{
-		width:20px;
+		width:200px;
 		position:relative;
-		left:-25px; right:0px;
+		left: 30px; right:0px;
+		overflow: hidden;
 	}
 	.image-more
 	{
+		left: 5em; 
 		top:18px;
 	}
 	.image
@@ -312,7 +244,7 @@
 		-webkit-line-clamp: 1;
 		-webkit-box-orient: vertical;
 	 }
-	.cont_two{    
+	.cont_two{		
 		width: 140px;
 		height: 50px;
 		line-height: 25px;
@@ -332,10 +264,10 @@
 	var schoolcenter = new BMap.Point(126.638718,45.749316);
 	map.centerAndZoom(point,17);
 	map.setMinZoom(16);
-	map.addControl(new BMap.MapTypeControl());          //添加地图类型控件
+	map.addControl(new BMap.MapTypeControl());					//添加地图类型控件
 	var b = new BMap.Bounds(new BMap.Point(126.627938, 45.74145),
 						new BMap.Point(126.647629, 45.756771));
-	try {  
+	try {	
 		BMapLib.AreaRestriction.setBounds(map, b);
 	} catch (e) {
 		alert(e);
@@ -386,6 +318,6 @@
 	function changeMapStyle(mystyle){
 		map.setMapStyle({style:mystyle});
 		$('#desc').html(mapstyles[style].desc);
-	}  
+	}	
 </script>
 

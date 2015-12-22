@@ -1,7 +1,8 @@
+<%= provide(:nobanner, "True") %>
 <br><br><br><br> 	
 <h2> Manager Function </h2>
 <hr>
-<div class="panel panel-primary"  style = "width: 80%">
+<div class="panel panel-primary"	style = "width: 80%">
 	<!-- Default panel contents -->
 	<div class="panel-heading">
 		Places Revision Information
@@ -21,7 +22,7 @@
 		</tr>
 		<% @temp_places.each_with_index do|temp_place, i|%>
 			<tr class="list-group-item-info">
-				<td  style = "text-align:center"><%= i%> </td>
+				<td	style = "text-align:center"><%= i%> </td>
 				<td >
 					<% if temp_place.place.nil? %>
 						<tardis style = "color:red">Deleted</tardis>
@@ -49,39 +50,6 @@
 	</table>
 </div>
 
-
-<!-- <h3>Accpted Places Information </h3>
-<br>
-<% @places_ac.each do|place_ac|%>
-	Origin:
-	<% if place_ac.place.nil? %>
-		It has been deleted! 
-	<% else %> 
-		<%= link_to place_ac.place.name, place_ac.place, :method => :get %> 
-	<% end %>
-	<br>
-	Update Reason: <%= place_ac.reason %> <br/>
-	Detail Information: <%= link_to place_ac.name, auditapply_url(place_ac), :method => :get %> <br/> 
-	State: <state style = "color:green">Accepted </state>
-	<hr>
-<% end %>
-
-<hr>
-<h3>Pending Places Information </h3>
-<br>
-<% @places_pending.each do|place_pending|%>
-	Origin: 
-	<% if place_pending.place.nil? %>
-		It has been deleted!
-	<% else %>
-		<%= link_to place_pending.place.name, place_pending.place, :method => :get %> 
-	<% end %>
-	Update Reason: <%= place_pending.reason %> <br/>
-	Detail Information: <%= link_to place_pending.name, auditapply_url(place_pending), :method => :get %> <br/> 
-	State: <state style = "color:red">pending </state>
-	<hr/>
-<% end %> -->
-
 <hr>
 <%= link_to 'Home', home_path, :method => :get%>
 <br><br><br>
@@ -99,7 +67,7 @@
 		-webkit-line-clamp: 1;
 		-webkit-box-orient: vertical;
 	 }
-	.cont_two{    
+	.cont_two{		
 		width: 140px;
 		height: 50px;
 		line-height: 25px;

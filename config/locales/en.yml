@@ -3,4 +3,7 @@
 
 en:
   hello: "Hello world"
-  unclassified: "Unclassified"
+  unclassifiedplaces: "Unclassified"
+  allplaces: "All"
+  search_hint: "Following is result for searching: "
+  classifyshowing_hint: "Following is places for classify: "

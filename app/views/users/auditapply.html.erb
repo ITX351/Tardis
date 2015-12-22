@@ -1,7 +1,8 @@
-<%= stylesheet_link_tag    "main.css", :media => "all" %>
+<%= stylesheet_link_tag		"main.css", :media => "all" %>
 <div style="position:fixed; left:0; top:0; width:100%; height:100%; z-index:-5000">
 		<%= image_tag("bg1.jpg", width: "100%", height: "100%") %>
 </div>
+<%= provide(:nobanner, "True") %>
 
 <h1>Submitted Update Information</h1>
 
@@ -16,7 +17,7 @@
 					<a data-toggle="modal" href="#showimg" class="btn">view original image</a>
 				</div>
 				<div class = "col-md-6">
-					<div class = "row"  style = "margin: 0em 3em">
+					<div class = "row"	style = "margin: 0em 3em">
 						<div class = "col-md-6">
 							Maker: <%=@temp_place.user.email%>
 							Classify:<%= @temp_placeclassifyname %>
@@ -58,7 +59,7 @@
 						style = "width: 8em" class = "form-control btn btn-default"
 						 aria-describedby="basic-addon1"></select>
 				</div>
-			</div>  
+			</div>	
 		</div>
 	</div>
 
@@ -67,21 +68,21 @@
 <hr>
 <div class = "">
 	<% if(@temp_place.state == 0 and !@temp_place.place.nil?) %>
-		<%= link_to "Accept It", auditapply_url(@temp_place), :method => :post,  :class => "btn btn-success btn-lg"%>
-		&nbsp; &nbsp; 	<%= link_to "Reject It", auditapply_url(@temp_place), :method => :put,  :class => "btn btn-danger btn-lg"%>
+		<%= link_to "Accept It", auditapply_url(@temp_place), :method => :post,	:class => "btn btn-success btn-lg"%>
+		&nbsp; &nbsp; 	<%= link_to "Reject It", auditapply_url(@temp_place), :method => :put,	:class => "btn btn-danger btn-lg"%>
 		&nbsp; &nbsp;<%= link_to "Back to Manage", manage_path, :method => :get, :class => "btn btn-primary btn-lg"%>
-	<% elsif  @temp_place.state == 1 %>
+	<% elsif	@temp_place.state == 1 %>
 		<h3>It has been acceted!</h3>
 	 	<%= link_to "Back to Manage", manage_path, :method => :get, :class => "btn btn-primary btn-lg"%>
 	<% elsif @temp_place.state == -2%>
 		<h3> It has been rejected, do you want to accept it now?</h3>
-		<%= link_to "Accept It", auditapply_url(@temp_place), :method => :post,  :class => "btn btn-success btn-lg"%>
+		<%= link_to "Accept It", auditapply_url(@temp_place), :method => :post,	:class => "btn btn-success btn-lg"%>
 		&nbsp; &nbsp;<%= link_to "Back to Manage", manage_path, :method => :get, :class => "btn btn-primary btn-lg"%>
 	<% else %>
 		 The origin has been deleted, you cann't accept it. <br>
-		<%= link_to "Delete It",  auditapply_url(@temp_place), :method => :delete, 
+		<%= link_to "Delete It",	auditapply_url(@temp_place), :method => :delete, 
 		 	:class => "btn btn-danger btn-lg", data: { confirm: 'Are you sure?' } %>
-		&nbsp; &nbsp;  <%= link_to "Back to Manage", manage_path, :method => :get, :class => "btn btn-primary btn-lg"%>
+		&nbsp; &nbsp;	<%= link_to "Back to Manage", manage_path, :method => :get, :class => "btn btn-primary btn-lg"%>
 	<% end %>
  </div>
  <br/><br/><br/>
@@ -93,17 +94,17 @@
 	var point = new BMap.Point(126.638718,45.749316);
 	map.centerAndZoom(point,17);
 	map.setMinZoom(16);
-	//map.enableScrollWheelZoom();    //鼠标滚轮缩放
-	map.enableContinuousZoom();      //让地图启动滑动效果
+	//map.enableScrollWheelZoom();		//鼠标滚轮缩放
+	map.enableContinuousZoom();			//让地图启动滑动效果
 	var b = new BMap.Bounds(new BMap.Point(126.627938, 45.74145),
 							new BMap.Point(126.647629, 45.756771));
-	try {  
+	try {	
 		BMapLib.AreaRestriction.setBounds(map, b);
 	} catch (e) {
 		alert(e);
 	}
-	map.addControl(new BMap.NavigationControl());  
-	map.addControl(new BMap.MapTypeControl());          //添加地图类型控件
+	map.addControl(new BMap.NavigationControl());	
+	map.addControl(new BMap.MapTypeControl());					//添加地图类型控件
 
 	var nowPoint = new BMap.Point(<%= @temp_place.locationx%>, <%= @temp_place.locationy%>);
 	var des = new BMap.Marker(nowPoint); 

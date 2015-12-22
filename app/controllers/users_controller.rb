@@ -1,19 +1,21 @@
 class UsersController < ApplicationController
 	def show
-			@user = User.find(params[:id])
+		@user = User.find(params[:id])
 	end
 
 	def manage
-		# @places_pending = TempPlace.find(:all, :conditions => "state" => "0")
-		# @places_ac = TempPlace.find(:all, :conditions => "state" => "1")
-		@places_ac = TempPlace.where(:state => 1)
-		@places_pending = TempPlace.where(:state => 0)
-		@temp_places = TempPlace.all
-
+		if (current_user.authority  != 1)
+			redirect_to current_user, :notice => 'You do not have the authority to edit it' 
+		else 
+			@places_ac = TempPlace.where(:state => 1)
+			@places_pending = TempPlace.where(:state => 0)
+			@temp_places = TempPlace.all
+		end
 	end
 
-	def auditapply  
+	def auditapply	
 		@temp_place = TempPlace.find(params[:id])
+		@temp_placeclassifyname = getplaceclassifyname(@temp_place.classes)
 	end
 
 	def accepted
@@ -22,7 +24,7 @@ class UsersController < ApplicationController
 		@temp_place.save
 
 		@place = Place.find(@temp_place.place_id)
-		@place.update_attributes(name: @temp_place.name, intro: @temp_place.intro, classes: @temp_place.classes,
+		@place.update_attributes(name: @temp_place.name, intro: @temp_place.intro, placeclassify_id: @temp_place.classes,
 			locationx: @temp_place.locationx, locationy: @temp_place.locationy, avatar: @temp_place.avatar, avatar_cache: @temp_place.avatar_cache)
 		redirect_to manage_path
 	end
@@ -38,5 +40,11 @@ class UsersController < ApplicationController
 		@temp_place = TempPlace.find(params[:id])
 		@temp_place.destroy
 		redirect_to manage_path
+	end
+
+private
+	def getplaceclassifyname(id) # return name1 of specific ID, and "Unclassified" of 0
+		return I18n.t(:unclassifiedplaces) if id == 0 or id == '0'
+		Placeclassify.find(id).name1
 	end
 end

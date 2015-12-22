@@ -4,14 +4,14 @@
 	</div>
 	<div>
 	<ul class="nav navbar-nav pull-right">
-		<li><%= link_to "Home", home_path, :method => :get  %></li>
+		<li><%= link_to "Home", home_path, :method => :get	%></li>
 		<li><%= link_to "Places", places_path, :method => :get %></li>
 		<li><%= link_to "New Place", new_place_path, :method => :get %></li>
 		<li><%= link_back %></li>
 
 		<% if signed_in? %>
 		<li><%= link_to "Users", '#', :method => :get%></li>
-		<% if current_user.id == 1%>
+		<% if current_user.authority == 1%>
 			<li><%= link_to "Manage", '/manage', :method => :get%></li>
 		<% end %>
 		<li class="dropdown">
@@ -21,6 +21,7 @@
 			<ul class="dropdown-menu">
 			<li><%= link_to "Profile", current_user, :method => :get %></li>
 			<li><%= link_to "Settings", '#' %></li>
+			<li><%= link_to "ClassifySettings", placeclassifies_path %></li>
 			<li class="divider"></li>
 			<li>
 				<%= link_to "Sign out", '/signout', method: "delete" %>

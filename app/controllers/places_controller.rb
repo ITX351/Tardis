@@ -1,23 +1,39 @@
 class PlacesController < ApplicationController
 	def index
-		if params[:search]
-			@places = Place.find(:all, :conditions => ['name LIKE ?', "%#{params[:search]}%"])
-			@places.each do |place|
-				place.hot =  place.hot + 1
+		if params[:search] #normal search
+			flash[:search] = I18n.t(:search_hint) + params[:search]
+
+			withpercent = "%" + params[:search] + "%"
+			tclassify, tplace = Placeclassify.arel_table, Place.arel_table
+			classifies = Placeclassify.where(tclassify[:name1].matches(withpercent).or(
+				tclassify[:name2].matches(withpercent).or(tclassify[:name3].matches(withpercent))))
+
+			# @places = Place.find(:all, :conditions => ['name LIKE ?', "%#{params[:search]}%"])
+			if classifies.count > 0 # admit/suppose at most one alias matches
+				@places = Place.where(tplace[:name].matches(withpercent).or(tplace[:placeclassify_id].eq(classifies[0].id)))
+			else # for them not matches classifyname
+				@places = Place.where(tplace[:name].matches(withpercent))
+			end
+
+			@places.each do |place| # hot count
+				place.hot =	place.hot + 1
 				place.save
 			end
-		else
+		elsif params[:classify] #click in classify
+			flash[:classify] = I18n.t(:classifyshowing_hint) + getplaceclassifyname(params[:classify])
+			@places = Place.where(:"placeclassify_id" => params[:classify])
+		else #view all
 			@places = Place.all
 		end
 		# @places.sort_by! {|a| a.rates}
-		@places.sort_by! {|a| a.hot}
+		@places.sort_by! {|a| a.hot} #sort in descending order
 		@places.reverse!
 		@placeclassify = getplaceclassify
 	end
 
 	def new
 		@place = Place.new
-		@placeclassify = [[I18n.t(:unclassified), 0]] + getplaceclassify
+		@placeclassify = [[I18n.t(:unclassifiedplaces), 0]] + getplaceclassify #for select label
 	end
 
 	def create
@@ -38,20 +54,17 @@ class PlacesController < ApplicationController
 
 	def show
 		@place = Place.find(params[:id])
-		if @place.placeclassify_id != 0
-			@placeclassifyname = @place.placeclassify.name1
-		else
-			@placeclassifyname = I18n.t(:unclassified)
-		end
+		@placeclassifyname = getplaceclassifyname(@place.placeclassify_id)
 	end
 
 	def edit
 		@place = Place.find(params[:id])
+		@placeclassify = [[I18n.t(:unclassifiedplaces), 0]] + getplaceclassify
 		if(@place.user != current_user)
 			redirect_to @place, notice: 'You do not have the authority to edit it' 
 		end
 	end
-
+	
 	def update
 		@place = Place.find(params[:id])
 
@@ -68,13 +81,13 @@ class PlacesController < ApplicationController
 
 	def destroy
 		@place = Place.find(params[:id])
-		if(@place.user != current_user)
-			redirect_to @place, notice: 'You do not have the authority to edit it' 
+		if(@place.user != current_user and @current_user.authority != 1)
+			redirect_to  notice: 'You do not have the authority to edit it' 
 		else
 			@place.destroy
 			@temp_places = @place.temp_places
 			@temp_places.each do |temp_place|
-				temp_place.state = -1    # origin has been deleted
+				temp_place.state = -1		# origin has been deleted
 				temp_place.state = -1
 			end
 			redirect_to :home
@@ -107,7 +120,8 @@ class PlacesController < ApplicationController
 			@temp_place.user_id = current_user.id
 			@temp_place.user = current_user
 		end
-		@temp_place.state = 0       # No Accept
+
+		@temp_place.state = 0			 # No Accept
 
 		if @temp_place.save
 			redirect_to @place
@@ -117,11 +131,16 @@ class PlacesController < ApplicationController
 	end
 	
 	private
-		def getplaceclassify
+		def getplaceclassify # return an Array of Pair(Placeclassify.name1, Placeclassify.id)
 			ret = []
 			Placeclassify.all.each do |x|
 				ret << [x.name1, x.id]
 			end
 			ret
+		end
+
+		def getplaceclassifyname(id) # return name1 of specific ID, and "Unclassified" of 0
+			return I18n.t(:unclassifiedplaces) if id == 0 or id == '0'
+			Placeclassify.find(id).name1
 		end
 end
