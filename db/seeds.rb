@@ -16,5 +16,4 @@ Placeclassify.create!(:name1 => "公寓", :name2 => "寝室", :name3 => "宿舍"
 Placeclassify.create!(:name1 => "快递", :instruction => "", :imagename => "express.png")
 Placeclassify.create!(:name1 => "打印店", :name2 => "打印社", :instruction => "printstore.png")
 Placeclassify.create!(:name1 => "超市", :name2 => "便利店", :instruction => "supermarket.png")
-Placeclassify.create!(:name1 => "图书馆", :instruction => "library.png")
-Placeclassify.create!(:name1 => "电影院", :instruction => "cinema.png")
+

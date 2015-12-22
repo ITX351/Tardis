@@ -3,8 +3,8 @@
 
 en:
   hello: "Hello world"
-  unclassifiedplaces: "Unclassified"
-  allplaces: "All"
-  placeshome: "Place Home"
+  unclassifiedplaces: "其他"
+  allplaces: "全部"
+  placeshome: "主页君"
   search_hint: "Following is result for searching: "
   classifyshowing_hint: "Following is places for classify: "
