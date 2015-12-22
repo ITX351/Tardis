@@ -1,10 +1,10 @@
 <nav class="navbar navbar-fixed-top navbar-default" role = "navigation" style="opacity:0.5">
-	<div class="navbar-header">
+	<div class="navbar-header" id="navlinks">
 	<%= link_to " HIT校园导航", home_path, class: "navbar-brand"%>
 	</div>
 	<div>
-	<ul class="nav navbar-nav pull-right">
-		<li><%= link_to "Home", home_path, :method => :get	%></li>
+	<ul class="nav navbar-nav pull-right" id="navlinks">
+		<li><%= link_to "Home", home_path, :method => :get %></li>
 		<li><%= link_to "Places", places_path, :method => :get %></li>
 		<li><%= link_to "New Place", new_place_path, :method => :get %></li>
 		<li><%= link_back %></li>
@@ -34,3 +34,10 @@
 	</ul>
 	</div>
 </nav> 
+
+<style>
+    #navlinks a
+    {
+        text-decoration: none;
+    }
+</style>
