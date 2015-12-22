@@ -1,91 +1,97 @@
 <%= stylesheet_link_tag    "main.css", :media => "all" %>
 <div style="position:fixed; left:0; top:0; width:100%; height:100%; z-index:-5000">
-    <%= image_tag("bg1.jpg", width: "100%", height: "100%") %>
+		<%= image_tag("bg1.jpg", width: "100%", height: "100%") %>
 </div>
+<%= provide(:nobanner, "True") %>
 
 <h1>Update This Place</h1>
-<%= form_for @temp_place, url: {:action => "updateapply"} do |f| %>
-  <div class="field row">
-    <div class = "col-md-2"><h2>Reason</h2></div>
-    <div class = "col-md-10"><%= f.text_area :reason, rows: 2, placeholder: "Input your reason to update this place" %> </div>
-  </div>
-  <br/>
-  <div class="field row">
-    <div class = "col-md-2"><h2><%= f.label :name, "font-size" => 20 %></h2></div>
-    <div class = "col-md-10"><%= f.text_field :name, placeholder: "Input name of place"%></div>
-  </div>
-  <br/>
-  <div class="field row">
-    <div class = "col-md-2"> <button class = "btn btn-primary btn-lg" data-toggle = "modal" data-target = "#myModal">Set Position</button></div>
-    <div class = "col-md-5">
-      <%= f.text_field :locationx, placeholder: "location-x" %>
-    </div>
-    <div class = "col-md-5">
-      <%= f.text_field :locationy, placeholder: "location-y" %>
-    </div>
-  </div>
-  <br/>
-  <div class="field row">
-    <div class = "col-md-2"><h2>Introduction</h2></div>
-    <div class = "col-md-10"><%= f.text_area :intro, rows: 10, placeholder: "Input some brief descriptions..." %> </div>
-  </div>
-  <br/>
-  <div class = "field row">
-    <div class = "col-md-2"><h2>Upload some image</h2></div>
-       <div class = "col-md-10"><%= f.file_field :avatar %> </div>
-       <div class = "col-md-0"><%= f.hidden_field :avatar_cache %> </div>
-  </div>
-  <br/>
-  <div class="actions ">
-     <%= f.submit "Submit my update application", class: "actions special"%>
-  </div>
+<div style = "margin: 0em 10em">
+	<%= form_for @temp_place, url: {:action => "updateapply"} do |f| %>
+		<div class="field row">
+			<div class = "col-md-2"><h2>Reason</h2></div>
+			<div class = "col-md-10"><%= f.text_area :reason, rows: 2, placeholder: "Input your reason to update this place" %> </div>
+		</div>
+		<br/>
+		<div class="field row">
+			<div class = "col-md-2"><h2><%= f.label :name, "font-size" => 20 %></h2></div>
+			<div class = "col-md-10"><%= f.text_field :name, placeholder: "Input name of place"%></div>
+		</div>
+		<br/>
+		<div class="field row">
+			<div class = "col-md-2"><h2><%= f.label :classes, "font-size" => 20 %></h2></div>
+			<div class = "col-md-10"><%= f.select :classes, @placeclassify, {}, {class: ""} %></div>
+		</div>
+		<br/>
+		<div class="field row">
+			<div class = "col-md-2"> <button class = "btn btn-primary" data-toggle = "modal" data-target = "#myModal">Set Position</button></div>
+			<div class = "col-md-5">
+				<%= f.text_field :locationx, placeholder: "location-x" %>
+			</div>
+			<div class = "col-md-5">
+				<%= f.text_field :locationy, placeholder: "location-y" %>
+			</div>
+		</div>
+		<br/>
+		<div class="field row">
+			<div class = "col-md-2"><h2>Introduction</h2></div>
+			<div class = "col-md-10"><%= f.text_area :intro, rows: 10, placeholder: "Input some brief descriptions..." %> </div>
+		</div>
+		<br/>
+		<div class = "field row">
+			<div class = "col-md-2"><h2>Upload image</h2></div>
+				 <div class = "col-md-10"><%= f.file_field :avatar %> </div>
+				 <div class = "col-md-0"><%= f.hidden_field :avatar_cache %> </div>
+		</div>
+		<div class="actions ">
+			 <%= f.submit "Submit my update application", class: "actions special"%>
+		</div>
 
-  <!-- 模态框（Modal） -->
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
-    aria-labelledby="myModalLabel" aria-hidden="true" style="width:800px">
-    <div class="modal-dialog">
-      <div id="updatemap" class = "col-md-10" align = "center"
-        style="width: 500px; 
-        height: 500px; 
-        border: 1px solid gray;
-        overflow:hidden;">
-      </div>
-      <%= javascript_include_tag "map.js" %>
-      <div class = "col-md-2">
-        <button type="button" class="btn btn-primary" 
-        data-dismiss="modal">OK
-        </button>
-      </div>
-    </div>
-  </div><!-- /.modal -->
+		<!-- 模态框（Modal） -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
+			aria-labelledby="myModalLabel" aria-hidden="true" style="width:800px">
+			<div class="modal-dialog">
+				<div id="updatemap" class = "col-md-10" align = "center"
+					style="width: 500px; 
+					height: 500px; 
+					border: 1px solid gray;
+					overflow:hidden;">
+				</div>
+				<div class = "col-md-2">
+					<button type="button" class="btn btn-primary" 
+					data-dismiss="modal">OK
+					</button>
+				</div>
+			</div>
+		</div><!-- /.modal -->
 
-<% end %>
+	<% end %>
+</div>
 
 <script> 
-  var map = new BMap.Map("updatemap");
-  var point = new BMap.Point(126.63843, 45.7494);
-  map.centerAndZoom(point,17);
-  map.setMinZoom(16);
-  var b = new BMap.Bounds(new BMap.Point(126.627938, 45.74145),
-            new BMap.Point(126.647629, 45.756771));
-  try {  
-    BMapLib.AreaRestriction.setBounds(map, b);
-  } catch (e) {
-    alert(e);
-  }
+	var map = new BMap.Map("updatemap");
+	var point = new BMap.Point(126.63843, 45.7494);
+	map.centerAndZoom(point,17);
+	map.setMinZoom(16);
+	var b = new BMap.Bounds(new BMap.Point(126.627938, 45.74145),
+						new BMap.Point(126.647629, 45.756771));
+	try {
+		BMapLib.AreaRestriction.setBounds(map, b);
+	}catch (e) {
+		alert(e);
+	}
 
-  var nowPoint = new BMap.Point(<%= @temp_place.locationx%>, <%= @temp_place.locationy%>);
-  var des = new BMap.Marker(nowPoint); 
-  map.addOverlay(des);
-  map.centerAndZoom(nowPoint, 18);
+	var nowPoint = new BMap.Point(<%= @temp_place.locationx%>, <%= @temp_place.locationy%>);
+	var des = new BMap.Marker(nowPoint); 
+	map.addOverlay(des);
+	map.centerAndZoom(nowPoint, 18);
 
-  map.addEventListener("click", function(e){
-    map.clearOverlays();
-    document.getElementById("temp_place_locationx").value = e.point.lng;
-    document.getElementById("temp_place_locationy").value = e.point.lat;
+	map.addEventListener("click", function(e){
+		map.clearOverlays();
+		document.getElementById("temp_place_locationx").value = e.point.lng;
+		document.getElementById("temp_place_locationy").value = e.point.lat;
 
-    var point = new BMap.Point(e.point.lng, e.point.lat);
-    var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
-    map.addOverlay(marker);
-  });
+		var point = new BMap.Point(e.point.lng, e.point.lat);
+		var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
+		map.addOverlay(marker);
+	});
 </script>

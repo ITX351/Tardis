@@ -98,7 +98,8 @@ class PlacesController < ApplicationController
 
 	def updateapply
 		@place = Place.find(params[:id])
-		@temp_place = TempPlace.new(name: @place.name, intro: @place.intro, classes: @place.classes,
+		@placeclassify = [[I18n.t(:unclassifiedplaces), 0]] + getplaceclassify
+		@temp_place = TempPlace.new(name: @place.name, intro: @place.intro, classes: @place.placeclassify_id,
 			locationx: @place.locationx, locationy: @place.locationy, avatar: @place.avatar, avatar_cache: @place.avatar_cache)
 	end
 
@@ -130,6 +131,7 @@ class PlacesController < ApplicationController
 			end
 			ret
 		end
+
 		def getplaceclassifyname(id) # return name1 of specific ID, and "Unclassified" of 0
 			return I18n.t(:unclassifiedplaces) if id == 0 or id == '0'
 			Placeclassify.find(id).name1

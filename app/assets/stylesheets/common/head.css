@@ -23,6 +23,7 @@ background-position:-910px -74px}
 			display:none; 
 			bottom:60px; 
 			right:30px; 
+			z-index: 100;
 		}
 		p#back-to-top a{ 
 			text-align:center; 

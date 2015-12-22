@@ -14,6 +14,7 @@ class UsersController < ApplicationController
 
 	def auditapply  
 		@temp_place = TempPlace.find(params[:id])
+		@temp_placeclassifyname = getplaceclassifyname(@temp_place.classes)
 	end
 
 	def accepted
@@ -22,7 +23,7 @@ class UsersController < ApplicationController
 		@temp_place.save
 
 		@place = Place.find(@temp_place.place_id)
-		@place.update_attributes(name: @temp_place.name, intro: @temp_place.intro, classes: @temp_place.classes,
+		@place.update_attributes(name: @temp_place.name, intro: @temp_place.intro, placeclassify_id: @temp_place.classes,
 			locationx: @temp_place.locationx, locationy: @temp_place.locationy, avatar: @temp_place.avatar, avatar_cache: @temp_place.avatar_cache)
 		redirect_to manage_path
 	end
@@ -38,5 +39,11 @@ class UsersController < ApplicationController
 		@temp_place = TempPlace.find(params[:id])
 		@temp_place.destroy
 		redirect_to manage_path
+	end
+
+private
+	def getplaceclassifyname(id) # return name1 of specific ID, and "Unclassified" of 0
+		return I18n.t(:unclassifiedplaces) if id == 0 or id == '0'
+		Placeclassify.find(id).name1
 	end
 end

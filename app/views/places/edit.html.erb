@@ -1,77 +1,79 @@
 <%= stylesheet_link_tag    "main.css", :media => "all" %>
 <div style="position:fixed; left:0; top:0; width:100%; height:100%; z-index:-5000">
-    <%= image_tag("bg1.jpg", width: "100%", height: "100%") %>
+		<%= image_tag("bg1.jpg", width: "100%", height: "100%") %>
 </div>
+<%= provide(:nobanner, "True") %>
 
-<h1>Edit the Place</h1>
-<%= form_for @place do |f| %>
-  <div class="field row">
-    <div class = "col-md-2"><h2><%= f.label :name, "font-size" => 20 %></h2></div>
-    <div class = "col-md-10"><%= f.text_field :name, placeholder: "Input name of place"%></div>
-  </div>
-  <br/>
-  <div class="field">
-    <div class = "col-md-2"><h2><%= f.label :placeclassify_id, "font-size" => 20 %></h2></div>
-    <div class = "col-md-10"><%= f.select :placeclassify_id, @placeclassify, {}, {class: ""} %>
-  </div>
-  <br/>
-  <div class="field row">
-    <div class = "col-md-2"> <button class = "btn btn-primary btn-lg" data-toggle = "modal" data-target = "#myModal">Set Position</button></div>
-    <div class = "col-md-5">
-      <%= f.text_field :locationx, placeholder: "location-x" %>
-    </div>
-    <div class = "col-md-5">
-      <%= f.text_field :locationy, placeholder: "location-y" %>
-    </div>
-  </div>
-  <br/>
-  <div class="field row">
-    <div class = "col-md-2"><h2>Introduction</h2></div>
-    <div class = "col-md-10"><%= f.text_area :intro, rows: 10, placeholder: "Input some brief descriptions..." %> </div>
-  </div>
-  <br/>
-  <div class = "field row">
-    <div class = "col-md-2"><h2>Upload some image</h2></div>
-    <div class = "col-md-10"><%= f.file_field :avatar %> </div>
-    <div class = "col-md-0"><%= f.hidden_field :avatar_cache %> </div>
-  </div>
-  <br/>
-  <div class="actions ">
-    <%= f.submit "Submit my update application", class: "actions special"%>
-  </div>
+<div style = "margin: 0em 10em">
+	<h1>Edit the Place</h1>
+	<%= form_for @place do |f| %>
+		<div class="field row">
+			<div class = "col-md-2"><h2><%= f.label :name, "font-size" => 20 %></h2></div>
+			<div class = "col-md-10"><%= f.text_field :name, placeholder: "Input name of place"%></div>
+		</div>
+		<br/>
+		<div class="field row">
+			<div class = "col-md-2"><h2>classes</h2></div>
+			<div class = "col-md-10"><%= f.select :placeclassify_id, @placeclassify, {}, {class: ""} %></div>
+		</div>
+		<br/>
+		<div class="field row">
+			<div class = "col-md-2"> <button class = "btn btn-primary" data-toggle = "modal" data-target = "#myModal">Set Position</button></div>
+			<div class = "col-md-5">
+				<%= f.text_field :locationx, placeholder: "location-x" %>
+			</div>
+			<div class = "col-md-5">
+				<%= f.text_field :locationy, placeholder: "location-y" %>
+			</div>
+		</div>
+		<br/>
+		<div class="field row">
+			<div class = "col-md-2"><h2>Introduction</h2></div>
+			<div class = "col-md-10"><%= f.text_area :intro, rows: 10, placeholder: "Input some brief descriptions..." %> </div>
+		</div>
+		<br/>
+		<div class = "field row">
+			<div class = "col-md-2"><h2>Upload some image</h2></div>
+			<div class = "col-md-10"><%= f.file_field :avatar %> </div>
+			<div class = "col-md-0"><%= f.hidden_field :avatar_cache %> </div>
+		</div>
+		<br/>
+		<div class="actions ">
+			<%= f.submit "Submit my update application", class: "actions special"%>
+		</div>
 
-  <!-- 模态框（Modal） -->
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
-    aria-labelledby="myModalLabel" aria-hidden="true" style="width:800px">
-    <div class="modal-dialog">
-      <div id="container" class = "col-md-10" align = "center"
-        style="width: 500px; 
-        height: 500px; 
-        border: 1px solid gray;
-        overflow:hidden;">
-      </div>
-      <%= javascript_include_tag "map.js" %>
-      <div class = "col-md-2">
-        <button type="button" class="btn btn-primary" 
-        data-dismiss="modal">OK
-        </button>
-      </div>
-    </div>
-  </div><!-- /.modal -->
-<% end %>
-
+		<!-- 模态框（Modal） -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
+			aria-labelledby="myModalLabel" aria-hidden="true" style="width:800px">
+			<div class="modal-dialog">
+				<div id="container" class = "col-md-10" align = "center"
+					style="width: 500px; 
+					height: 500px; 
+					border: 1px solid gray;
+					overflow:hidden;">
+				</div>
+				<%= javascript_include_tag "map.js" %>
+				<div class = "col-md-2">
+					<button type="button" class="btn btn-primary" 
+					data-dismiss="modal">OK
+					</button>
+				</div>
+			</div>
+		</div><!-- /.modal -->
+	<% end %>
+</div>
 <script> 
-  map.addEventListener("click", function(e){//µØÍ¼µ¥»÷ÊÂ¼þ
-    map.clearOverlays();
-    document.getElementById("place_locationx").value = e.point.lng;
-    document.getElementById("place_locationy").value = e.point.lat;
+	map.addEventListener("click", function(e){//µØÍ¼µ¥»÷ÊÂ¼þ
+		map.clearOverlays();
+		document.getElementById("place_locationx").value = e.point.lng;
+		document.getElementById("place_locationy").value = e.point.lat;
 
-    var point = new BMap.Point(e.point.lng, e.point.lat);
-    var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));  // ´´½¨±ê×¢£¬ÎªÒª²éÑ¯µÄµØ·½¶ÔÓ¦µÄ¾­Î³¶È
-    map.addOverlay(marker);
-  });
-  function setCenter(){
-    map.centerAndZoom(schoolcenter,17);
-  }
-  window.reload(setCenter());    
+		var point = new BMap.Point(e.point.lng, e.point.lat);
+		var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));  // ´´½¨±ê×¢£¬ÎªÒª²éÑ¯µÄµØ·½¶ÔÓ¦µÄ¾­Î³¶È
+		map.addOverlay(marker);
+	});
+	function setCenter(){
+		map.centerAndZoom(schoolcenter,17);
+	}
+	window.reload(setCenter());    
 </script>
