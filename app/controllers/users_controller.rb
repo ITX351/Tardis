@@ -4,12 +4,13 @@ class UsersController < ApplicationController
 	end
 
 	def manage
-		# @places_pending = TempPlace.find(:all, :conditions => "state" => "0")
-		# @places_ac = TempPlace.find(:all, :conditions => "state" => "1")
-		@places_ac = TempPlace.where(:state => 1)
-		@places_pending = TempPlace.where(:state => 0)
-		@temp_places = TempPlace.all
-
+		if (current_user.authority  != 1)
+			redirect_to current_user, :notice => 'You do not have the authority to edit it' 
+		else 
+			@places_ac = TempPlace.where(:state => 1)
+			@places_pending = TempPlace.where(:state => 0)
+			@temp_places = TempPlace.all
+		end
 	end
 
 	def auditapply	

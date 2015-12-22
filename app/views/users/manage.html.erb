@@ -50,39 +50,6 @@
 	</table>
 </div>
 
-
-<!-- <h3>Accpted Places Information </h3>
-<br>
-<% @places_ac.each do|place_ac|%>
-	Origin:
-	<% if place_ac.place.nil? %>
-		It has been deleted! 
-	<% else %> 
-		<%= link_to place_ac.place.name, place_ac.place, :method => :get %> 
-	<% end %>
-	<br>
-	Update Reason: <%= place_ac.reason %> <br/>
-	Detail Information: <%= link_to place_ac.name, auditapply_url(place_ac), :method => :get %> <br/> 
-	State: <state style = "color:green">Accepted </state>
-	<hr>
-<% end %>
-
-<hr>
-<h3>Pending Places Information </h3>
-<br>
-<% @places_pending.each do|place_pending|%>
-	Origin: 
-	<% if place_pending.place.nil? %>
-		It has been deleted!
-	<% else %>
-		<%= link_to place_pending.place.name, place_pending.place, :method => :get %> 
-	<% end %>
-	Update Reason: <%= place_pending.reason %> <br/>
-	Detail Information: <%= link_to place_pending.name, auditapply_url(place_pending), :method => :get %> <br/> 
-	State: <state style = "color:red">pending </state>
-	<hr/>
-<% end %> -->
-
 <hr>
 <%= link_to 'Home', home_path, :method => :get%>
 <br><br><br>

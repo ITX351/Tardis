@@ -53,7 +53,7 @@
 			<p>
 				<%= link_to "Back", places_path, :method => :get %>
 				|
-				<% if (current_user == @place.user)%>
+				<% if (current_user == @place.user or (!current_user.nil? and current_user.authority == 1))%>
 					<%= link_to "You can edit it", edit_place_path(@place), :method => :get%>
 				<% else %>
 					<%= link_to "Submit my update application", updateapply_url(@place), :method => :get%>

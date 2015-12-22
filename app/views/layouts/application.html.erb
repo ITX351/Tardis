@@ -50,13 +50,9 @@
 	
 	<div style="position:absolute"><%= render 'layouts/header' %></div>
 
-	<!-- <div class="container">
-	<p class="notice"><%= notice %></p>
-	<p class="alert"><%= alert %></p> -->
+<!-- 	<div class="container"> -->
 
-	<!--   <% flash.each do |key, value| %>
-	<div class="alert alert-<%= key %>"><%= value %></div>
-	<% end %> -->
+
 	<div align = "center">
 		<% if yield(:nobanner) != "True" %>
 			<div id="banner">
@@ -131,9 +127,13 @@
 			</style>			
 		<% end %>
 		<p id="back-to-top"><a href="#top" rel="external nofollow" ><span></span>返回顶部</a></p>
-		
+		<p class="notice"><%= notice %></p>
+		<% flash.each do |key, value| %>
+			<div class="alert alert-<%= key %>"><%= value %></div>
+		<% end %> 
 		<%= yield %>
 	</div>
+
 	<!--   <%= render 'layouts/footer' %> -->
 	<!--   </div> -->
 </body>

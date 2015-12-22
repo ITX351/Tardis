@@ -11,7 +11,7 @@
 
 		<% if signed_in? %>
 		<li><%= link_to "Users", '#', :method => :get%></li>
-		<% if current_user.id == 1%>
+		<% if current_user.authority == 1%>
 			<li><%= link_to "Manage", '/manage', :method => :get%></li>
 		<% end %>
 		<li class="dropdown">
