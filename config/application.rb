@@ -59,16 +59,9 @@ module Tardis
 		# Version of your assets, change this if you want to expire all your assets
 		config.assets.version = '1.0'
 
-<<<<<<< HEAD
-    config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
-    
-    config.assets.initialize_on_precompile = false
-  end
-=======
 		config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
 		
 		config.assets.initialize_on_precompile = false
 		
 	end
->>>>>>> ff67188ecfe7d2223cfeb301c612c84c57cf3f43
 end
