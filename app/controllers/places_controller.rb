@@ -22,8 +22,12 @@ class PlacesController < ApplicationController
 		elsif params[:classify] #click in classify
 			flash[:classify] = I18n.t(:classifyshowing_hint) + getplaceclassifyname(params[:classify])
 			@places = Place.where(:"placeclassify_id" => params[:classify])
-		else #view all
+		elsif params[:all] #view all
 			@places = Place.all
+		else # show index, each classify with 3 places
+			@classifyshow = []
+
+			return
 		end
 		# @places.sort_by! {|a| a.rates}
 		@places.sort_by! {|a| a.hot} #sort in descending order
