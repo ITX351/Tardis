@@ -38,7 +38,7 @@ class PlacesController < ApplicationController
 				classifyplaces.reverse!
 				classifyplaces.each_with_index do |place, i|
 					now[:places] << place
-					break if i == 2 # only 
+					#break if i == 2 # only 
 				end
 				@classifyshow << now
 			end

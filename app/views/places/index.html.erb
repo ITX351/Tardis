@@ -32,38 +32,54 @@
 					<div class="col-md-3">
 						<br/><br/>
 						<span style="text-align:left;color:#009fc6"><h4><b>|</b> 点击排行榜</h4></span>
+						<br>
 					</div>
 				</div>
 			<% end %>
 
 			<div class="row">
 				<div class="col-md-9">
-					<% classify[:places].each do |place| %>
-					<div class="col-md-4">
-						<section>
-							<a href="#" class="image"><%= image_tag(place.avatar_url(:big)) if place.avatar %></a>
-								<div class="content">
-									<div class = "row">	
-										<div class = "col-md-10" style = "text-align:left">
-											<h5 style="margin:0 0 0 1em"><%= link_to place.name, place, style: "color:black"%></h5>
+					<% classify[:places].each_with_index do |place, cnt| %>
+						<% break if cnt == 3 %>
+						<div class="col-md-4">
+							<section>
+								<a href="#" class="image"><%= image_tag(place.avatar_url(:big)) if place.avatar %></a>
+									<div class="content">
+										<div class = "row">	
+											<div class = "col-md-10" style = "text-align:left">
+												<h5 style="margin:0 0 0 1em"><%= link_to place.name, place, style: "color:black"%></h5>
 
+											</div>
+											<div class = "col-md-2">
+											</div>
 										</div>
-										<div class = "col-md-2">
+										<div class = "cont_two">
+											<small style: "color:#a3a3a3"><%= place.intro %></small>
+										</div>
+										<div class="button">
+											<%= link_to " Read More", place, :method => :get, style: "color:white;		text-decoration: none;"%>
 										</div>
 									</div>
-									<div class = "cont_two">
-										<small style: "color:#a3a3a3"><%= place.intro %></small>
-									</div>
-									<div class="button">
-										<%= link_to " Read More", place, :method => :get, style: "color:white;		text-decoration: none;"%>
-									</div>
-								</div>
-						</section>
-					</div>
+							</section>
+						</div>
 					<% end %>
 				</div>
 				<div class="col-md-3">
-					
+					<% classify[:places].each_with_index do |place, rank| %>
+						<% break if rank == 7 %>
+						<div class = "row">	
+							<div class = "col-md-1">
+								<%= rank  + 1%>
+							</div>
+							<div class = "col-md-3">
+								<a href="#" class="image"><%= image_tag(place.avatar_url(:thumb), :style => "max-width:90%") if place.avatar %></a>
+							</div>
+							<div align = "left"class = "col-md-7">
+								<%= link_to place.name, place%>
+							</div>
+							<hr>
+						</div>
+					<% end %>
 				</div>
 			</div>
 
