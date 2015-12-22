@@ -23,6 +23,12 @@ class UsersController < ApplicationController
 	def accepted
 		@temp_place = TempPlace.find(params[:id])
 		@temp_place.state = 1
+		
+		@temp_place.user.contribution += 5		# add the contribution
+		if @temp_place.user.contribution >= 20		# become an admin
+			@temp_place.user.authority = 1
+		end
+		@temp_place.user.save
 
 		if(@temp_place.applytype == 0)
 			# update apply

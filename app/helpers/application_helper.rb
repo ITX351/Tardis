@@ -8,6 +8,6 @@ module ApplicationHelper
 	end
 	def link_back
 			# view<%= link_back %>
-			link_to "<- Go Back", request.env["HTTP_REFERER"].blank? ? "/" : request.env["HTTP_REFERER"], :method => :get
+			link_to "<Go Back", request.env["HTTP_REFERER"].blank? ? "/" : request.env["HTTP_REFERER"], :method => :get
 	end
 end

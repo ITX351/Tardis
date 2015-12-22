@@ -60,7 +60,7 @@ class PlacesController < ApplicationController
 	def edit
 		@place = Place.find(params[:id])
 		@placeclassify = [[I18n.t(:unclassifiedplaces), 0]] + getplaceclassify
-		if(@place.user != current_user)
+		if(@place.user != current_user and @current_user.authority != 1)
 			redirect_to @place, notice: 'You do not have the authority to edit it' 
 		end
 	end

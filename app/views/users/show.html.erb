@@ -1,26 +1,77 @@
-<div style="position:fixed; left:0; top:0; width:100%; height:100%; z-index:-5000">
-<!--	 <%= image_tag("bg1.jpg", width: "100%", height: "100%") %>
- --></div>
-<!--<%= stylesheet_link_tag		"style1.css", :media => "all" %> -->
 
-<h2> Personal Information </h2>
-
-<%= gravatar_image_tag(@user.email, :alt => @user.nickname, :gravatar => { :size => 80 }) %> <br/> <!-- TODO: nickname -->
-<!-- :size => 80 for default, varifies from 15 to 512 -->
-
-Nickname:	<%= @user.nickname %><br/>
-Email : <%= @user.email %><br/>
 <hr>
-<h3>Place Created by Me </h3>
-<% @user.places.each do |place|%>
-	|<%= link_to place.name, place, :method => :get %> | 
-<% end %>
+<div class="panel panel-warning" style = "width:70%">
+	<div class="panel-heading">
+		<h3 > Personal Information</h3>
+	</div>
+	<div class="panel-body row">
+		<div class = "col-md-2">
+			<%= gravatar_image_tag(@user.email, :alt => @user.nickname, :gravatar => { :size => 120}) %> <br/> <!-- TODO: nickname -->
+			<!-- :size => 80 for default, varifies from 15 to 512 -->
+		</div>
+		<div class = "col-md-4">
+			<table class="table table-hover table-condensed table-bordered">
+				<tr  class="list-group-item-success">
+					<th>Nickname</th>
+					<th><%= @user.nickname %></th>
+				</tr>
+				<tr class="list-group-item-info">
+					<th>Email</th>
+					<th><%= @user.email%></th>
+				</tr>
+				<tr  class="list-group-item-success">
+					<th>User Type</th>
+					<th>
+						<% if @user.authority == 1 %>
+							admin
+						<% else %>
+							user
+						<% end %>
+					</th>
+				</tr>
+				<tr class="list-group-item-info">
+					<th>Contribution</th>
+					<th><%= @user.contribution%></th>
+				</tr>
+			</table>
+		</div>
+		<div class = "col-md-6">
+			<% if @user.authority == 1%>
+				<div style = "font-size:20px">
+					<br>
+					Congratulations, you are the admin!<br>
+					But please be careful to use your right!
+				</div>
+			<% else %>
+				<div style = "font-size:1.2em">
+					Go to add some new place or update some information of places.
+					If your suggests are accepted, your contribution will add 5 per suggest.
+					When your contribution<tardis  style = "color:red"> more than  20 </tardis>, 
+					you will become the admin!
+				</div>
+			<% end %>
+		</div>
+	</div>
+</div>
+
 <hr>
+
+<div class="panel panel-success"	style = "width: 70%">
+	<!-- Default panel contents -->
+	<div class="panel-heading">
+		<h3>Place Created by Me</h3>
+	</div>
+	<div class="panel-body">
+		<% @user.places.each do |place|%>
+			<%= link_to place.name, place, :method => :get %> | 
+		<% end %>
+	</div>
+</div>
 
 <div class="panel panel-primary"	style = "width: 70%">
 	<!-- Default panel contents -->
 	<div class="panel-heading">
-		My Submission for Updating Places
+		<h3>My Submission for Updating Places</h3>
 	</div>
 	<div class="panel-body">
 		<% if @user.temp_places.size == 0 %>
@@ -86,7 +137,7 @@ Email : <%= @user.email %><br/>
 <div class="panel panel-success"	style = "width: 70%">
 	<!-- Default panel contents -->
 	<div class="panel-heading">
-		My Comments
+		<h3>My Comments</h3>
 	</div>
 	<div class="panel-body">
 		<% if @user.comments.size == 0 %>
@@ -104,6 +155,7 @@ Email : <%= @user.email %><br/>
 			<th>Time</th>
 			<th>Operation</th>
 		</tr>
+		<tr></tr>
 
 		<% @user.comments.each do |comment| %>
 			<tr>
@@ -120,5 +172,5 @@ Email : <%= @user.email %><br/>
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Home', home_path %>
 </p>
-<hr>
+<hr><hr>
 
