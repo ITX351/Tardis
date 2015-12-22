@@ -1,8 +1,9 @@
-<%= stylesheet_link_tag    "main.css", :media => "all" %>
+<%= stylesheet_link_tag		"main.css", :media => "all" %>
 <div style="position:fixed; left:0; top:0; width:100%; height:100%; z-index:-5000">
 		<%= image_tag("bg1.jpg", width: "100%", height: "100%") %>
 </div>
 <%= provide(:nobanner, "True") %>
+
 
 <div style = "margin: 0em 10em">
 	<h1>Edit the Place</h1>
@@ -41,26 +42,25 @@
 		<div class="actions ">
 			<%= f.submit "Submit my update application", class: "actions special"%>
 		</div>
-
-		<!-- 模态框（Modal） -->
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
-			aria-labelledby="myModalLabel" aria-hidden="true" style="width:800px">
-			<div class="modal-dialog">
-				<div id="container" class = "col-md-10" align = "center"
-					style="width: 500px; 
-					height: 500px; 
-					border: 1px solid gray;
-					overflow:hidden;">
-				</div>
-				<%= javascript_include_tag "map.js" %>
-				<div class = "col-md-2">
-					<button type="button" class="btn btn-primary" 
-					data-dismiss="modal">OK
-					</button>
-				</div>
-			</div>
-		</div><!-- /.modal -->
 	<% end %>
+	<!-- 模态框（Modal） -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
+		aria-labelledby="myModalLabel" aria-hidden="true" style="width:800px">
+		<div class="modal-dialog">
+			<div id="container" class = "col-md-10" align = "center"
+				style="width: 500px; 
+				height: 500px; 
+				border: 1px solid gray;
+				overflow:hidden;">
+			</div>
+			<%= javascript_include_tag "map.js" %>
+			<div class = "col-md-2">
+				<button type="button" class="btn btn-primary" 
+				data-dismiss="modal">OK
+				</button>
+			</div>
+		</div>
+	</div><!-- /.modal -->
 </div>
 <script> 
 	map.addEventListener("click", function(e){//µØÍ¼µ¥»÷ÊÂ¼þ
@@ -69,11 +69,13 @@
 		document.getElementById("place_locationy").value = e.point.lat;
 
 		var point = new BMap.Point(e.point.lng, e.point.lat);
-		var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));  // ´´½¨±ê×¢£¬ÎªÒª²éÑ¯µÄµØ·½¶ÔÓ¦µÄ¾­Î³¶È
+
+		var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));	// ´´½¨±ê×¢£¬ÎªÒª²éÑ¯µÄµØ·½¶ÔÓ¦µÄ¾­Î³¶È
 		map.addOverlay(marker);
 	});
 	function setCenter(){
 		map.centerAndZoom(schoolcenter,17);
 	}
-	window.reload(setCenter());    
+
+	window.reload(setCenter());		
 </script>

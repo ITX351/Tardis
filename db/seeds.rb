@@ -4,8 +4,8 @@
 #
 # Examples:
 #
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+#	 cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
+#	 Mayor.create(name: 'Emanuel', city: cities.first)
 
 #Place.create!(:name => "ShangXuan", :category => 1, :locationx => 2.3, :locationy => 2.5, :intro => "heidian")
 

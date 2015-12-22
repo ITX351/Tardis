@@ -244,7 +244,7 @@
 		-webkit-line-clamp: 1;
 		-webkit-box-orient: vertical;
 	 }
-	.cont_two{    
+	.cont_two{		
 		width: 140px;
 		height: 50px;
 		line-height: 25px;
@@ -264,10 +264,10 @@
 	var schoolcenter = new BMap.Point(126.638718,45.749316);
 	map.centerAndZoom(point,17);
 	map.setMinZoom(16);
-	map.addControl(new BMap.MapTypeControl());          //添加地图类型控件
+	map.addControl(new BMap.MapTypeControl());					//添加地图类型控件
 	var b = new BMap.Bounds(new BMap.Point(126.627938, 45.74145),
 						new BMap.Point(126.647629, 45.756771));
-	try {  
+	try {	
 		BMapLib.AreaRestriction.setBounds(map, b);
 	} catch (e) {
 		alert(e);
@@ -318,6 +318,6 @@
 	function changeMapStyle(mystyle){
 		map.setMapStyle({style:mystyle});
 		$('#desc').html(mapstyles[style].desc);
-	}  
+	}	
 </script>
 

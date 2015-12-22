@@ -1,27 +1,39 @@
 class PlacesController < ApplicationController
 	def index
-		if params[:search]
+		if params[:search] #normal search
 			flash[:search] = I18n.t(:search_hint) + params[:search]
-			@places = Place.find(:all, :conditions => ['name LIKE ?', "%#{params[:search]}%"])
-			@places.each do |place|
-				place.hot =  place.hot + 1
+
+			withpercent = "%" + params[:search] + "%"
+			tclassify, tplace = Placeclassify.arel_table, Place.arel_table
+			classifies = Placeclassify.where(tclassify[:name1].matches(withpercent).or(
+				tclassify[:name2].matches(withpercent).or(tclassify[:name3].matches(withpercent))))
+
+			# @places = Place.find(:all, :conditions => ['name LIKE ?', "%#{params[:search]}%"])
+			if classifies.count > 0 # admit/suppose at most one alias matches
+				@places = Place.where(tplace[:name].matches(withpercent).or(tplace[:placeclassify_id].eq(classifies[0].id)))
+			else # for them not matches classifyname
+				@places = Place.where(tplace[:name].matches(withpercent))
+			end
+
+			@places.each do |place| # hot count
+				place.hot =	place.hot + 1
 				place.save
 			end
-		elsif params[:classify]
+		elsif params[:classify] #click in classify
 			flash[:classify] = I18n.t(:classifyshowing_hint) + getplaceclassifyname(params[:classify])
 			@places = Place.where(:"placeclassify_id" => params[:classify])
-		else
+		else #view all
 			@places = Place.all
 		end
 		# @places.sort_by! {|a| a.rates}
-		@places.sort_by! {|a| a.hot}
+		@places.sort_by! {|a| a.hot} #sort in descending order
 		@places.reverse!
 		@placeclassify = getplaceclassify
 	end
 
 	def new
 		@place = Place.new
-		@placeclassify = [[I18n.t(:unclassifiedplaces), 0]] + getplaceclassify
+		@placeclassify = [[I18n.t(:unclassifiedplaces), 0]] + getplaceclassify #for select label
 	end
 
 	def create
@@ -75,13 +87,8 @@ class PlacesController < ApplicationController
 			@place.destroy
 			@temp_places = @place.temp_places
 			@temp_places.each do |temp_place|
-				temp_place.state = -1    # origin has been deleted
+				temp_place.state = -1		# origin has been deleted
 				temp_place.state = -1
-			end
-
-			@comments = @place.comments
-			@comments.each do |comment|
-				comment.destroy
 			end
 			redirect_to :home
 		end
@@ -98,8 +105,7 @@ class PlacesController < ApplicationController
 
 	def updateapply
 		@place = Place.find(params[:id])
-		@placeclassify = [[I18n.t(:unclassifiedplaces), 0]] + getplaceclassify
-		@temp_place = TempPlace.new(name: @place.name, intro: @place.intro, classes: @place.placeclassify_id,
+		@temp_place = TempPlace.new(name: @place.name, intro: @place.intro, classes: @place.classes,
 			locationx: @place.locationx, locationy: @place.locationy, avatar: @place.avatar, avatar_cache: @place.avatar_cache)
 	end
 
@@ -114,7 +120,8 @@ class PlacesController < ApplicationController
 			@temp_place.user_id = current_user.id
 			@temp_place.user = current_user
 		end
-		@temp_place.state = 0       # No Accept
+
+		@temp_place.state = 0			 # No Accept
 
 		if @temp_place.save
 			redirect_to @place

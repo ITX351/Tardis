@@ -6,9 +6,9 @@ function tabconverter() {
       tabconverter $file
     else
       tmp="${file##*/}"
-      if [ "${tmp#*.}" = "html" ] # || "${file#*.}" = "erb" || "${file#*.}" = "html.erb"
+      if [ "${tmp#*.}" = "rb" ] # rb, html.erb, html
       then
-        sed -i 's/\t/  /g' $file
+        sed -i 's/  /\t/g' $file
         echo Fixed $file
       fi
     fi

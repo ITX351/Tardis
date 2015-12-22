@@ -1,4 +1,4 @@
-<%= stylesheet_link_tag    "main.css", :media => "all" %>
+<%= stylesheet_link_tag		"main.css", :media => "all" %>
 <div style="position:fixed; left:0; top:0; width:100%; height:100%; z-index:-5000">
 		<%= image_tag("bg1.jpg", width: "100%", height: "100%") %>
 </div>
@@ -63,7 +63,6 @@
 				</div>
 			</div>
 		</div><!-- /.modal -->
-
 	<% end %>
 </div>
 
@@ -74,9 +73,10 @@
 	map.setMinZoom(16);
 	var b = new BMap.Bounds(new BMap.Point(126.627938, 45.74145),
 						new BMap.Point(126.647629, 45.756771));
-	try {
+
+	try {	
 		BMapLib.AreaRestriction.setBounds(map, b);
-	}catch (e) {
+	} catch (e) {
 		alert(e);
 	}
 

@@ -1,33 +1,35 @@
+
 <%= provide(:nobanner, "True") %>
 <%= content_for :head  do%>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
 
-  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'> -->
-  <%= stylesheet_link_tag    "style.css", :media => "all" %>
+
+	<!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'> -->
+	<%= stylesheet_link_tag		"style.css", :media => "all" %>
 <% end %>
 
 <!--search start here-->
 <h1 class = "mytitle">HIT NAVIGATION</h1>
 
 <div class="search">
-  <i> </i>
-  <div class="s-bar">
-    <%= form_tag places_path, method: :get, class: "" do%>
-      <%= text_field_tag :search, params[:search], placeholder: "Enter something you want to search"%>
-      <%= submit_tag "Search"%>
-    <% end %>
-  </div>
-  <% if !@places.first.nil? %>
-  <p>Popular searches: &nbsp; &nbsp;
-    <%=link_to @places.first.name, @places.first,  :method => :get %> &nbsp;
-    <% if @places.count > 1 %>
-    <%=link_to @places.second.name, @places.second,  :method => :get %> &nbsp;&nbsp;
-    <% end %>
-  </p>
-  <% end %>
+	<i> </i>
+	<div class="s-bar">
+		<%= form_tag places_path, method: :get, class: "" do%>
+			<%= text_field_tag :search, params[:search], placeholder: "Enter something you want to search"%>
+			<%= submit_tag "Search"%>
+		<% end %>
+	</div>
+	<% if !@places.first.nil? %>
+	<p>Popular searches: &nbsp; &nbsp;
+		<%=link_to @places.first.name, @places.first,	:method => :get %> &nbsp;
+		<% if @places.count > 1 %>
+		<%=link_to @places.second.name, @places.second,	:method => :get %> &nbsp;&nbsp;
+		<% end %>
+	</p>
+	<% end %>
 </div>
-<!--search end here-->  
+<!--search end here-->	
 <div class="copyright">
-   <p>2015 &copy; Made By Tardis</p>
-</div>  
+	 <p>2015 &copy; Made By Tardis</p>
+</div>	
