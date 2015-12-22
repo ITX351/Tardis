@@ -40,10 +40,10 @@
 			<div class="row">
 				<div class="col-md-9">
 					<% classify[:places].each_with_index do |place, cnt| %>
-						<% break if cnt == 3 %>
+						<% break if (cnt == 3 and @indexshow)%>
 						<div class="col-md-4">
-							<section>
-								<a href="#" class="image"><%= image_tag(place.avatar_url(:big)) if place.avatar %></a>
+							<section style = "width: 100%; height: 300px">
+								<%= link_to image_tag(place.avatar_url(:big)), place, :class => "image"%>
 									<div class="content">
 										<div class = "row">	
 											<div class = "col-md-10" style = "text-align:left">
@@ -53,7 +53,7 @@
 											<div class = "col-md-2">
 											</div>
 										</div>
-										<div class = "cont_two">
+										<div class = "cont_one">
 											<small style: "color:#a3a3a3"><%= place.intro %></small>
 										</div>
 										<div class="button">
@@ -64,6 +64,7 @@
 						</div>
 					<% end %>
 				</div>
+
 				<div class="col-md-3">
 					<% classify[:places].each_with_index do |place, rank| %>
 						<% break if rank == 7 %>
@@ -137,6 +138,7 @@
 	.image
 	{
 		display: inline-block;
+		height: 60%;
 	}
 	
 	.image img
