@@ -138,6 +138,9 @@ class PlacesController < ApplicationController
 		@temp_place.user = current_user
 		@temp_place.state = 0			 # No Accept
 		if @temp_place.save
+			@notice = Notice.new(:infotype => 0, :user_id => current_user.id,  :temp_place_id => @temp_place.id)
+			@notice.save
+
 			redirect_to current_user
 		else
 			render "new"
@@ -145,6 +148,9 @@ class PlacesController < ApplicationController
 	end
 
 	def updateapply
+		if (current_user.nil?)
+			redirect_to  '/signin'
+		end
 		@place = Place.find(params[:id])
 		@placeclassify = [[I18n.t(:unclassifiedplaces), 0]] + getplaceclassify
 		@temp_place = TempPlace.new(name: @place.name, intro: @place.intro, classes: @place.placeclassify_id,
@@ -157,16 +163,18 @@ class PlacesController < ApplicationController
 		@temp_place.applytype = 0								# 0 means update apply type
 		@temp_place.place_id = params[:id]
 		@temp_place.place = @place
-		if current_user.nil?
-			@temp_place.user_id = 1
-		else
-			@temp_place.user_id = current_user.id
-			@temp_place.user = current_user
-		end
+
+		@temp_place.user_id = current_user.id
+		@temp_place.user = current_user
+
 
 		@temp_place.state = 0			 # No Accept
 
 		if @temp_place.save
+			@notice = Notice.new(:infotype => 1, :user_id => current_user.id,  
+				:place_id => @place.id, :temp_place_id => @temp_place.id)
+			@notice.save
+
 			redirect_to @place
 		else
 			render "new"

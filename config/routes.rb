@@ -51,6 +51,7 @@ Tardis::Application.routes.draw do
 	get '/places?classify=:id' => 'places#index', :as => :classifyshowing
 	get '/places?all=1' => 'places#index', :as => :allplaces
 
+	get 'notice' => 'static_pages#notice', :as => :notice
 	# get '/signup' => 'users#new'
 	# get '/signin' => 'users/sessions#new'
 	# post '/signin' => 'users/sessions#create'
