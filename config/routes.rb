@@ -45,6 +45,7 @@ Tardis::Application.routes.draw do
 	delete 'auditapply/:id' => 'users#destroy'
 
 	get '/places?classify=:id' => 'places#index', :as => :classifyshowing
+	get '/places?all=1' => 'places#index', :as => :allplaces
 
 	# get '/signup' => 'users#new'
 	# get '/signin' => 'users/sessions#new'
