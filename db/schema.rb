@@ -92,7 +92,7 @@ ActiveRecord::Schema.define(:version => 20151222032620) do
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
     t.string   "nickname",               :default => "", :null => false
-    t.integer  "authority"
+    t.integer  "authority",              :default => 0,  :null => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
