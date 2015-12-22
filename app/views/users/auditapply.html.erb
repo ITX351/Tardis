@@ -11,6 +11,8 @@
 		<div class = "col-md-12">
 			<h2><%= @temp_place.name %></h2>
 			<hr>
+			Reason: <%= @temp_place.reason %>
+			<hr>
 			<div = class = "row">
 				<div class = "col-md-6" style = "overflow:hidden">
 					<%= image_tag(@temp_place.avatar_url(:bigest), :style => "max-width:90%") if @temp_place.avatar%> <br/>
@@ -67,23 +69,23 @@
 
 <hr>
 <div class = "">
-	<% if(@temp_place.state == 0 and !@temp_place.place.nil?) %>
-		<%= link_to "Accept It", auditapply_url(@temp_place), :method => :post,	:class => "btn btn-success btn-lg"%>
-		&nbsp; &nbsp; 	<%= link_to "Reject It", auditapply_url(@temp_place), :method => :put,	:class => "btn btn-danger btn-lg"%>
-		&nbsp; &nbsp;<%= link_to "Back to Manage", manage_path, :method => :get, :class => "btn btn-primary btn-lg"%>
-	<% elsif	@temp_place.state == 1 %>
-		<h3>It has been acceted!</h3>
-	 	<%= link_to "Back to Manage", manage_path, :method => :get, :class => "btn btn-primary btn-lg"%>
-	<% elsif @temp_place.state == -2%>
-		<h3> It has been rejected, do you want to accept it now?</h3>
-		<%= link_to "Accept It", auditapply_url(@temp_place), :method => :post,	:class => "btn btn-success btn-lg"%>
-		&nbsp; &nbsp;<%= link_to "Back to Manage", manage_path, :method => :get, :class => "btn btn-primary btn-lg"%>
-	<% else %>
-		 The origin has been deleted, you cann't accept it. <br>
-		<%= link_to "Delete It",	auditapply_url(@temp_place), :method => :delete, 
-		 	:class => "btn btn-danger btn-lg", data: { confirm: 'Are you sure?' } %>
-		&nbsp; &nbsp;	<%= link_to "Back to Manage", manage_path, :method => :get, :class => "btn btn-primary btn-lg"%>
+	<% if !current_user.nil? and current_user.authority == 1%>
+		<% if ( @temp_place.state == -1 or (@temp_place.state == 0 and 
+				!@temp_place.place.nil? and temp_place.applptype == 0) )%>
+			The origin has been deleted, you cann't accept it. <br>
+		<% elsif (@temp_place.state == 0) %>
+			<%= link_to "Accept It", auditapply_url(@temp_place), :method => :post,	:class => "btn btn-success btn-lg"%>
+			&nbsp; &nbsp; 	<%= link_to "Reject It", auditapply_url(@temp_place), :method => :put,	:class => "btn btn-danger btn-lg"%>
+		<% elsif	@temp_place.state == 1%>
+			<h3>It has been acceted!</h3>
+		<% elsif @temp_place.state == -2%>
+			<h3> It has been rejected, do you want to accept it now?</h3>
+			<%= link_to "Accept It", auditapply_url(@temp_place), :method => :post,	:class => "btn btn-success btn-lg"%>				 
+		<% end %>
 	<% end %>
+	&nbsp; &nbsp;<%= link_to "Delete It",	auditapply_url(@temp_place), :method => :delete, 
+			 	:class => "btn btn-danger btn-lg", data: { confirm: 'Are you sure?' } %>
+	&nbsp; &nbsp;<%= link_to "Back to Manage", manage_path, :method => :get, :class => "btn btn-primary btn-lg"%>
  </div>
  <br/><br/><br/>
 

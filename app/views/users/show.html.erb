@@ -16,29 +16,109 @@ Email : <%= @user.email %><br/>
 	|<%= link_to place.name, place, :method => :get %> | 
 <% end %>
 <hr>
-<h3>My Submission for Updating Places</h3>
-<% @user.temp_places.each do|temp_place|%>
-	<%= link_to temp_place.name,  auditapply_url(temp_place), :method => :get %><br>
-	State:
-	<% if temp_place.state == 0 %>
-		<state style = "color:red">pending </state>
-	<% else %>
-		<state style = "color:green">Accepted </state>
-	<% end %>
-	<br><br>
-<% end %>
 
-<hr>
-<h3>My Comments </h3>
-<% @user.comments.each do |comment| %>
-	Content: <%= comment.content%><br/>
-	For Place: <%= link_to comment.place.name, comment.place%><br/>
-	Time: <%= time_ago_in_words comment.created_at %> ago<br/>
-	<%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %><br/>
-	<br/>
-<% end %>
-<hr>
+<div class="panel panel-primary"	style = "width: 70%">
+	<!-- Default panel contents -->
+	<div class="panel-heading">
+		My Submission for Updating Places
+	</div>
+	<div class="panel-body">
+		<% if @user.temp_places.size == 0 %>
+			You haven't submited revisions
+		<% else %>
+			There are all the revisions of places information
+		<% end %>
+
+	</div>
+
+	<!-- Table -->
+	<table class="table table-hover table-condensed table-bordered">
+		<tr >
+			<th>Count</th>
+			<th>Status</th>
+			<th>Source</th>
+			<th>Reason</th>
+			<th>Status</th>
+			<th>Detail</th>
+		</tr>
+		<% @user.temp_places.each_with_index do|temp_place, i|%>
+			<tr class="list-group-item-info">
+				<td	style = "text-align:center"><%= i%> </td>
+				<td>
+					<% if temp_place.applytype == 1%>
+						<tardis style = "color:blue">New Apply</tardis>
+					<% else %>
+						<tardis style = "color:fuchsia">Update Apply</tardis>
+					<% end %>
+				</td>
+				<td >
+					<% if temp_place.place.nil? %>
+						<% if temp_place.applytype == 1%>
+							-----------
+						<% else %>
+							<tardis style = "color:red">Deleted</tardis>
+						<% end %>
+					<% else %> 
+						<%= link_to temp_place.place.name, temp_place.place, :method => :get %> 
+					<% end %>
+				</td>
+				<td class = ""><%= temp_place.reason %></td>
+				<td>
+					<% if temp_place.state == 1 %>
+						<state style = "color:green">Accepted </state>
+					<% elsif temp_place.state == 0 %> 
+						<state style = "color:lime">Pending </state>
+					<% elsif temp_place.state == -2 %>
+						<state style = "color:purple">Reject</state>
+					<% else %>		
+						<!-- -1 means the origin has been deleted -->
+						<state style = "color:red">Delete</state>
+					<% end %>
+				</td>
+				<td><%= link_to "Detail", auditapply_url(temp_place), 
+						:method => :get, class: "btn btn-primary"%> 
+				</td>
+			</tr>
+		<% end %>
+	</table>
+</div>
+<hr><hr>
+<div class="panel panel-success"	style = "width: 70%">
+	<!-- Default panel contents -->
+	<div class="panel-heading">
+		My Comments
+	</div>
+	<div class="panel-body">
+		<% if @user.comments.size == 0 %>
+			You have no comments
+		<% else %>
+			There are all my comments
+		<% end %>
+	</div>
+
+	<!-- Table -->
+	<table class="table table-hover table-condensed table-bordered">
+		<tr >
+			<th>For Place</th>
+			<th>Content</th>
+			<th>Time</th>
+			<th>Operation</th>
+		</tr>
+
+		<% @user.comments.each do |comment| %>
+			<tr>
+				<td><%= link_to comment.place.name, comment.place%></td>
+				<td><%= comment.content%></td>
+				<td><%= time_ago_in_words comment.created_at %> ago</td>
+				<td><%= link_to 'Destroy', comment, method: :delete, 
+					class: "btn btn-danger", data: { confirm: 'Are you sure?' } %></td>
+			</tr>
+		<% end %>
+	</table>
+</div>
 <p>
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Home', home_path %>
 </p>
+<hr>
+

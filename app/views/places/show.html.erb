@@ -100,27 +100,32 @@
 
 	<hr/>
 
-	
-
 	<div id = "comments" class = "row"	style = "margin: 0em 4em">
-		<h3>Comments &nbsp;&nbsp;&nbsp;&nbsp;
-				&nbsp;&nbsp;&nbsp;
-				<s1 style = "font-size:10px"><a href = "#">Back </a> </s1> 
-		</h3>
+		<h3>Comments  for This Place</h3>
 		<hr>
-		<div class = "col-md-6">
-			
-			<% @place.comments.each do |comment| %>
-				<%= comment.content %>
-				<br>
-				<i>By <%= link_to find_user(comment.user_id).nickname, user_url(comment.user_id) %> <!--name-->
-				------<%= time_ago_in_words comment.created_at %> ago</i>
-				<hr/>
-			<% end %>
+		<div class = "row" style = "">
+				<% if @place.comments.size == 0 %>
+					<comment style = "font-size: 20px">
+						There are no comments,  you can be the first!
+					</comment>
+				<% else %>
+						<% @place.comments.each do |comment| %>
+							<comment style = "font-size: 20px">
+								<%= comment.content %>
+							</comment>
+							<br/>
+							<div style = "float:right" >By <%= link_to find_user(comment.user_id).nickname, user_url(comment.user_id) %> <!--name-->
+							------<%= time_ago_in_words comment.created_at %> ago</div>
+							<hr/>
+						<% end %>
+
+				<% end %>
 		</div>
-		<div class="col-md-6 form-group" >
+
+		<hr>
+		<div class="row form-group" >
 			<%= form_for [@place, @place.comments.build] do |f| %>
-			<%= f.text_area :content, class: "form-control", placeholder: "Enter Your Comments", rows: 10, cols: 50 %>
+			<%= f.text_area :content, class: "form-control", placeholder: "Enter Your Comments", rows: 5, cols: 40 %>
 			<br/>
 			<%= f.submit "Post Your Comment", class: "btn btn-default"%>
 			<% end %>
