@@ -13,12 +13,12 @@
 	<%= yield :head %>
 	
 	<%= javascript_include_tag "application" %>
-	<!--<%= javascript_include_tag :defaults %>-->
+	<!--<%= javascript_include_tag :defaults %>--> <!-- Caused error, commented by ITX351 -->
 
 	<%= ajaxful_rating_style %>
 	<%= csrf_meta_tags %>
 
-	<script type="text/javascript" src="jquery-1.10.2.min.js"></script>
+	<!--<script type="text/javascript" src="jquery-1.10.2.min.js"></script>--> <!-- Caused error, commented by ITX351 -->
 
 	<!-- 回到顶部按钮的配置 -->
 	<script> 
@@ -46,9 +46,9 @@
 
 </head>
 
-<body style="">
+<body class="landing">
 	
-	<div style="position:absolute"><%= render 'layouts/header' %></div>
+	<div style="position:absolute; z-index:100000"><%= render 'layouts/header' %></div>
 
 <!-- 	<div class="container"> -->
 
@@ -127,10 +127,11 @@
 			</style>			
 		<% end %>
 		<p id="back-to-top"><a href="#top" rel="external nofollow" ><span></span>返回顶部</a></p>
-<!-- 		<p class="notice"><%= notice %></p>
-		<% flash.each do |key, value| %>
-			<div class="alert-warning alert alert-<%= key %>"><%= value %></div>
-		<% end %>  -->
+
+<!--     		<p class="notice"><%= notice %></p>
+    		<% flash.each do |key, value| %>
+    			<div class="alert alert-<%= key %>"><%= value %></div>
+    		<% end %>  -->
 		<%= yield %>
 	</div>
 

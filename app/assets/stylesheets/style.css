@@ -30,7 +30,7 @@ img{max-width:100%;}
 /*end reset*/
 /*--login form start here--*/ 
 body {
-   background:url(5.jpg)no-repeat;
+   background:url(backgroundimage.jpg)no-repeat;
    background-size: cover;
    font-family: 'Open Sans', sans-serif;
    font-size: 100%;
@@ -62,13 +62,13 @@ body {
   color: #fff;
   padding: 1em 1em 1em 1.2em;
   width: 70%;
- text-shadow: rgba(80, 80, 80, 0.08) 1px 1px, 
+  text-shadow: rgba(80, 80, 80, 0.08) 1px 1px, 
                rgba(80, 80, 80, 0.07) 2px 2px, 
                rgba(80, 80, 80, 0.09) 3px 3px, 
                rgba(80, 80, 80, 0.04) 4px 4px, 
                rgba(80, 80, 80, 0.06) 5px 5px; 
   border-radius: 5px 0px 0px 5px;
- -webkit-border-radius: 5px 0px 0px 5px;
+  -webkit-border-radius: 5px 0px 0px 5px;
   -moz-border-radius: 5px 0px 0px 5px;
   -o-border-radius: 5px 0px 0px 5px;
   background: rgba(255, 255, 255, 0.5);

@@ -3,33 +3,185 @@
 <%= content_for :head  do%>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <meta charset="utf-8" />
 
-
-	<!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'> -->
-	<%= stylesheet_link_tag		"style.css", :media => "all" %>
+  <%= stylesheet_link_tag "home.css", :media => "all" %>
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 <% end %>
 
-<!--search start here-->
-<h1 class = "mytitle">HIT NAVIGATION</h1>
+<!-- Header -->
+	<header id="header" class="alt">
+		<h1><a href="#">Tardis</a></h1>
+		<!-- <a href="#mynav">Menu</a> -->
+	</header>
 
-<div class="search">
-	<i> </i>
-	<div class="s-bar">
-		<%= form_tag places_path, method: :get, class: "" do%>
-			<%= text_field_tag :search, params[:search], placeholder: "Enter something you want to search"%>
-			<%= submit_tag "Search"%>
-		<% end %>
-	</div>
-	<% if !@places.first.nil? %>
-	<p>Popular searches: &nbsp; &nbsp;
-		<%=link_to @places.first.name, @places.first,	:method => :get %> &nbsp;
-		<% if @places.count > 1 %>
-		<%=link_to @places.second.name, @places.second,	:method => :get %> &nbsp;&nbsp;
-		<% end %>
-	</p>
-	<% end %>
-</div>
-<!--search end here-->	
-<div class="copyright">
-	 <p>2015 &copy; Made By Tardis</p>
-</div>	
+<!-- Nav -->
+	<!-- <nav id="mynav">
+		<ul class="links">
+			<li><a href="#">Home</a></li>
+			<li><a href="#">Generic</a></li>
+			<li><a href="#">Elements</a></li>
+		</ul>
+	</nav> -->
+
+<!-- Banner (include search)-->
+	<section id="banner">
+		<!-- <i class="icon fa-diamond"></i> -->
+		<h2>HIT NAVIGATION</h2>
+		<p>Welcome!</p>
+		<!-- <ul class="actions">
+			<li><a href="#" class="button big special">Learn More</a></li>
+		</ul> -->
+		<div class="search">
+		  <div>
+			<%= form_tag places_path, method: :get, class: "" do%>
+			  <%= text_field_tag :search, params[:search], placeholder: "Enter some place you want to go ..."%>
+			  <br/>
+			  <%= submit_tag "Search", class: "button special"%>
+			<% end %>
+		  </div>
+		</div>
+	</section>
+
+<!-- One -->
+	<section id="one" class="wrapper style1">
+		<div class="inner">
+			<article class="feature left">
+				<span class="image"><%= image_tag("zhengxin2.jpg") %></span>
+				<div class="content">
+					<h2>正心楼 Zhengxin Building</h2>
+					<p>哈工大正心楼，源自《大学》：“格物，致知，诚意，正心，修身，齐家，治国，平天下。”意为端正身心，勿有妄念。与我校格物楼、致知楼、诚意楼遥相呼应。它是我校面积最大的教学楼，共拥有小型教室26个，中型教室109个，阶梯教室16个，地下一层还设有多功能健身运动馆。正心楼现代气息与人文底蕴共存，是我校重要的教学场所，同学们自习的圣地。</p>
+					<ul class="actions">
+						<li>
+							<a href="#" class="button alt">More</a>
+						</li>
+					</ul>
+				</div>
+			</article>
+			<article class="feature right">
+				<span class="image"><%= image_tag("library.jpg") %></span>
+				<div class="content">
+					<h2>哈工大图书馆 HIT Library</h2>
+					<p>哈尔滨工业大学图书馆是一座拥有丰富的馆藏资源、现代化的管理手段、使用效率高、服务效果好的大学图书馆。图书馆实行藏、借、阅一体的现代化文献信息资源管理方式，拥有各类借阅室、先进的电子阅览室、多功能报告厅和会议室，建有现代化的网络管理平台，是同学们学习的好去处。</p>
+					<ul class="actions">
+						<li>
+							<a href="#" class="button alt">More</a>
+						</li>
+					</ul>
+				</div>
+			</article>
+		</div>
+	</section>
+
+<!-- Two -->
+	<section id="two" class="wrapper special">
+		<div class="inner">
+			<header class="major narrow">
+				<h2>HIT哈工大</h2>
+				<p>更多地点等待你的查询! <br/>Positions are looking forward to your searching...</p>
+			</header>
+			<div class="image-grid">
+				<a href="#" class="image"><%= image_tag("1.jpg") %></a>
+				<a href="#" class="image"><%= image_tag("2.jpg") %></a>
+				<a href="#" class="image"><%= image_tag("3.jpg") %></a>
+				<a href="#" class="image"><%= image_tag("4.jpg") %></a>
+				<a href="#" class="image"><%= image_tag("6.jpg") %></a>
+				<a href="#" class="image"><%= image_tag("7.jpg") %></a>
+				<a href="#" class="image"><%= image_tag("8.jpg") %></a>
+				<a href="#" class="image"><%= image_tag("10.jpg") %></a>
+			</div>
+			<ul class="actions">
+				<!-- <li><a href="#" class="button big alt">More</a></li> -->
+				<%= link_to "More", places_path, :class => "button big alt", :method => :get%>
+			</ul>
+		</div>
+	</section>
+
+<!-- Three -->
+	<section id="three" class="wrapper style3 special">
+		<div class="inner">
+			<header class="major narrow	">
+				<h2>哈工大校园导航 HIT Navigation</h2>
+				<p>更多功能正在开发中……<br/>感谢您的支持，期待您对于地点信息的完善！</p>
+			</header>
+		</div>
+	</section>
+
+<!-- Footer -->
+	<footer id="footer">
+		<div class="inner">
+			<ul class="copyright">
+				<li><span class="icon fa-envelope">
+				</span></li>
+				<li>Main Address to contact us: </li>
+				<li>jlnemuru@foxmail.com</li>
+			</ul>
+			<ul class="copyright">
+				<li>Copyright &copy; Tardis 2015<br/>Harbin Institute of Technology</li>
+			</ul>
+		</div>
+	</footer>
+
+<!-- Scripts -->
+<script type="text/javascript">
+(function($) {
+
+	skel
+		.breakpoints({
+			xlarge: '(max-width: 1680px)',
+			large: '(max-width: 1280px)',
+			medium: '(max-width: 980px)',
+			small: '(max-width: 736px)',
+			xsmall: '(max-width: 480px)'
+		});
+
+	$(function() {
+
+		var	$window = $(window),
+			$body = $('body');
+
+		// Disable animations/transitions until the page has loaded.
+			$body.addClass('is-loading');
+
+			$window.on('load', function() {
+				window.setTimeout(function() {
+					$body.removeClass('is-loading');
+				}, 100);
+			});
+
+		// Fix: Placeholder polyfill.
+			$('form').placeholder();
+
+		// Prioritize "important" elements on medium.
+			skel.on('+medium -medium', function() {
+				$.prioritize(
+					'.important\\28 medium\\29',
+					skel.breakpoint('medium').active
+				);
+			});
+
+		// Nav.
+			$('#mynav')
+				.append('<a href="#mynav" class="close"></a>')
+				.appendTo($body)
+				.panel({
+					delay: 500,
+					hideOnClick: true,
+					hideOnSwipe: true,
+					resetScroll: true,
+					resetForms: true,
+					side: 'right'
+				});
+
+	});
+
+})(jQuery);
+
+
+</script>
+
+<%= javascript_include_tag "home/jquery.min.js" %>
+<%= javascript_include_tag "home/skel.min.js" %>
+<%= javascript_include_tag "home/util.js" %>
+<%= javascript_include_tag "home/main.js" %>
+

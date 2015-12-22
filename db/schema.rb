@@ -11,7 +11,8 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151222102254) do
+
+ActiveRecord::Schema.define(:version => 20151222073039) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -31,6 +32,7 @@ ActiveRecord::Schema.define(:version => 20151222102254) do
     t.text     "instruction"
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
+    t.string   "imagename",   :default => "", :null => false
   end
 
   create_table "places", :force => true do |t|
@@ -93,8 +95,12 @@ ActiveRecord::Schema.define(:version => 20151222102254) do
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
     t.string   "nickname",               :default => "", :null => false
+<<<<<<< HEAD
     t.integer  "authority"
     t.integer  "contribution"
+=======
+    t.integer  "authority",              :default => 0,  :null => false
+>>>>>>> c0eaff312709335cf2ab88488135a8c7a83050d2
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
