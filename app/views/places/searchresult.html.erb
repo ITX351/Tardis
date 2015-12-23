@@ -1,0 +1,408 @@
+<% provide(:title, "HIT NAV | Place Information") %> 
+<%= provide(:nobanner, "True") %>
+<%= content_for :head  do%>
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+	<meta charset="utf-8" />
+<% end %>
+
+<div id="main">
+		<br/><br/></br></br>
+	<!-- logo栏+搜索 -->
+		<div class="container-thin container-search">
+			<div class="row">
+				<div class="col-md-3">
+					<%= image_tag("hitnav1.png") %>
+				</div>
+				<div class="col-md-2">
+					<div class="image-result">
+						<%= image_tag("result6.png") %>
+					</div>
+				</div>
+				<div class="col-md-2">
+				</div>
+				
+				<div class="search">
+					<%= form_tag searchshow_path, method: :get, class: "" do%>
+					<div class="col-md-3">
+						<%= text_field_tag :search, params[:search], placeholder: "去哪儿~"%>
+					</div>
+					<div class="col-md-2">
+						<%= submit_tag "SEARCH"%>
+					</div>
+					<% end %>
+				</div>
+			</div>
+		</div>
+
+		<div class="container-thin">
+			<div class="row">
+				<div class="col-md-12">
+					<% @places.each do |place| %>
+						<div class="onearowblock">
+							<div class="col-md-3"><!-- IMAGE -->
+								<a href="#" class="image"><%= image_tag(place.avatar_url(:big), :style => "max-height: 160px") if place.avatar %></a>
+							</div>
+
+							<div class="col-md-9"><!-- TEXT -->
+								<div class = "row">	<!-- placename -->
+									<div class = "col-md-8" style = "text-align:left">
+										<h5 style="margin:0 0 0 1em"><span class="kind"><%= place.placeclassify.name1 %></span>&nbsp;&nbsp;<%= link_to place.name, place, style: "color:black"%></h5>
+
+									</div>
+									<div class = "col-md-4">
+									</div>
+								</div>
+
+								<div class="intro">
+									<div class = "cont_two"><!-- intro -->
+										<small style="margin:0 1em 0 0;color:#737373"><%= place.intro %></small>
+									</div>
+								</div>
+
+								<div class = "row">	<!-- rating -->
+									<div class = "col-md-3">
+										<%= ratings_for place, :static %>
+									</div>
+									<div class="col-md-4">
+									</div>
+									<div class = "col-md-5">
+										<div class="button">
+											<%= link_to " Read More", place, :method => :get, style: "color:white;		text-decoration: none;"%>
+										</div>
+									</div>
+								</div>
+								
+								<ul class="messages"><!-- messages -->
+									<li><span class="icon fa-book"></span> 评论数: 
+										<%= place.comments.count %></li>&nbsp;
+									<li><span class="icon fa-clock-o"></span> 创建时间:
+										<%= place.created_at %></li>&nbsp;
+									<li><span class="icon fa-male"></span> 创建人:
+										<%= link_to place.user.nickname, user_url(place.user_id) %></li>
+								</ul>
+							</div>
+						</div>
+					<% end %>
+				</div>
+			</div>
+
+			<div class="divider">&nbsp;</div>
+		</div> <!-- end of container-thin -->
+
+		<div style="height:5px;width:1000px"> <!--tail -->
+		</div>
+
+	<!-- copyright -->
+		<div class="container-thin container-tail">
+			<p>Copyright &copy; Tardis 2015</p>
+		</div>
+
+		<div style="height:5px;width:1000px"> <!--tail -->
+		</div>
+
+</div> <!-- end of main -->
+
+
+
+
+<style>
+	#main
+	{
+		position: relative;
+		background-image: url(<%= asset_path("backgroundimage.jpg") %>);
+		background-attachment: fixed;
+		background-size: cover;
+		/*background: #fff;*/
+		/*z-index:  -666;*/
+	}
+	.container-thin
+	{
+		margin: 0em 0em 4em 0em;
+		width:80%;
+		/*background: #fffacd url(<%= asset_path("overlay2.png") %>) repeat;*/
+		/*background-color: rgba(255, 250, 205, 0.6);*/
+		background-color: rgba(255, 255, 255, 0.65);
+		border-radius: 8px;
+	}
+	.container-search
+	{
+		background-color: rgba(0, 159, 198, 0.5);
+	}
+	.onearowblock{
+		width:95%;
+		height:12.5em;
+		background: transparent;
+		margin: 2em 0em 1em 0em;
+		padding: 0.5em 0.6em 0.5em 0.6em;
+		border-radius: 3px;
+	}
+
+	.onearowblock:hover
+	{
+		border-color: #87CEFA;
+		box-shadow: 0 0 0 2px #87CEFA;
+		background-color: rgba(255,255,255,0.76);
+	}
+
+	.search {
+		margin: 3.8em 0em 0em 0em;
+		position: relative;
+		width: 100%;
+	}
+
+	.search input
+	{
+		-moz-appearance: none;
+		-webkit-appearance: none;
+		-ms-appearance: none;
+		appearance: none;
+		border-radius: 4px;
+		border-style: solid;
+		border-width: 1px;
+		display: block;
+		outline: 0;
+		padding: 0.6em 1em;
+		text-decoration: none;
+	}
+
+	.search input[type="text"]
+	{
+		width: 100%;
+		background-color: rgba(255, 255, 255, 0.7);
+		border-color: rgba(255, 255, 255, 0.8);
+		color: #242424;
+		font-weight: 500;
+		position:relative;
+		margin:0 0 0 13em;
+	}
+
+	.search input[type="text"]:focus
+	{
+		border-color: #fff;
+		box-shadow: 0 0 0 1px #fff;
+		background-color: rgba(255, 255, 255, 0.9);
+	}
+
+	.search input[type="submit"] {
+		background: transparent;
+		border-color: rgba(255, 255, 255, 1);
+		color: #fff;
+		font-weight: 500;
+		width: 60%;
+		margin:0 0 0 11.5em;
+	} 
+
+	.search input[type="submit"]:hover
+	{
+		background: #b2dfee;
+		border-color: #fff;
+		box-shadow: 0 0 0 1px #fff;
+		background-color: rgba(178, 223, 238, 0.9);
+	}
+	.kind
+	{
+		border-color:#a5a9ad;
+		color:#a5a9ad;
+		box-shadow: 0 0 0 1px #a5a9ad;
+		background: transparent;
+		border-radius: 5px;
+		font-size: 0.8em;
+		padding:0.2em 0.2em 0.2em 0.2em;
+	}
+
+	.image-result
+	{
+		width:200px;
+		position:relative;
+		top:34px; right:0px;
+		overflow: hidden;
+	}
+
+	.image
+	{
+		display: inline-block;
+		height: 100%;
+		overflow:hidden;
+	}
+	
+	.image img
+	{
+		display: block;
+		width: 100%;
+		border-radius: 6px;
+	}
+	.intro
+	{
+		background-color: rgba(178, 223, 238, 0.3);
+		border-radius: 5px;
+		margin:0.5em 0 0.5em 0em;
+		padding: 0.5em 0 0.5em 0em;
+	}
+	.button
+	{
+		position: relative;
+		display: inline-block;
+		margin-top: 0.3em;
+		margin-right: 0em;
+		padding: 0.3em 1em;
+		background: #b2dfee;
+		border-radius: 6px;
+		text-decoration: none;
+		text-transform: uppercase;
+		font-size: 0.9em;
+		color: #FFF;
+		-moz-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+		-webkit-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+		-o-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+		-ms-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+		transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+		cursor: pointer;
+	}
+
+	.button:hover
+	{
+		background: #009fc6;
+		color: #FFF !important;
+	}
+	.messages {
+		color: #a5a9ad;
+		font-size: 0.8em;
+		margin: 2em 0 0em 1em;
+		padding: 0;
+		text-align: left;
+	}
+
+	.messages li {
+		display: inline-block;
+		list-style: none;
+		margin: 0 0.1em;
+	}
+	.icon {
+		text-decoration: none;
+		border-bottom: none;
+		position: relative;
+	}
+
+	.icon:before {
+		-moz-osx-font-smoothing: grayscale;
+		-webkit-font-smoothing: antialiased;
+		font-family: FontAwesome;
+		font-style: normal;
+		font-weight: normal;
+		text-transform: none !important;
+	}
+	.container-tail
+	{
+		position: relative;
+		padding: 3em 0em;
+		background-color: rgba(255, 236, 139, 0.7);
+		/*background: #ffec8b url(<%= asset_path("overlay.png")%>) repeat center;*/
+		/*background: #ffec8b url(<%= asset_path("img01.jpg")%>) repeat center;*/
+	}
+	.container-tail p
+	{
+		color:#8f8f8f;
+	}
+</style>
+
+
+<!-- <%= stylesheet_link_tag "jquery.min.js" %>
+<%= stylesheet_link_tag "place/skel-noscript"%>
+<%= stylesheet_link_tag "place/style2"%>
+<%= stylesheet_link_tag "place/style-desktop"%>
+
+<%= javascript_include_tag "place/skel.min.js" %>
+<%= javascript_include_tag "place/skel-panels.min.js" %>
+<%= javascript_include_tag "place/init.js" %> -->
+
+<style>
+	/*最多显示one or two行，多余的用...代替*/
+	.cont_one{ 
+		width: 125px;
+		height: 25px;
+		line-height: 25px;
+		text-align: left;
+		text-overflow: -o-ellipsis-lastline;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-line-clamp: 1;
+		-webkit-box-orient: vertical;
+	 }
+	.cont_two{		
+		width: 47em;
+		height: 40px;
+		line-height: 20px;
+		text-align: left;
+		text-overflow: -o-ellipsis-lastline;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+	}
+</style>
+
+<script>
+	var map = new BMap.Map("indexmap");
+	var point = new BMap.Point(126.638718,45.749316);
+	var schoolcenter = new BMap.Point(126.638718,45.749316);
+	map.centerAndZoom(point,17);
+	map.setMinZoom(16);
+	map.addControl(new BMap.MapTypeControl());					//添加地图类型控件
+	var b = new BMap.Bounds(new BMap.Point(126.627938, 45.74145),
+						new BMap.Point(126.647629, 45.756771));
+	try {	
+		BMapLib.AreaRestriction.setBounds(map, b);
+	} catch (e) {
+		alert(e);
+	}
+
+	function addMaker(point){
+		var marker = new BMap.Marker(point);
+		map.addOverlay(marker);
+		return marker;
+	}
+	function addInfoWindow(marker, intro){
+		var opts = {
+			title: intro[0],
+			width: 250,
+			height: 200
+		}
+		var content = intro[1];
+		var info = new BMap.InfoWindow(content, opts);
+		var openInforWinFun = function(){
+			marker.openInfoWindow(info);
+		}
+		marker.addEventListener("click", openInforWinFun);
+		return openInforWinFun;
+	}
+
+	function work(){
+		<% @places.each do |place| %>
+			var marker = new addMaker(new BMap.Point(<%= place.locationx%>, <%= place.locationy%>));
+			var intro = ['<h3><%= place.name%></h3>', '<%= place.intro%><br/><%=link_to "More", place %>'];
+			addInfoWindow(marker, intro);
+		<% end %>
+	}
+
+	//初始化模板选择的下拉框
+	var sel = document.getElementById('stylelist');
+	var item = new Option("Normal", "normal");
+	sel.options.add(item);
+	item = new Option("Light", "light");
+	sel.options.add(item);
+	item = new Option("Midnight", "midnight");
+	sel.options.add(item);
+	item = new Option("Dark", "dark");
+	sel.options.add(item);
+	
+	window.reload(work());
+	
+	changeMapStyle('normal')
+	function changeMapStyle(mystyle){
+		map.setMapStyle({style:mystyle});
+		$('#desc').html(mapstyles[style].desc);
+	}	
+</script>
+
