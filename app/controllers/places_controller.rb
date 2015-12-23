@@ -12,16 +12,16 @@ class PlacesController < ApplicationController
 
 		@classifyshow = []
 		if params[:classify] #click in classify
-			#flash[:classify] = I18n.t(:classifyshowing_hint) + getplaceclassifyname(params[:classify])
+			#flash.now[:classify] = I18n.t(:classifyshowing_hint) + getplaceclassifyname(params[:classify])
 			@classifychoose = params[:classify].to_i
 
 			places = Place.where(:"placeclassify_id" => params[:classify])
-			flash[:result] = I18n.t(:placeindex_no_classify_places) if places.count == 0
+			flash.now[:result] = I18n.t(:placeindex_no_classify_places) if places.count == 0
 		elsif params[:all] #view all
 			@classifychoose = -2 # -2 for all
 
 			places = Place.all
-			flash[:result] = I18n.t(:placeindex_no_places) if places.count == 0
+			flash.now[:result] = I18n.t(:placeindex_no_places) if places.count == 0
 		else # show index, each classify with 3 places
 			@classifychoose = -1 # -1 for index
 
@@ -39,7 +39,7 @@ class PlacesController < ApplicationController
 				@classifyshow << now
 			end
 
-			flash[:result] = I18n.t(:placeindex_no_places) if @classifyshow.count == 0
+			flash.now[:result] = I18n.t(:placeindex_no_places) if @classifyshow.count == 0
 			return
 		end
 		# @places.sort_by! {|a| a.rates}
@@ -50,12 +50,12 @@ class PlacesController < ApplicationController
 
 	def searchresult
 		if params[:search].nil? or params[:search].length == 0 #normal search
-			flash[:result] = I18n.t(:search_keyword_not_inputted)
+			flash.now[:result] = I18n.t(:search_keyword_not_inputted)
 			@places = []
 			return
 		end
 
-		flash[:search] = I18n.t(:search_hint) + params[:search]
+		flash.now[:search] = I18n.t(:search_hint) + params[:search]
 
 		withpercent = "%" + params[:search] + "%"
 		tclassify, tplace = Placeclassify.arel_table, Place.arel_table
@@ -75,7 +75,7 @@ class PlacesController < ApplicationController
 		@places.sort_by! {|a| a.hot} #sort in descending order
 		@places.reverse!
 
-		flash[:result] = I18n.t(:search_no_result) if @places.count == 0
+		flash.now[:result] = I18n.t(:search_no_result) if @places.count == 0
 	end
 
 	def new
