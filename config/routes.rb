@@ -46,7 +46,7 @@ Tardis::Application.routes.draw do
 
 	get 'placeapply' => 'places#newapply', 	:as => :newapply
 	post 'placeapply' => 'places#createapply'
-
+	get '/searchshow' => 'places#searchresult', :as => :searchshow #for search page
 
 	get '/places?classify=:id' => 'places#index', :as => :classifyshowing
 	get '/places?all=1' => 'places#index', :as => :allplaces

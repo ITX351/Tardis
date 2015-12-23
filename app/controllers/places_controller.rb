@@ -5,26 +5,7 @@ class PlacesController < ApplicationController
 		@indexshow = false
 		@classifyshow = []
 
-		if params[:search] #normal search
-			flash[:search] = I18n.t(:search_hint) + params[:search]
-
-			withpercent = "%" + params[:search] + "%"
-			tclassify, tplace = Placeclassify.arel_table, Place.arel_table
-			classifies = Placeclassify.where(tclassify[:name1].matches(withpercent).or(
-				tclassify[:name2].matches(withpercent).or(tclassify[:name3].matches(withpercent))))
-
-			# @places = Place.find(:all, :conditions => ['name LIKE ?', "%#{params[:search]}%"])
-			if classifies.count > 0 # admit/suppose at most one alias matches
-				places = Place.where(tplace[:name].matches(withpercent).or(tplace[:placeclassify_id].eq(classifies[0].id)))
-			else # for them not matches classifyname
-				places = Place.where(tplace[:name].matches(withpercent))
-			end
-
-			places.each do |place| # hot count
-				place.hot =	place.hot + 1
-				place.save
-			end
-		elsif params[:classify] #click in classify
+		if params[:classify] #click in classify
 			#flash[:classify] = I18n.t(:classifyshowing_hint) + getplaceclassifyname(params[:classify])
 			places = Place.where(:"placeclassify_id" => params[:classify])
 		elsif params[:all] #view all
@@ -49,6 +30,33 @@ class PlacesController < ApplicationController
 		places.sort_by! {|a| a.hot} #sort in descending order
 		places.reverse!
 		@classifyshow << { :places => places }
+	end
+
+	def searchresult
+		if params[:search].nil? or params[:search].length == 0 #normal search
+			flash[:alert] = I18n.t(:search_keyword_not_inputted)
+		end
+
+		flash[:search] = I18n.t(:search_hint) + params[:search]
+
+		withpercent = "%" + params[:search] + "%"
+		tclassify, tplace = Placeclassify.arel_table, Place.arel_table
+		classifies = Placeclassify.where(tclassify[:name1].matches(withpercent).or(
+			tclassify[:name2].matches(withpercent).or(tclassify[:name3].matches(withpercent))))
+
+		# @places = Place.find(:all, :conditions => ['name LIKE ?', "%#{params[:search]}%"])
+		if classifies.count > 0 # admit/suppose at most one alias matches
+			@places = Place.where(tplace[:name].matches(withpercent).or(tplace[:placeclassify_id].eq(classifies[0].id)))
+		else # for them not matches classifyname
+			@places = Place.where(tplace[:name].matches(withpercent))
+		end
+
+		@places.each do |place| # hot count
+			place.hot =	place.hot + 1
+			place.save
+		end
+		@places.sort_by! {|a| a.hot} #sort in descending order
+		@places.reverse!
 	end
 
 	def new
