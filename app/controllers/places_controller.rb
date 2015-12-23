@@ -55,7 +55,7 @@ class PlacesController < ApplicationController
 			return
 		end
 
-		flash.now[:search] = I18n.t(:search_hint) + params[:search]
+		# flash.now[:search] = I18n.t(:search_hint) + params[:search]
 
 		withpercent = "%" + params[:search] + "%"
 		tclassify, tplace = Placeclassify.arel_table, Place.arel_table
