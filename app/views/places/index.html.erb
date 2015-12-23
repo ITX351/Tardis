@@ -2,12 +2,10 @@
 
 <div id="nav">
 	<ul class="nav nav-tabs" style = "margin: 0em 10em">
-		<li><%= link_to t(:placeshome), places_path %></li>
-		<li><%= link_to t(:allplaces), allplaces_path %></li>
 		<% @placeclassify.each do |classify| %>
-			<li><%= link_to classify[0], classifyshowing_url(classify[1]) %></a></li>
+			<li <%= 'class="active"'.html_safe if @classifychoose == classify[:id] %>>
+				<%= link_to classify[:name], classify[:url] %></a></li>
 		<% end %>
-		<li><%= link_to t(:unclassifiedplaces), classifyshowing_url(0) %></li>
 	</ul>
 </div>
 
@@ -16,7 +14,7 @@
 	<% @classifyshow.each_with_index do |classify, nowclass| %>
  		<a name="<%= classify[:id] %>" style="position:relative; top:-50px;"></a>
 		<div class="container-thin" >
-			<% if @indexshow %>
+			<% if @classifychoose == -1 %>
 				<div class = "row">
 					<div class="col-md-2">
 						<div class="image-category">
@@ -41,7 +39,7 @@
 			<div class="row">
 				<div class="col-md-9">
 					<% classify[:places].each_with_index do |place, cnt| %>
-						<% break if (cnt == 3 and @indexshow)%>
+						<% break if (cnt == 3 and @classifychoose == -1)%>
 						<div class="col-md-4">
 							<section class="placeblock" style = "width: 100%; height: 300px">
 								<%= link_to image_tag(place.avatar_url(:big)), place, :class => "image"%>
@@ -129,7 +127,7 @@
 	<p>Copyright &copy; Tardis 2015</p>
 </div>
 
-<% if @indexshow %> <!-- slide-nav showed in index -->
+<% if @classifychoose == -1 %> <!-- slide-nav showed in index -->
 	<div class="index-nav" id="index_nav" style="opacity: 1; display: block; top: 240px; left: 1200px; right: auto;">
 		<div class="border"></div>
 		<div class="nav-list">
@@ -505,7 +503,7 @@
 	}
 
 	function work(){
-		<% if !@indexshow and @classifyshow.count > 0 %>
+		<% if @classifychoose >= 0 and @classifyshow.count > 0 %>
 			<% @classifyshow[0][:places].each do |place| %>
 				var marker = new addMaker(new BMap.Point(<%= place.locationx%>, <%= place.locationy%>));
 				var intro = ['<h3><%= place.name%></h3>', '<%= place.intro%><br/><%=link_to "More", place %>'];
