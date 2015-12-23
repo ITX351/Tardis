@@ -1,4 +1,5 @@
 class PlacesController < ApplicationController
+
 	def index
 		@placeclassify = getplaceclassify
 		@indexshow = false
@@ -43,12 +44,14 @@ class PlacesController < ApplicationController
 				end
 				@classifyshow << now
 			end
+
 			return
 		end
 		# @places.sort_by! {|a| a.rates}
 		places.sort_by! {|a| a.hot} #sort in descending order
 		places.reverse!
 		@classifyshow << { :places => places }
+
 	end
 
 	def new
