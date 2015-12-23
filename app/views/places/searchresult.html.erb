@@ -22,7 +22,7 @@
 				</div>
 				
 				<div class="search">
-					<%= form_tag places_path, method: :get, class: "" do%>
+					<%= form_tag searchshow_path, method: :get, class: "" do%>
 					<div class="col-md-3">
 						<%= text_field_tag :search, params[:search], placeholder: "去哪儿~"%>
 					</div>
@@ -34,53 +34,54 @@
 			</div>
 		</div>
 
-	<% @classifyshow.each do |classify| %>
 		<div class="container-thin">
-
 			<div class="row">
 				<div class="col-md-12">
-					<% classify[:places].each do |place| %>
-					<div class="onearowblock">
-						<div class="col-md-3"><!-- IMAGE -->
-							<a href="#" class="image"><%= image_tag(place.avatar_url(:big)) if place.avatar %></a>
-						</div>
-
-						<div class="col-md-9"><!-- TEXT -->
-							<div class = "row">	<!-- placename -->
-								<div class = "col-md-8" style = "text-align:left">
-									<h5 style="margin:0 0 0 1em"><span class="kind">分类</span>&nbsp;&nbsp;<%= link_to place.name, place, style: "color:black"%></h5>
-
-								</div>
-								<div class = "col-md-4">
-								</div>
+					<% @places.each do |place| %>
+						<div class="onearowblock">
+							<div class="col-md-3"><!-- IMAGE -->
+								<a href="#" class="image"><%= image_tag(place.avatar_url(:big), :style => "max-height: 160px") if place.avatar %></a>
 							</div>
 
-							<div class="intro">
-								<div class = "cont_two"><!-- intro -->
-									<small style="margin:0 1em 0 0;color:#737373"><%= place.intro %></small>
-								</div>
-							</div>
+							<div class="col-md-9"><!-- TEXT -->
+								<div class = "row">	<!-- placename -->
+									<div class = "col-md-8" style = "text-align:left">
+										<h5 style="margin:0 0 0 1em"><span class="kind"><%= place.placeclassify.name1 %></span>&nbsp;&nbsp;<%= link_to place.name, place, style: "color:black"%></h5>
 
-							<div class = "row">	<!-- rating -->
-								<div class = "col-md-3">
-									<%= ratings_for place, :static %>
-								</div>
-								<div class="col-md-4">
-								</div>
-								<div class = "col-md-5">
-									<div class="button">
-										<%= link_to " Read More", place, :method => :get, style: "color:white;		text-decoration: none;"%>
+									</div>
+									<div class = "col-md-4">
 									</div>
 								</div>
+
+								<div class="intro">
+									<div class = "cont_two"><!-- intro -->
+										<small style="margin:0 1em 0 0;color:#737373"><%= place.intro %></small>
+									</div>
+								</div>
+
+								<div class = "row">	<!-- rating -->
+									<div class = "col-md-3">
+										<%= ratings_for place, :static %>
+									</div>
+									<div class="col-md-4">
+									</div>
+									<div class = "col-md-5">
+										<div class="button">
+											<%= link_to " Read More", place, :method => :get, style: "color:white;		text-decoration: none;"%>
+										</div>
+									</div>
+								</div>
+								
+								<ul class="messages"><!-- messages -->
+									<li><span class="icon fa-book"></span> 评论数: 
+										<%= place.comments.count %></li>&nbsp;
+									<li><span class="icon fa-clock-o"></span> 创建时间:
+										<%= place.created_at %></li>&nbsp;
+									<li><span class="icon fa-male"></span> 创建人:
+										<%= link_to place.user.nickname, user_url(place.user_id) %></li>
+								</ul>
 							</div>
-							
-							<ul class="messages"><!-- messages -->
-								<li><span class="icon fa-book"></span> 评论数:</li>
-								<li><span class="icon fa-clock-o"></span> 创建时间:</li>
-								<li><span class="icon fa-male"></span> 创建人:</li>
-							</ul>
 						</div>
-					</div>
 					<% end %>
 				</div>
 			</div>
@@ -91,8 +92,6 @@
 		<div style="height:5px;width:1000px"> <!--tail -->
 		</div>
 
-	<% end %>
-
 	<!-- copyright -->
 		<div class="container-thin container-tail">
 			<p>Copyright &copy; Tardis 2015</p>
@@ -102,6 +101,8 @@
 		</div>
 
 </div> <!-- end of main -->
+
+
 
 
 <style>
@@ -378,12 +379,10 @@
 	}
 
 	function work(){
-		<% if !@indexshow and @classifyshow.count > 0 %>
-			<% @classifyshow[0][:places].each do |place| %>
-				var marker = new addMaker(new BMap.Point(<%= place.locationx%>, <%= place.locationy%>));
-				var intro = ['<h3><%= place.name%></h3>', '<%= place.intro%><br/><%=link_to "More", place %>'];
-				addInfoWindow(marker, intro);
-			<% end %>
+		<% @places.each do |place| %>
+			var marker = new addMaker(new BMap.Point(<%= place.locationx%>, <%= place.locationy%>));
+			var intro = ['<h3><%= place.name%></h3>', '<%= place.intro%><br/><%=link_to "More", place %>'];
+			addInfoWindow(marker, intro);
 		<% end %>
 	}
 

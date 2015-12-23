@@ -15,14 +15,6 @@
 		<!-- <a href="#mynav">Menu</a> -->
 	</header>
 
-<!-- Nav -->
-	<!-- <nav id="mynav">
-		<ul class="links">
-			<li><a href="#">Home</a></li>
-			<li><a href="#">Generic</a></li>
-			<li><a href="#">Elements</a></li>
-		</ul>
-	</nav> -->
 
 <!-- Banner (include search)-->
 	<section id="banner">
@@ -35,7 +27,7 @@
 		</ul> -->
 		<div class="search">
 		  <div>
-			<%= form_tag places_path, method: :get, class: "" do%>
+			<%= form_tag searchshow_path, method: :get, class: "" do%>
 			  <%= text_field_tag :search, params[:search], placeholder: "Enter some place you want to go ..."%>
 			  <br/>
 			  <%= submit_tag "Search", class: "button special"%>

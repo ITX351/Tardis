@@ -22,3 +22,150 @@
 	<% end %>
 	<br>
 <% end %>
+
+<div style = "width: 100%; height: 1000px">
+</div>
+
+<div class="index-nav" id="index_nav" style="opacity: 1; display: block; top: 100px; left: 1200px; right: auto;">
+	<div class="border"></div>
+	<div class="nav-list">
+		<div class="n-i sortable on"><div class="name"><%= link_to "Home", :home, :method => :get, :class => "name"%></div></div>
+		<div class="n-i sortable"><div class="name">动画</div></div>
+		<div class="n-i sortable"><div class="name">番剧</div></div>
+		<div class="n-i sortable"><div class="name">音乐</div></div>
+		<div class="n-i sortable"><div class="name">舞蹈</div></div>
+		<div class="n-i sortable"><div class="name">游戏</div></div>
+		<div class="n-i sortable"><div class="name">科技</div></div>
+		<div class="n-i sortable"><div class="name">娱乐</div></div>
+		<div class="n-i sortable"><div class="name">鬼畜</div></div>
+		<div class="pointer-block" style="top: 0px; left: 0px; display: block;"></div>
+		<div class="n-i customize" title="自定义"><i class="n-icon-sort"></i><p>排序</p></div>
+	</div>
+	<div class="n-i gotop">
+		<div class="s-line"></div><div class="btn_gotop" title="返回顶部"></div>
+	</div>
+	<div class="n-i n-i-mlink"><a href="#top" >  
+		<div class="mlink-dl-msg" style="display: none;"></div>
+		<div class="n-i-mlink-bg" style="display: block; width: 80px; height: 80px; 
+			background-image: url(http://i0.hdslb.com/u_user/nav_float/tv_animate.png); 
+			background-position: 0px 0px;">
+		</div></a>
+	</div>
+
+	<!-- target="_blank" -->
+</div>
+
+
+
+
+
+<style>
+	.name :focus {
+		outline: -webkit-focus-ring-color auto 5px;
+	}
+	.index-nav {
+		display: none;
+		position: fixed;
+		width: 48px;
+		z-index: 90;
+		text-align: center;
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+
+	.index-nav .border {
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		top: -3px;
+		border: 3px solid #fafafa;
+		left: -3px;
+		border-radius: 4px;
+		display: none;
+	}
+
+	.index-nav .nav-list {
+		position: relative;
+		z-index: 233;
+		background-color: #f6f9fa;
+		border: 1px solid #e5e9ef;
+		overflow: hidden;
+		border-radius: 4px;
+	}
+	.index-nav .n-i {
+		cursor: pointer;
+	}
+	.index-nav .pointer-block {
+		position: absolute;
+		width: 48px;
+		height: 32px;
+		margin-left: -1px;
+		background: #00a1d6;
+		z-index: -1;
+		transition: .1s all linear;
+		display: none;
+	}
+
+	.index-nav .n-i.customize {
+		padding: 8px 0;
+		border-top: 1px solid #e5e9ef;
+	}
+	.index-nav .n-i {
+	cursor: pointer;
+	}
+	.index-nav .n-i:first-child {
+	border-top: 0;
+	}
+
+	.index-nav .n-i.on .name {
+	color: #fff;
+	}
+	.index-nav .n-i .name {
+		height: 32px;
+		line-height: 32px;
+		transition: .1s linear;
+		transition-property: background-color,color;
+		}
+		.index-nav .n-i.gotop {
+		border: 0;
+		position: relative;
+		z-index: 50;
+	}
+
+</style>
+
+
+
+<style type="text/css">
+	#top_div{ 
+	  position:fixed; 
+	  bottom:80px; 
+	  right:0; 
+	  display:none; 
+	} 
+</style> 
+<script type="text/javascript"> 
+	window.onscroll = function(){ 
+	  var t = document.documentElement.scrollTop || document.body.scrollTop; 
+	  var top_div = document.getElementById( "top_div" ); 
+	  if( t >= 300 ) { 
+	    top_div.style.display = "inline"; 
+	  } else { 
+	    top_div.style.display = "none"; 
+	  } 
+	} 
+</script> 
+<a name="top">顶部<a> 
+<div id="top_div"><a href="#top">返回顶部</a></div> 
+<br /> 
+<br /> 
+<div> 
+这里尽量多些<br />以便页面出现滚动条，限于篇幅本文此处略去 
+</div>
+
+
+
