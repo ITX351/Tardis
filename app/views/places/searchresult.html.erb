@@ -34,12 +34,6 @@
 		</div>
 	</div>
 
-	<% [:search, :result].each do |now| %>
-		<% if flash[now] %>
-			<div class="alert"><%= flash[now] %></div>
-		<% end %>
-	<% end %>
-
 	<% if @places.count > 0 %>
 		<div class="container-thin">
 			<br>
@@ -108,13 +102,18 @@
 			<div class="divider">&nbsp;</div>
 		</div> <!-- end of container-thin -->
 	<% end %>
-	<div class="container-thin">
+
+	<div class="container-thin"> <!-- Baidu map -->
 		 <a id = "showinmap" style="position:relative; margin-top:-50px;"></a>
 		 <br>
 		<div align = "left" class = "row" style = "margin: 0em auto 0em 8em;color:#999; font-size: 1.1em">
 			<div class = "">
 				<% if @places.size == 0 %>
-					There are no results meets your requirements, try to change your key word.
+					<% if @keyword_not_inputted %>
+						<%= t(:search_keyword_not_inputted) %>
+					<% else %>
+						<%= t(:search_no_result) %>
+					<% end %>
 				<% elsif @places.size == 1 %>
 					There is <%= @places.size%> result, click the red point to get more information.
 				<% else %>

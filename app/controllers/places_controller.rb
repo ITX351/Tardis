@@ -49,12 +49,13 @@ class PlacesController < ApplicationController
 	end
 
 	def searchresult
+		@keyword_not_inputted = false
 		if params[:search].nil? or params[:search].length == 0 #normal search
-			flash.now[:result] = I18n.t(:search_keyword_not_inputted)
+			# flash.now[:result] = I18n.t(:search_keyword_not_inputted)
 			@places = []
+			@keyword_not_inputted = true
 			return
 		end
-
 		# flash.now[:search] = I18n.t(:search_hint) + params[:search]
 
 		withpercent = "%" + params[:search] + "%"
@@ -75,7 +76,7 @@ class PlacesController < ApplicationController
 		@places.sort_by! {|a| a.hot} #sort in descending order
 		@places.reverse!
 
-		flash.now[:result] = I18n.t(:search_no_result) if @places.count == 0
+		# flash.now[:result] = I18n.t(:search_no_result) if @places.count == 0
 	end
 
 	def new
