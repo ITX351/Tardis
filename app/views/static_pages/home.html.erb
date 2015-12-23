@@ -1,12 +1,12 @@
 
 <%= provide(:nobanner, "True") %>
 <%= content_for :head  do%>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-  <meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+	<meta charset="utf-8" />
 
-  <%= stylesheet_link_tag "home.css", :media => "all" %>
-  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+	<%= stylesheet_link_tag "home.css", :media => "all" %>
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 <% end %>
 
 <!-- Header -->
@@ -26,14 +26,53 @@
 			<li><a href="#" class="button big special">Learn More</a></li>
 		</ul> -->
 		<div class="search">
-		  <div>
+			<div>
 			<%= form_tag searchshow_path, method: :get, class: "" do%>
-			  <%= text_field_tag :search, params[:search], placeholder: "Enter some place you want to go ..."%>
-			  <br/>
-			  <%= submit_tag "Search", class: "button special"%>
+				<%= text_field_tag :search, params[:search], placeholder: "Enter some place you want to go ..."%>
+				<br/>
+				<%= submit_tag "Search", class: "button special"%>
 			<% end %>
-		  </div>
-		  <br><br>
+			</div>
+		</div>
+		<div  class = "row">
+			<div class = "col-md-4" align = "left" style = "margin-left: 2em; font-size: 1em;">
+				<%= link_to "More", notice_path, :method => :get, :style => "color:#06c" %>
+				<marquee onmouseover=this.stop() onmouseout=this.start() scrollAmount=1 scrollDelay=100 direction=up height="150px">
+					<% @notices.each do |notice|%>
+						<% user = find_user(notice.user_id)%>
+						<% if !notice.admin_id.nil? %>
+							<% admin = find_user(notice.admin_id)%>
+						<% end %>
+						<% if !notice.place_id.nil? %>
+							<% place = find_place(notice.place_id)%>
+						<% end %>
+						<% if !notice.temp_place_id.nil? %>
+							<% temp_place = find_temp_place(notice.temp_place_id)%>
+						<% end %>
+						<% if notice.infotype == 2 %>
+							<%= link_to place.name, place, :class => "linkfont", :method => :get%> has been  created
+							by <%= link_to user.nickname, user, :class => "linkfont", :method => :get%>, 
+							Auditor:<%= link_to admin.nickname, admin, :class => "linkfont", :method => :get%><br>
+						<% elsif notice.infotype == 3 %>
+							Place <%= link_to place.name, place, :class => "linkfont", :method => :get%>  has been  updated
+							by user :<%= link_to user.nickname, user, :class => "linkfont", :method => :get%>, 
+							Auditor: <%= link_to admin.nickname, admin, :class => "linkfont", :method => :get%><br>
+						<% elsif notice.infotype == 4 %>
+							Congratulations!
+							User <%= link_to user.nickname, user, :class => "linkfont", :method => :get%> upgraded to the administrator.<br>
+						<% end %>
+						
+					<% end %>
+				</marquee>
+			</div>
+<!-- 			<div align = "left"class = "col-md-4">
+				Popular Search:  
+				<% @places.each_with_index do |place, cnt|%>
+					<%= link_to place.name, place %> &nbsp;&nbsp;
+					<% break if (cnt == 3)%>
+				<% end %>
+			</div> -->
+			<div class = "col-md-4"></div>
 		</div>
 	</section>
 
@@ -115,6 +154,14 @@
 			</ul>
 		</div>
 	</footer>
+
+<style>
+	.linkfont{
+		text-decoration:none;	
+	}
+	
+</style>
+
 
 <!-- Scripts -->
 <script type="text/javascript">

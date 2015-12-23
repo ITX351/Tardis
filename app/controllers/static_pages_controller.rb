@@ -3,6 +3,7 @@ class StaticPagesController < ApplicationController
 		@places = Place.all
 		@places.sort_by! {|a|	a.hot}
 		@places.reverse!
+		@notices = Notice.all
 	end
 
 	def notice

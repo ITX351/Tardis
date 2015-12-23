@@ -127,7 +127,7 @@ class PlacesController < ApplicationController
 
 	def destroy
 		@place = Place.find(params[:id])
-		if(@place.user != current_user and @current_user.authority != 1)
+		if(current_user.nil? or (@place.user != current_user and @current_user.authority != 1))
 			redirect_to  notice: 'You do not have the authority to edit it' 
 		else
 			@place.destroy
