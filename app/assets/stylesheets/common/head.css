@@ -40,7 +40,8 @@ background-position:-910px -74px}
 			color:#979797; 
 		} 
 		p#back-to-top a span{ 
-			background:transparent url(/images/search_icon.jpg) no-repeat -25px -290px; 
+			opacity: 0.5;
+			background:url("go-top.png") no-repeat -25px -290px; 
 			border-radius:6px; 
 			display:block; 
 			height:64px; 
@@ -52,6 +53,7 @@ background-position:-910px -74px}
 			-o-transition:background 1s; 
 		}
 		#back-to-top a:hover span{ 
-			background:transparent url(<%= asset_path("search_icon.jpg")%>)  no-repeat -25px -290px; 
+			opacity: 0.9;
+			background:url("go-top.png")  no-repeat -25px -290px; 
 		}
 /*<!-- 配置结束 -->*/
