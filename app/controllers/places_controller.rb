@@ -51,6 +51,8 @@ class PlacesController < ApplicationController
 	def searchresult
 		if params[:search].nil? or params[:search].length == 0 #normal search
 			flash[:result] = I18n.t(:search_keyword_not_inputted)
+			@places = []
+			return
 		end
 
 		flash[:search] = I18n.t(:search_hint) + params[:search]
