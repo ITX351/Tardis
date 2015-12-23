@@ -1,4 +1,4 @@
-<%= provide(:nobanner, "True") %>
+
 <br><br><br><br> 	
 <h2> Manager Function </h2>
 <hr>
@@ -15,17 +15,33 @@
 	<table class="table table-hover table-condensed table-bordered">
 		<tr >
 			<th>Count</th>
-			<th>Source</th>
+			<th>User</th>
+			<th width="10%"  style="word-break : break-all; overflow:hidden">Status</th>
+			<th width="10%"  style="word-break : break-all; overflow:hidden">Source</th>
 			<th>Reason</th>
-			<th>Status</th>
-			<th>Detail</th>
+			<th width="10%"  style="word-break : break-all; overflow:hidden">Status</th>
+			<th width="10%"  style="word-break : break-all; overflow:hidden">Detail</th>
 		</tr>
 		<% @temp_places.each_with_index do|temp_place, i|%>
 			<tr class="list-group-item-info">
 				<td	style = "text-align:center"><%= i%> </td>
+				<td>
+					<%= link_to find_user(temp_place.user_id).nickname, user_url(temp_place.user_id) %>
+				</td>
+				<td>
+					<% if temp_place.applytype == 1%>
+						<tardis style = "color:blue">New Apply</tardis>
+					<% else %>
+						<tardis style = "color:fuchsia">Update Apply</tardis>
+					<% end %>
+				</td>
 				<td >
 					<% if temp_place.place.nil? %>
-						<tardis style = "color:red">Deleted</tardis>
+						<% if temp_place.applytype == 1%>
+							-----------
+						<% else %>
+							<tardis style = "color:red">Deleted</tardis>
+						<% end %>
 					<% else %> 
 						<%= link_to temp_place.place.name, temp_place.place, :method => :get %> 
 					<% end %>
@@ -35,11 +51,11 @@
 					<% if temp_place.state == 1 %>
 						<state style = "color:green">Accepted </state>
 					<% elsif temp_place.state == 0 %> 
-						<state style = "color:blue">Pending </state>
+						<state style = "color:lime">Pending </state>
 					<% elsif temp_place.state == -2 %>
-						<state style = "color:red">Reject</state>
+						<state style = "color:purple">Reject</state>
 					<% else %>
-						<state style = "color:yellow">Delete</state>
+						<state style = "color:red">Delete</state>
 					<% end %>
 				</td>
 				<td><%= link_to "Detail", auditapply_url(temp_place), 
@@ -53,31 +69,4 @@
 <hr>
 <%= link_to 'Home', home_path, :method => :get%>
 <br><br><br>
-
-
-<style>
-	/*最多显示one or two行，多余的用...代替*/
-	.cont_one{ 
-		width: 125px;
-		text-align: left;
-		text-overflow: -o-ellipsis-lastline;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		display: -webkit-box;
-		-webkit-line-clamp: 1;
-		-webkit-box-orient: vertical;
-	 }
-	.cont_two{		
-		width: 140px;
-		height: 50px;
-		line-height: 25px;
-		text-align: left;
-		text-overflow: -o-ellipsis-lastline;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		display: -webkit-box;
-		-webkit-line-clamp: 2;
-		-webkit-box-orient: vertical;
-	}
-</style>
 

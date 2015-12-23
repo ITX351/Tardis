@@ -75,12 +75,11 @@ class CommentsController < ApplicationController
 	# DELETE /comments/1.json
 	def destroy
 		@comment = Comment.find(params[:id])
-		@comment.destroy
-
-		redirect_to :back
-		# respond_to do |format|
-		#	 format.html { redirect_to comments_url }
-		#	 format.json { head :no_content }
-		# end
+		if(current_user != @comment.user)
+			redirect_to :back,  :notice => "You have no authority!"
+		else
+			@comment.destroy
+			redirect_to :back
+		end
 	end
 end

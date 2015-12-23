@@ -5,6 +5,9 @@ class StaticPagesController < ApplicationController
 		@places.reverse!
 	end
 
+	def notice
+		@notices = Notice.all
+	end
 	def help
 	end
 

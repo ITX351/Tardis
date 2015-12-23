@@ -39,7 +39,7 @@ class PlacesController < ApplicationController
 				classifyplaces.reverse!
 				classifyplaces.each_with_index do |place, i|
 					now[:places] << place
-					break if i == 2 # only 
+					#break if i == 2 # only 
 				end
 				@classifyshow << now
 			end
@@ -79,6 +79,7 @@ class PlacesController < ApplicationController
 
 	def edit
 		@place = Place.find(params[:id])
+
 		@placeclassify = unclassifyhash + getplaceclassify
 		if(@place.user != current_user)
 			redirect_to @place, notice: 'You do not have the authority to edit it' 
@@ -123,27 +124,58 @@ class PlacesController < ApplicationController
 		end
 	end
 
+	def newapply
+		@temp_place = TempPlace.new
+		@placeclassify = [[I18n.t(:unclassifiedplaces), 0]] + getplaceclassify
+		if (current_user.nil?)
+			redirect_to  '/signin'
+		end
+	end
+
+	def createapply
+		@temp_place = TempPlace.new(params[:temp_place])
+		@temp_place.applytype = 1								# 0 means new apply type
+		@temp_place.user_id = current_user.id
+		@temp_place.user = current_user
+		@temp_place.state = 0			 # No Accept
+		if @temp_place.save
+			@notice = Notice.new(:infotype => 0, :user_id => current_user.id,  :temp_place_id => @temp_place.id)
+			@notice.save
+
+			redirect_to current_user
+		else
+			render "new"
+		end
+	end
+
 	def updateapply
+		if (current_user.nil?)
+			redirect_to  '/signin'
+		end
 		@place = Place.find(params[:id])
-		@temp_place = TempPlace.new(name: @place.name, intro: @place.intro, classes: @place.classes,
+		@placeclassify = [[I18n.t(:unclassifiedplaces), 0]] + getplaceclassify
+		@temp_place = TempPlace.new(name: @place.name, intro: @place.intro, classes: @place.placeclassify_id,
 			locationx: @place.locationx, locationy: @place.locationy, avatar: @place.avatar, avatar_cache: @place.avatar_cache)
 	end
 
 	def createtemp
 		@place = Place.find(params[:id])
 		@temp_place = TempPlace.new(params[:temp_place])
+		@temp_place.applytype = 0								# 0 means update apply type
 		@temp_place.place_id = params[:id]
 		@temp_place.place = @place
-		if current_user.nil?
-			@temp_place.user_id = 1
-		else
-			@temp_place.user_id = current_user.id
-			@temp_place.user = current_user
-		end
+
+		@temp_place.user_id = current_user.id
+		@temp_place.user = current_user
+
 
 		@temp_place.state = 0			 # No Accept
 
 		if @temp_place.save
+			@notice = Notice.new(:infotype => 1, :user_id => current_user.id,  
+				:place_id => @place.id, :temp_place_id => @temp_place.id)
+			@notice.save
+
 			redirect_to @place
 		else
 			render "new"

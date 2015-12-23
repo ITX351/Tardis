@@ -44,9 +44,14 @@ Tardis::Application.routes.draw do
 	put 'auditapply/:id' => 'users#rejected'
 	delete 'auditapply/:id' => 'users#destroy'
 
+	get 'placeapply' => 'places#newapply', 	:as => :newapply
+	post 'placeapply' => 'places#createapply'
+
+
 	get '/places?classify=:id' => 'places#index', :as => :classifyshowing
 	get '/places?all=1' => 'places#index', :as => :allplaces
 
+	get 'notice' => 'static_pages#notice', :as => :notice
 	# get '/signup' => 'users#new'
 	# get '/signin' => 'users/sessions#new'
 	# post '/signin' => 'users/sessions#create'

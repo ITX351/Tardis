@@ -1,0 +1,24 @@
+
+<h2>Notice</h2>
+<% @notices.each do |notice|%>
+	<% if notice.infotype == 0 %>
+		<%= find_user(notice.user_id).nickname %> submitted a new application 
+			as <%= find_temp_place(notice.temp_place_id).name%>
+	<% elsif notice.infotype == 1 %>
+		<%= find_user(notice.user_id).nickname %> submitted a update application 
+			for <%= find_temp_place(notice.temp_place_id).name%> 
+			as <%= find_place(notice.place_id).name%>
+	<% elsif notice.infotype == 2 %>
+		<%= find_place(notice.place_id).name%> has been  created
+		by <%= find_user(notice.user_id).nickname %>, 
+		Auditor: <%= find_user(notice.admin_id).nickname %>
+	<% elsif notice.infotype == 3 %>
+		Place <%= find_place(notice.place_id).name%> has been  updated
+		by user :<%= find_user(notice.user_id).nickname %>, 
+		Auditor: <%= find_user(notice.admin_id).nickname %>
+	<% else %>
+		Congratulations!
+		User <%= find_user(notice.user_id).nickname %> upgraded to the administrator.
+	<% end %>
+	<br>
+<% end %>
