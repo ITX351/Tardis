@@ -1,237 +1,229 @@
 <% provide(:title, "HIT NAV | Place Information") %> 
-<%= provide(:nobanner, "True") %>
-<%= content_for :head  do%>
-	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-	<meta charset="utf-8" />
-<% end %>
+
+<div id="nav">
+	<ul class="nav nav-tabs" style = "margin: 0em 10em">
+		<li><%= link_to t(:placeshome), places_path %></li>
+		<li><%= link_to t(:allplaces), allplaces_path %></li>
+		<% @placeclassify.each do |classify| %>
+			<li><%= link_to classify[0], classifyshowing_url(classify[1]) %></a></li>
+		<% end %>
+		<li><%= link_to t(:unclassifiedplaces), classifyshowing_url(0) %></li>
+	</ul>
+</div>
 
 <div id="main">
-		<br/><br/></br></br>
-	<!-- logo栏+搜索 -->
-		<div class="container-thin container-search">
-			<div class="row">
-				<div class="col-md-3">
-					<%= image_tag("hitnav1.png") %>
-				</div>
-				<div class="col-md-2">
-					<div class="image-result">
-						<%= image_tag("result6.png") %>
+	<% @classifyshow.each_with_index do |classify, nowclass| %>
+		<br/><br/>
+		<div id = "<%= classify[:id]%>">
+			<div class="container-thin" >
+				<% if @indexshow %>
+					<div class = "row">
+						<div class="col-md-2">
+							<div class="image-category">
+								<%= image_tag(classify[:imagename]) %>
+							</div>
+						</div>
+						<div class="col-md-4">
+						</div>
+						<div class="col-md-3">
+							<div class="image-category image-more">
+								<%= link_to image_tag("more2.png"), classifyshowing_url(classify[:id]) %></a>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<br/><br/>
+							<span style="text-align:left;color:#009fc6"><h4><b>|</b> 点击排行榜</h4></span>
+							<br>
+						</div>
 					</div>
-				</div>
-				<div class="col-md-2">
-				</div>
-				
-				<div class="search">
-					<%= form_tag places_path, method: :get, class: "" do%>
+				<% else %>
+					<br><br>
+				<% end %>
+
+				<div class="row">
+					<div class="col-md-9">
+						<% classify[:places].each_with_index do |place, cnt| %>
+							<% break if (cnt == 3 and @indexshow)%>
+							<div class="col-md-4">
+								<section style = "width: 100%; height: 300px">
+										<%= link_to image_tag(place.avatar_url(:big)), place, :class => "image"%>
+										<div class="content">
+											<div class = "row">	
+												<div class = "col-md-10" style = "text-align:left">
+													<h5 style="margin:0 0 0 1em"><%= link_to place.name, place, :class => "titlefont"%></h5>
+												</div>
+												<div class = "col-md-2">
+												</div>
+											</div>
+											<div class = "introfont">
+												<p style = "color:#838383;text-align:left; margin: 0 0 0 1em">
+													<%= place.intro %>
+												</p>
+											</div>
+											<div class = "buttonrow">
+												<div align = "left" class = "col-md-5">
+													<div class = "hotshow">Hot: <%= place.hot%></div>
+												</div>
+												<div class="button col-md-6">
+													<%= link_to "Read More", place, :method => :get, style: "color:white;text-decoration: none;"%>
+												</div>
+											</div>
+										</div>
+								</section>
+							</div>
+						<% end %>
+					</div>
+
 					<div class="col-md-3">
-						<%= text_field_tag :search, params[:search], placeholder: "去哪儿~"%>
-					</div>
-					<div class="col-md-2">
-						<%= submit_tag "SEARCH"%>
-					</div>
-					<% end %>
-				</div>
-			</div>
-		</div>
-
-	<% @classifyshow.each do |classify| %>
-		<div class="container-thin">
-
-			<div class="row">
-				<div class="col-md-12">
-					<% classify[:places].each do |place| %>
-					<div class="onearowblock">
-						<div class="col-md-3"><!-- IMAGE -->
-							<a href="#" class="image"><%= image_tag(place.avatar_url(:big)) if place.avatar %></a>
-						</div>
-
-						<div class="col-md-9"><!-- TEXT -->
-							<div class = "row">	<!-- placename -->
-								<div class = "col-md-8" style = "text-align:left">
-									<h5 style="margin:0 0 0 1em"><span class="kind">分类</span>&nbsp;&nbsp;<%= link_to place.name, place, style: "color:black"%></h5>
-
-								</div>
-								<div class = "col-md-4">
-								</div>
-							</div>
-
-							<div class="intro">
-								<div class = "cont_two"><!-- intro -->
-									<small style="margin:0 1em 0 0;color:#737373"><%= place.intro %></small>
-								</div>
-							</div>
-
-							<div class = "row">	<!-- rating -->
-								<div class = "col-md-3">
-									<%= ratings_for place, :static %>
-								</div>
-								<div class="col-md-4">
-								</div>
-								<div class = "col-md-5">
-									<div class="button">
-										<%= link_to " Read More", place, :method => :get, style: "color:white;		text-decoration: none;"%>
+						<% classify[:places].each_with_index do |place, rank| %>
+							<% break if rank == 7 %>
+							<div class = "row">	
+								<% if rank == 0 %>
+									<div style = "height: 50px">
+										<div class = "col-md-1">
+											<div class = "rankfont" style = "background: #f25d8e"><%= rank  + 1%> </div>
+										</div>
+										<div class = "col-md-4">
+											<a href="#" class="image"><%= image_tag(place.avatar_url(:thumb), :style => "height: 50px; width:70px") if place.avatar %></a> 
+											<!--<%= link_to image_tag(place.avatar_url(:thumb), :class => "image", :style => "height: 50px; width:70px"), place%> -->
+										</div>
+										<div align = "left" class = "col-md-6  titlefont">
+											<div class = "row ">&nbsp;&nbsp;&nbsp;<%= link_to place.name, place%></div><br>
+											<div class = "row rankhot"> Hot : <%= place.hot %></div>
+										</div>
 									</div>
-								</div>
+
+								<% elsif rank <= 2 %>
+									<div class = "col-md-1">
+										<div class = "rankfont" style = "background: #f25d8e"><%= rank  + 1%> </div>
+									</div>
+									<div class = "col-md-3">
+										<a href="#" class="image"><%= image_tag(place.avatar_url(:thumb), :style => "max-width:100%") if place.avatar %></a>
+									</div>
+									<div align = "left"class = "col-md-7  titlefont">
+										<%= link_to place.name, place%>
+									</div>
+								<% else %>
+									<div class = "col-md-1">
+										<div class = "rankfont" style = "background: #b8c0cc"><%= rank  + 1%> </div>
+									</div>
+									<div class = "col-md-3">
+										<a href="#" class="image"><%= image_tag(place.avatar_url(:thumb), :style => "max-width:100%") if place.avatar %></a>
+									</div>
+									<div align = "left"class = "col-md-7 titlefont">
+										<%= link_to place.name, place%>
+									</div>
+								<% end%>
+								<hr>
 							</div>
-							
-							<ul class="messages"><!-- messages -->
-								<li><span class="icon fa-book"></span> 评论数:</li>
-								<li><span class="icon fa-clock-o"></span> 创建时间:</li>
-								<li><span class="icon fa-male"></span> 创建人:</li>
-							</ul>
-						</div>
+						<% end %>
 					</div>
-					<% end %>
 				</div>
+	<!-- 
+				<div class="divider">&nbsp;</div> -->
 			</div>
-
-			<div class="divider">&nbsp;</div>
-		</div> <!-- end of container-thin -->
-
-		<div style="height:5px;width:1000px"> <!--tail -->
 		</div>
+<!-- 
+		<div style="height:5px;width:1000px"></div>  <!--tail-->
 
 	<% end %>
-
-	<!-- copyright -->
-		<div class="container-thin container-tail">
-			<p>Copyright &copy; Tardis 2015</p>
-		</div>
-
-		<div style="height:5px;width:1000px"> <!--tail -->
-		</div>
-
 </div> <!-- end of main -->
 
+<div id="tail">
+	<p>Copyright &copy; Tardis 2015</p>
+</div>
 
-<style>
+
+<div class="index-nav" id="index_nav" style="opacity: 1; display: block; top: 240px; left: 1200px; right: auto;">
+	<div class="border"></div>
+	<div class="nav-list">
+<!-- 		<div class="n-i sortable on"><div class="name"><%= link_to "Home", :home, :method => :get, :class => "name"%></div></div>
+		<div class="n-i sortable"><div class="name">动画</div></div>
+		<div class="n-i sortable"><div class="name">番剧</div></div>
+		<div class="n-i sortable"><div class="name">音乐</div></div>
+		<div class="n-i sortable"><div class="name">舞蹈</div></div>
+		<div class="n-i sortable"><div class="name">游戏</div></div>
+		<div class="n-i sortable"><div class="name">科技</div></div>
+		<div class="n-i sortable"><div class="name">娱乐</div></div>
+		<div class="n-i sortable"><div class="name">鬼畜</div></div> -->
+		<% @placeclassify.each do |now| %>
+			<div class="n-i sortable"><div class="name"><a href = "#<%= now[1] %>" style = "color:#333"><%= now[0] %></a></div></div>
+		<% end %>
+		<div class="pointer-block" style="top: 0px; left: 0px; display: block;"></div>
+	</div>
+<!-- 	<div class="n-i gotop">
+		<div class="s-line"></div><div class="btn_gotop" title="返回顶部"></div>
+	</div> -->
+<!-- 	<div class="n-i n-i-mlink"><a href="#" >  
+		<div class="mlink-dl-msg" style="display: none;"></div>
+		<div class="n-i-mlink-bg" style="display: block; width: 80px; height: 80px; 
+			background-image: url(http://i0.hdslb.com/u_user/nav_float/tv_animate.png); 
+			background-position: 0px 0px;">
+		</div></a>
+	</div> -->
+
+	<!-- target="_blank" -->
+</div>
+
+
+
+
+<style>	
+	#nav
+	{
+		align:center;
+		/*background: #fffacd url(<%= asset_path("overlay2.png") %>) repeat;*/
+		/*background: #fff;*/
+	}
 	#main
 	{
 		position: relative;
-		background-image: url(<%= asset_path("backgroundimage.jpg") %>);
-		background-attachment: fixed;
-		background-size: cover;
+		/*background: #fffacd url(<%= asset_path("overlay2.png") %>) repeat;*/
 		/*background: #fff;*/
 		/*z-index:  -666;*/
 	}
 	.container-thin
 	{
 		margin: 0em 0em 4em 0em;
-		width:80%;
+		width: 80%;
 		/*background: #fffacd url(<%= asset_path("overlay2.png") %>) repeat;*/
 		/*background-color: rgba(255, 250, 205, 0.6);*/
-		background-color: rgba(255, 255, 255, 0.6);
+		background-color: rgba(144, 144, 144, 0.075);
+		border:1px solid #d1e9e9;
 		border-radius: 8px;
-	}
-	.container-search
-	{
-		background-color: rgba(0, 159, 198, 0.5);
 	}
 	.placeblock
 	{
-		padding: 0.5em 0.6em 0.5em 0.6em;
-		margin: 1em 0 1em 0;
+		width:100%;
+		height: 20em;
+		padding: 0.3em 0.3em 0.3em 0.3em;
 		border-radius: 3px;
 	}
 	.placeblock:hover
 	{
-		border-color: #87CEFA;
-		box-shadow: 0 0 0 2px #87CEFA;
-	}
-	.onearowblock{
-		width:95%;
-		height:12.5em;
-		background: transparent;
-		margin: 2em 0em 1em 0em;
-		padding: 0.5em 0.6em 0.5em 0.6em;
-		border-radius: 3px;
-	}
 
-	.onearowblock:hover
-	{
 		border-color: #87CEFA;
 		box-shadow: 0 0 0 2px #87CEFA;
 	}
 
-	.search {
-		margin: 3.8em 0em 0em 0em;
-		position: relative;
-		width: 100%;
-	}
 
-	.search input
-	{
-		-moz-appearance: none;
-		-webkit-appearance: none;
-		-ms-appearance: none;
-		appearance: none;
-		border-radius: 4px;
-		border-style: solid;
-		border-width: 1px;
-		display: block;
-		outline: 0;
-		padding: 0.6em 1em;
-		text-decoration: none;
-	}
-
-	.search input[type="text"]
-	{
-		width: 100%;
-		background-color: rgba(255, 255, 255, 0.7);
-		border-color: rgba(255, 255, 255, 0.8);
-		color: #242424;
-		font-weight: 500;
-		position:relative;
-		margin:0 0 0 13em;
-	}
-
-	.search input[type="text"]:focus
-	{
-		border-color: #fff;
-		box-shadow: 0 0 0 1px #fff;
-		background-color: rgba(255, 255, 255, 0.9);
-	}
-
-	.search input[type="submit"] {
-		background: transparent;
-		border-color: rgba(255, 255, 255, 1);
-		color: #fff;
-		font-weight: 500;
-		width: 60%;
-		margin:0 0 0 11.5em;
-	} 
-
-	.search input[type="submit"]:hover
-	{
-		background: #b2dfee;
-		border-color: #fff;
-		box-shadow: 0 0 0 1px #fff;
-		background-color: rgba(178, 223, 238, 0.9);
-	}
-	.kind
-	{
-		border-color:#a5a9ad;
-		color:#a5a9ad;
-		box-shadow: 0 0 0 1px #a5a9ad;
-		background: transparent;
-		border-radius: 5px;
-		font-size: 0.8em;
-		padding:0.2em 0.2em 0.2em 0.2em;
-	}
-
-	.image-result
+	.image-category
 	{
 		width:200px;
 		position:relative;
-		top:34px; right:0px;
+		left: 30px; right:0px;
 		overflow: hidden;
 	}
-
+	.image-more
+	{
+		left: 5em; 
+		top:18px;
+	}
 	.image
 	{
 		display: inline-block;
-		height: 100%;
-		overflow:hidden;
+
+		height: 62%;
 	}
 	
 	.image img
@@ -240,21 +232,14 @@
 		width: 100%;
 		border-radius: 6px;
 	}
-	.intro
-	{
-		background-color: rgba(178, 223, 238, 0.3);
-		border-radius: 5px;
-		margin:0.5em 0 0.5em 0em;
-		padding: 0.5em 0 0.5em 0em;
-	}
 	.button
 	{
+		float: right;
 		position: relative;
 		display: inline-block;
-		margin-top: 0.3em;
-		margin-right: 0em;
+		margin-right: 1em;
 		padding: 0.3em 1em;
-		background: #b2dfee;
+		background: #62dfee;
 		border-radius: 6px;
 		text-decoration: none;
 		text-transform: uppercase;
@@ -273,46 +258,189 @@
 		background: #009fc6;
 		color: #FFF !important;
 	}
-	.messages {
-		color: #a5a9ad;
-		font-size: 0.8em;
-		margin: 2em 0 0em 1em;
-		padding: 0;
-		text-align: left;
-	}
-
-	.messages li {
-		display: inline-block;
-		list-style: none;
-		margin: 0 0.1em;
-	}
-	.icon {
-		text-decoration: none;
-		border-bottom: none;
-		position: relative;
-	}
-
-	.icon:before {
-		-moz-osx-font-smoothing: grayscale;
-		-webkit-font-smoothing: antialiased;
-		font-family: FontAwesome;
-		font-style: normal;
-		font-weight: normal;
-		text-transform: none !important;
-	}
-	.container-tail
+	#tail
 	{
 		position: relative;
 		padding: 3em 0em;
-		background-color: rgba(255, 236, 139, 0.7);
-		/*background: #ffec8b url(<%= asset_path("overlay.png")%>) repeat center;*/
+		background: #ffec8b url(<%= asset_path("overlay.png")%>) repeat center;
 		/*background: #ffec8b url(<%= asset_path("img01.jpg")%>) repeat center;*/
 	}
-	.container-tail p
+	#tail p
 	{
-		color:#8f8f8f;
+		color:#c1cdcd;
 	}
+
+	.titlefont{
+		color: #444;
+		font-size: 13px;
+		float: left;
+		max-width: 186px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		-o-text-overflow: ellipsis;
+		white-space: nowrap;
+		font-weight: 700;
+	}
+	.introfont{
+		margin-top: 0.5em;
+		line-height: 20px;
+		height: 20px;
+		color: #666;
+		display: -webkit-box;
+		-webkit-line-clamp: 1;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.buttonrow{
+		margin-top: 0.5em;
+	}
+	.hotshow{
+		display: inline-block;
+		background: #ff4883;
+		color: #fff;
+		height: 18px;
+		line-height: 18px;
+		margin-right: 5px;
+		margin-top: 0.3em;
+		padding: 0 1px;
+		vertical-align: top;
+		-moz-border-radius: 2px;
+		-webkit-border-radius: 2px;
+		border-radius: 2px;
+	}
+	.rankfont{
+		/*background: #f25d8e;*/
+		position: absolute;
+		color: #fff;
+		height: 18px;
+		line-height: 17px;
+		top: 0;
+		left: 0;
+		font-size: 15px;
+		min-width: 15px;
+		text-align: center;
+		z-index: 20;
+		border-radius: 4px;
+		padding: 0 0empx;
+		font-weight: bolder;
+	}
+
+	.rankhot{
+		padding-left: 13px;
+		display: block;
+		font-family: "microsoft yahei",simhei;
+		line-height: 12px;
+		color: #99a2aa;
+		font-weight: normal;
+		height: 12px;
+		float: left;
+	}
+
 </style>
+
+<style>
+/*	.name :focus {
+		outline: -webkit-focus-ring-color auto 5px;
+	}*/
+	.index-nav {
+		display: none;
+		position: fixed;
+		width: 48px;
+		z-index: 90;
+		text-align: center;
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+
+	.index-nav .border {
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		top: -3px;
+		border: 3px solid #fafafa;
+		left: -3px;
+		border-radius: 4px;
+		display: none;
+	}
+
+	.index-nav .nav-list {
+		position: relative;
+		z-index: 233;
+		background-color: #f6f9fa;
+		border: 1px solid #e5e9ef;
+		overflow: hidden;
+		border-radius: 4px;
+	}
+	.index-nav .n-i {
+		cursor: pointer;
+	}
+	.index-nav .pointer-block {
+		position: absolute;
+		width: 48px;
+		height: 32px;
+		margin-left: -1px;
+		background: #00a1d6;
+		z-index: -1;
+		transition: .1s all linear;
+		display: none;
+	}
+
+	.index-nav .n-i.customize {
+		padding: 8px 0;
+		border-top: 1px solid #e5e9ef;
+	}
+	.index-nav .n-i {
+	cursor: pointer;
+	}
+/*	.index-nav .n-i:first-child {
+	border-top: 0;
+	}*/
+
+	.index-nav .n-i.on .name {
+	color: #fff;
+	}
+	.index-nav .n-i .name {
+		height: 32px;
+		line-height: 32px;
+		transition: .1s linear;
+		transition-property: background-color,color;
+		}
+		.index-nav .n-i.gotop {
+		border: 0;
+		position: relative;
+		z-index: 50;
+	}
+
+	.btn_gotop {
+		height: 48px;
+		background: #f6f9fa url(/images/base/icons.png) -648px -72px no-repeat;
+		border: 1px solid #e5e9ef;
+		overflow: hidden;
+		border-radius: 4px;
+	}
+
+</style>
+
+<script type="text/javascript"> 
+	window.onscroll = function(){ 
+		var t = document.documentElement.scrollTop || document.body.scrollTop; 
+		var slide_div = document.getElementById( "index_nav" ); 
+		if( t >= 250 ) {
+			slide_div.style.top ="160px"; 
+		} else { 
+			slide_div.style.top = "240px"; 
+		} 
+		// $("qtip").css({top:100px,left:100px})
+	} 
+</script> 
+
+
+
 
 
 <!-- <%= stylesheet_link_tag "jquery.min.js" %>
@@ -339,9 +467,9 @@
 		-webkit-box-orient: vertical;
 	 }
 	.cont_two{		
-		width: 47em;
-		height: 40px;
-		line-height: 20px;
+		width: 140px;
+		height: 50px;
+		line-height: 25px;
 		text-align: left;
 		text-overflow: -o-ellipsis-lastline;
 		overflow: hidden;

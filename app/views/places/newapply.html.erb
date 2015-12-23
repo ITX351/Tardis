@@ -1,10 +1,14 @@
+
 <%= stylesheet_link_tag		"main.css", :media => "all" %>
 <div style="position:fixed; left:0; top:0; width:100%; height:100%; z-index:-5000">
 	<%= image_tag("bg1.jpg", width: "100%", height: "100%") %>
 </div>
-<%= provide(:nobanner, "True") %>
 
-<h1>Submit A New Place Apply</h1>
+<br><br><br>
+<!-- 
+<%= provide(:nobanner, "True") %> -->
+
+<h1>Submit1 A New Place Apply</h1>
 <div style = "margin: 0em 10em">
 	<%= form_for @temp_place, url: {:action => "newapply"} do |f| %>
 				<div class="field row">
