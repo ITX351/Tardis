@@ -6,26 +6,26 @@
 <div class = "row">
 	<div class = "col-md-9">
 		<% @places.each do |place| %>
-					<section class="col-md-3">
-							<div class="inner">
-									<article class="feature left">
-										<span class="image"><%= image_tag(place.avatar_url(:big), :style => "width:100%") if place.avatar %></span>
+			<section class="col-md-3">
+				<div class="inner">
+					<article class="feature left">
+						<span class="image"><%= image_tag(place.avatar_url(:big), :style => "width:100%") if place.avatar %></span>
 						<div class="content">
-													<div class = "cont_one">
-															<h3><%= link_to place.name, place %></h3>
-													</div>
-													<%= ratings_for place, :static %>
-													hot = <%= place.hot%>
-													<div class = "cont_two">
-															<%= place.intro %>
-													</div>
-													<ul class="actions">
-															<li><%= link_to "More", place, :method => :get%></li>
-													</ul>
-						</div>
-									</article>
+							<div class = "cont_one">
+								<h3><%= link_to place.name, place %></h3>
 							</div>
-					</section>
+							<%= ratings_for place, :static %>
+							hot = <%= place.hot%>
+							<div class = "cont_two">
+								<%= place.intro %>
+							</div>
+							<ul class="actions">
+								<li><%= link_to "More", place, :method => :get%></li>
+							</ul>
+						</div>
+					</article>
+				</div>
+			</section>
 		<% end %>
 	</div>
 </div>

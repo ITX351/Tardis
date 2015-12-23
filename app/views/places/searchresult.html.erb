@@ -6,34 +6,35 @@
 <% end %>
 
 <div id="main">
-		<br/><br/></br></br>
+	<br/><br/></br></br>
 	<!-- logo栏+搜索 -->
-		<div class="container-thin container-search">
-			<div class="row">
-				<div class="col-md-3">
-					<%= image_tag("hitnav1.png") %>
-				</div>
-				<div class="col-md-2">
-					<div class="image-result">
-						<%= image_tag("result6.png") %>
-					</div>
-				</div>
-				<div class="col-md-2">
-				</div>
-				
-				<div class="search">
-					<%= form_tag searchshow_path, method: :get, class: "" do%>
-					<div class="col-md-3">
-						<%= text_field_tag :search, params[:search], placeholder: "去哪儿~"%>
-					</div>
-					<div class="col-md-2">
-						<%= submit_tag "SEARCH"%>
-					</div>
-					<% end %>
+	<div class="container-thin container-search">
+		<div class="row">
+			<div class="col-md-3">
+				<%= image_tag("hitnav1.png") %>
+			</div>
+			<div class="col-md-2">
+				<div class="image-result">
+					<%= image_tag("result6.png") %>
 				</div>
 			</div>
+			<div class="col-md-2">
+			</div>
+			
+			<div class="search">
+				<%= form_tag searchshow_path, method: :get, class: "" do%>
+				<div class="col-md-3">
+					<%= text_field_tag :search, params[:search], placeholder: "去哪儿~"%>
+				</div>
+				<div class="col-md-2">
+					<%= submit_tag "SEARCH"%>
+				</div>
+				<% end %>
+			</div>
 		</div>
+	</div>
 
+	<% if @places.count > 0 %>
 		<div class="container-thin">
 			<br>
 			<div align = "left"class = "row" style = "margin: 0em auto 0em 4em;color:#999; font-size: 1.1em">
@@ -61,7 +62,6 @@
 								<div class = "row">	<!-- placename -->
 									<div class = "col-md-8" style = "text-align:left">
 										<h5 style="margin:0 0 0 1em"><span class="kind"><%= place.placeclassify.name1 %></span>&nbsp;&nbsp;<%= link_to place.name, place, style: "color:black"%></h5>
-
 									</div>
 									<div class = "col-md-4">
 									</div>
@@ -99,48 +99,51 @@
 					<% end %>
 				</div>
 			</div>
-
 			<div class="divider">&nbsp;</div>
 		</div> <!-- end of container-thin -->
-		<div class="container-thin">
-			 <a id = "showinmap" style="position:relative; margin-top:-50px;"></a>
-			 <br>
-			<div align = "left" class = "row" style = "margin: 0em auto 0em 8em;color:#999; font-size: 1.1em">
-				<div class = "">
-					<% if @places.size == 0 %>
-						There are no results meets your requirements, try to change your key word.
-					<% elsif @places.size == 1 %>
-						There is <%= @places.size%> result, click the red point to get more information.
-					<% else %>
-						There are <%= @places.size%> results show in the map, click the red point to get more information.
-					<% end %>
-				</div>
-			</div>
-			<br>
-			<div id="indexmap"
-					style="width: 80%; 
-							height: 500px;
-							
-							border: 1px solid gray;
-							overflow:hidden;">
-			</div>
-			<!-- margin: auto auto auto 2em;  -->
-			<br><br>
-		</div> <!-- end of container-thin -->
+	<% end %>
 
-		<div style="height:5px;width:1000px"> <!--tail -->
+	<div class="container-thin"> <!-- Baidu map -->
+		 <a id = "showinmap" style="position:relative; margin-top:-50px;"></a>
+		 <br>
+		<div align = "left" class = "row" style = "margin: 0em auto 0em 8em;color:#999; font-size: 1.1em">
+			<div class = "">
+				<% if @places.size == 0 %>
+					<% if @keyword_not_inputted %>
+						<%= t(:search_keyword_not_inputted) %>
+					<% else %>
+						<%= t(:search_no_result) %>
+					<% end %>
+				<% elsif @places.size == 1 %>
+					There is <%= @places.size%> result, click the red point to get more information.
+				<% else %>
+					There are <%= @places.size%> results show in the map, click the red point to get more information.
+				<% end %>
+			</div>
 		</div>
+		<br>
+		<div id="indexmap"
+				style="width: 80%; 
+						height: 500px;
+						
+						border: 1px solid gray;
+						overflow:hidden;">
+		</div>
+		<!-- margin: auto auto auto 2em;  -->
+		<br><br>
+	</div> <!-- end of container-thin -->
+
+	<div style="height:5px;width:1000px"> <!--tail -->
+	</div>
 
 	<!-- copyright -->
-		<div class="container-thin container-tail">
-			<p>Copyright &copy; Tardis 2015</p>
-		</div>
+	<div class="container-thin container-tail">
+		<p>Copyright &copy; Tardis 2015</p>
+	</div>
 
-		<div style="height:5px;width:1000px"> <!--tail -->
-		</div>
-
+	<div style="height:5px;width:1000px"> <!--tail -->
+	</div>
 </div> <!-- end of main -->
-
 
 <script type = "text/javascript">
 	// $(document).ready(function{
@@ -161,8 +164,6 @@
 	// 		}); 
 	// 	}); 
 </script>
-
-
 
 <style>
 	#main
@@ -364,7 +365,6 @@
 	}
 </style>
 
-
 <!-- <%= stylesheet_link_tag "jquery.min.js" %>
 <%= stylesheet_link_tag "place/skel-noscript"%>
 <%= stylesheet_link_tag "place/style2"%>
@@ -431,8 +431,6 @@
 
 </style>
 
-
-
 <script>
 	var map = new BMap.Map("indexmap");
 	var point = new BMap.Point(126.638718,45.749316);
@@ -477,13 +475,6 @@
 			addInfoWindow(marker, intro);
 		<% end %>
 	}
-
 	window.reload(work());
-
-
 	// $(".showinmap").animate({scrollTop: $("iammap").offset().top}, 1000);
-
-
-	
 </script>
-
