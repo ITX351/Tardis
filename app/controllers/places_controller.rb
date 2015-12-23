@@ -1,19 +1,30 @@
 class PlacesController < ApplicationController
 
 	def index
-		@placeclassify = getplaceclassify
-		@indexshow = false
-		@classifyshow = []
+		tmpplaceclassify = getplaceclassify
+		@placeclassify = [{:name => I18n.t(:placeshome), :id => -1, :url => places_path}, \
+			{:name => I18n.t(:allplaces), :id => -2, :url => allplaces_path}]
 
+		tmpplaceclassify.each do |name, id| 
+			@placeclassify << {:name => name, :id => id, :url => classifyshowing_path(id) }
+		end
+		@placeclassify << {:name => I18n.t(:unclassifiedplaces), :id => 0, :url => classifyshowing_path(0)}
+
+		@classifyshow = []
 		if params[:classify] #click in classify
 			#flash[:classify] = I18n.t(:classifyshowing_hint) + getplaceclassifyname(params[:classify])
+			@classifychoose = params[:classify].to_i
+
 			places = Place.where(:"placeclassify_id" => params[:classify])
 			flash[:result] = I18n.t(:placeindex_no_classify_places) if places.count == 0
 		elsif params[:all] #view all
+			@classifychoose = -2 # -2 for all
+
 			places = Place.all
 			flash[:result] = I18n.t(:placeindex_no_places) if places.count == 0
 		else # show index, each classify with 3 places
-			@indexshow = true
+			@classifychoose = -1 # -1 for index
+
 			Placeclassify.all.each do |classify|
 				next if classify.places.count == 0
 				now = {:id => classify.id, :name => classify.name1, :places => [], 
@@ -35,9 +46,6 @@ class PlacesController < ApplicationController
 		places.sort_by! {|a| a.hot} #sort in descending order
 		places.reverse!
 		@classifyshow << { :places => places }
-
-
-
 	end
 
 	def searchresult
