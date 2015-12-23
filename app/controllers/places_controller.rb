@@ -1,4 +1,5 @@
 class PlacesController < ApplicationController
+
 	def index
 		@placeclassify = getplaceclassify
 		@indexshow = false
