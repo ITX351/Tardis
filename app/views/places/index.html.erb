@@ -34,6 +34,8 @@
 						<br/>
 					</div>
 				</div>
+			<% else %>
+				<br><br>
 			<% end %>
 
 			<div class="row">
@@ -72,7 +74,7 @@
 
 				<div class="col-md-3">
 					<% classify[:places].each_with_index do |place, rank| %>
-						<% break if rank == 7 %>
+						<% break if rank == 6 %>
 						<div class = "row">	
 							<% if rank == 0 %>
 								<div style = "height: 50px">
@@ -114,9 +116,9 @@
 						</div>
 					<% end %>
 				</div>
+	<!-- 
+				<div class="divider">&nbsp;</div> -->
 			</div>
-<!-- 
-			<div class="divider">&nbsp;</div> -->
 		</div>
 <!-- 
 		<div style="height:5px;width:1000px"></div>  <!--tail-->
@@ -133,7 +135,11 @@
 		<div class="nav-list">
 	<!-- 		<div class="n-i sortable on"><div class="name"><%= link_to "Home", :home, :method => :get, :class => "name"%></div></div> -->
 			<% @classifyshow.each do |classify| %>
-				<div class="n-i sortable"><div class="name"><a href = "#<%= classify[:id] %>" style = "color:#333"><%= classify[:name] %></a></div></div>
+				<div class="n-i sortable">
+					<div class="name">
+						<a href = "#<%= classify[:id] %>" style = "color:#333"><%= classify[:name] %></a>
+					</div>
+				</div>
 			<% end %>
 			<div class="pointer-block" style="top: 0px; left: 0px; display: block;"></div>
 		</div>
@@ -151,8 +157,6 @@
 		<!-- target="_blank" -->
 	</div>
 <% end %>
-
-
 
 <style>	
 	#nav
@@ -222,10 +226,9 @@
 		float: right;
 		position: relative;
 		display: inline-block;
-
 		margin-right: 1em;
 		padding: 0.3em 1em;
-		background: #6fb7b7;
+		background: #62dfee;
 		border-radius: 6px;
 		text-decoration: none;
 		text-transform: uppercase;
@@ -370,7 +373,7 @@
 		width: 48px;
 		height: 32px;
 		margin-left: -1px;
-		background: #00a1d6;
+		/*background: #00a1d6;*/
 		z-index: -1;
 		transition: .1s all linear;
 		display: none;
@@ -380,6 +383,7 @@
 		padding: 8px 0;
 		border-top: 1px solid #e5e9ef;
 	}
+
 	.index-nav .n-i {
 	cursor: pointer;
 	}
@@ -390,6 +394,7 @@
 	.index-nav .n-i.on .name {
 	color: #fff;
 	}
+
 	.index-nav .n-i .name {
 		height: 32px;
 		line-height: 32px;
@@ -401,6 +406,16 @@
 		position: relative;
 		z-index: 50;
 	}
+
+/*	.index-nav .n-i .name :hover{
+		background: #00a1d6;
+		color:#fff;
+		position: absolute;
+		width: 48px;
+		height: 32px;
+		margin-left: 1px;
+		z-index: -1;
+	}*/
 
 	.btn_gotop {
 		height: 48px;
@@ -453,6 +468,7 @@
 		-webkit-box-orient: vertical;
 	 }
 	.cont_two{		
+
 		width: 13.5em;
 		height: 50px;
 		line-height: 25px;
