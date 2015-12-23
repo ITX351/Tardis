@@ -104,7 +104,7 @@ ActiveRecord::Schema.define(:version => 20151222170203) do
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
     t.string   "nickname",               :default => "", :null => false
-    t.integer  "authority"
+    t.integer  "authority",              :default => 0,  :null => false
     t.integer  "contribution"
   end
 
