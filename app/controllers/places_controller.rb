@@ -8,8 +8,10 @@ class PlacesController < ApplicationController
 		if params[:classify] #click in classify
 			#flash[:classify] = I18n.t(:classifyshowing_hint) + getplaceclassifyname(params[:classify])
 			places = Place.where(:"placeclassify_id" => params[:classify])
+			flash[:result] = I18n.t(:placeindex_no_classify_places) if places.count == 0
 		elsif params[:all] #view all
 			places = Place.all
+			flash[:result] = I18n.t(:placeindex_no_places) if places.count == 0
 		else # show index, each classify with 3 places
 			@indexshow = true
 			Placeclassify.all.each do |classify|
@@ -26,6 +28,7 @@ class PlacesController < ApplicationController
 				@classifyshow << now
 			end
 
+			flash[:result] = I18n.t(:placeindex_no_places) if @classifyshow.count == 0
 			return
 		end
 		# @places.sort_by! {|a| a.rates}
@@ -33,11 +36,13 @@ class PlacesController < ApplicationController
 		places.reverse!
 		@classifyshow << { :places => places }
 
+
+
 	end
 
 	def searchresult
 		if params[:search].nil? or params[:search].length == 0 #normal search
-			flash[:alert] = I18n.t(:search_keyword_not_inputted)
+			flash[:result] = I18n.t(:search_keyword_not_inputted)
 		end
 
 		flash[:search] = I18n.t(:search_hint) + params[:search]
@@ -53,13 +58,14 @@ class PlacesController < ApplicationController
 		else # for them not matches classifyname
 			@places = Place.where(tplace[:name].matches(withpercent))
 		end
-
 		@places.each do |place| # hot count
 			place.hot =	place.hot + 1
 			place.save
 		end
 		@places.sort_by! {|a| a.hot} #sort in descending order
 		@places.reverse!
+
+		flash[:result] = I18n.t(:search_no_result) if @places.count == 0
 	end
 
 	def new

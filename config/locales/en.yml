@@ -6,5 +6,10 @@ en:
   unclassifiedplaces: "其他"
   allplaces: "全部"
   placeshome: "主页君"
-  search_hint: "Following is result for searching: "
   classifyshowing_hint: "Following is places for classify: "
+
+  search_hint: "Following is result for searching: "
+  search_keyword_not_inputted: "You haven't entered a searching keyword."
+  search_no_result: "No places fits your keyword."
+  placeindex_no_places: "No places at all! Please add places."
+  placeindex_no_classify_places: "This classify has no places now."
