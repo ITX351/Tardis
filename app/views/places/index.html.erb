@@ -43,7 +43,7 @@
 						<% break if (cnt == 3 and @indexshow)%>
 						<div class="col-md-4">
 							<section style = "width: 100%; height: 300px">
-								<%= link_to image_tag(place.avatar_url(:big)), place, :class => "image"%>
+									<%= link_to image_tag(place.avatar_url(:big)), place, :class => "image"%>
 									<div class="content">
 										<div class = "row">	
 											<div class = "col-md-10" style = "text-align:left">
@@ -75,15 +75,42 @@
 					<% classify[:places].each_with_index do |place, rank| %>
 						<% break if rank == 7 %>
 						<div class = "row">	
-							<div class = "col-md-1">
-								<div class = "rankfont"><%= rank  + 1%> </div>
-							</div>
-							<div class = "col-md-3">
-								<a href="#" class="image"><%= image_tag(place.avatar_url(:thumb), :style => "max-width:90%") if place.avatar %></a>
-							</div>
-							<div align = "left"class = "col-md-7">
-								<%= link_to place.name, place%>
-							</div>
+							<% if rank == 0 %>
+								<div style = "height: 50px">
+									<div class = "col-md-1">
+										<div class = "rankfont" style = "background: #f25d8e"><%= rank  + 1%> </div>
+									</div>
+									<div class = "col-md-4">
+										<a href="#" class="image"><%= image_tag(place.avatar_url(:thumb), :style => "height: 50px; width:70px") if place.avatar %></a> 
+										<!--<%= link_to image_tag(place.avatar_url(:thumb), :class => "image", :style => "height: 50px; width:70px"), place%> -->
+									</div>
+									<div align = "left" class = "col-md-6  titlefont">
+										<div class = "row ">&nbsp;&nbsp;&nbsp;<%= link_to place.name, place%></div><br>
+										<div class = "row rankhot"> Hot : <%= place.hot %></div>
+									</div>
+								</div>
+
+							<% elsif rank <= 2 %>
+								<div class = "col-md-1">
+									<div class = "rankfont" style = "background: #f25d8e"><%= rank  + 1%> </div>
+								</div>
+								<div class = "col-md-3">
+									<!-- <a href="#" class="image"><%= image_tag(place.avatar_url(:thumb), :style => "max-width:90%") if place.avatar %></a> -->
+								</div>
+								<div align = "left"class = "col-md-7  titlefont">
+									<%= link_to place.name, place%>
+								</div>
+							<% else %>
+								<div class = "col-md-1">
+									<div class = "rankfont" style = "background: #b8c0cc"><%= rank  + 1%> </div>
+								</div>
+								<div class = "col-md-3">
+									<!-- <a href="#" class="image"><%= image_tag(place.avatar_url(:thumb), :style => "max-width:90%") if place.avatar %></a> -->
+								</div>
+								<div align = "left"class = "col-md-7">
+									<%= link_to place.name, place%>
+								</div>
+							<% end%>
 							<hr>
 						</div>
 					<% end %>
@@ -262,20 +289,31 @@
 		border-radius: 2px;
 	}
 	.rankfont{
-		background: #f25d8e;
+		/*background: #f25d8e;*/
 		position: absolute;
 		color: #fff;
 		height: 18px;
 		line-height: 17px;
 		top: 0;
 		left: 0;
-		font-size: 12px;
-		min-width: 12px;
+		font-size: 15px;
+		min-width: 15px;
 		text-align: center;
 		z-index: 20;
 		border-radius: 4px;
-		padding: 0 0px;
+		padding: 0 0empx;
 		font-weight: bolder;
+	}
+
+	.rankhot{
+		padding-left: 13px;
+		display: block;
+		font-family: "microsoft yahei",simhei;
+		line-height: 12px;
+		color: #99a2aa;
+		font-weight: normal;
+		height: 12px;
+		float: left;
 	}
 
 </style>
