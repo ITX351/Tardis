@@ -1,10 +1,12 @@
-<%= stylesheet_link_tag		"main.css", :media => "all" %>
-<div style="position:fixed; left:0; top:0; width:100%; height:100%; z-index:-5000">
+<%= stylesheet_link_tag		"formstyle.css", :media => "all" %>
+<!-- <div style="position:fixed; left:0; top:0; width:100%; height:100%; z-index:-5000">
 	<%= image_tag("bg1.jpg", width: "100%", height: "100%") %>
-</div>
+</div> -->
 <%= provide(:nobanner, "True") %>
-
-<h1>Submit A New Place Apply</h1>
+<section id="four" class="wrapper style2 special">
+	<header class="major narrow">
+		<h2>Submit A New Place Application</h2>
+	</header>
 <div style = "margin: 0em 10em">
 	<%= form_for @temp_place, url: {:action => "newapply"} do |f| %>
 				<div class="field row">
@@ -19,7 +21,7 @@
 				<br>
 				<div class="field row">
 				 		<div class = "col-md-2"><h2><%= f.label :classes, "font-size" => 20 %></h2></div>
-						<div class = "col-md-10"><%= f.select :classes, @placeclassify, {}, {class: ""} %></div>
+						<div class = "col-md-10"><%= f.select :classes, @placeclassify, {}, {class: ""} %></div> 
 				</div>
 				<br/>
 				<div class="field row">
@@ -64,6 +66,7 @@
 		</div><!-- /.modal -->
 	<% end %>
 </div >
+</section>
 
 <script> 
 	var map = new BMap.Map("newmap");

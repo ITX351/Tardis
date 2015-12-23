@@ -74,9 +74,9 @@
 								
 								<ul class="messages"><!-- messages -->
 									<li><span class="icon fa-book"></span> 评论数: 
-										<%= place.comments.count %></li>&nbsp;
+										<%= place.comments.count %></li>&nbsp;&nbsp;&nbsp;
 									<li><span class="icon fa-clock-o"></span> 创建时间:
-										<%= place.created_at %></li>&nbsp;
+										<%= place.created_at %></li>&nbsp;&nbsp;&nbsp;
 									<li><span class="icon fa-male"></span> 创建人:
 										<%= link_to place.user.nickname, user_url(place.user_id) %></li>
 								</ul>
