@@ -14,7 +14,8 @@ class PlacesController < ApplicationController
 			@indexshow = true
 			Placeclassify.all.each do |classify|
 				next if classify.places.count == 0
-				now = {:id => classify.id, :name => classify.name1, :places => [], :imagename => classify.imagename }
+				now = {:id => classify.id, :name => classify.name1, :places => [], 
+					:classifyname => getplaceclassifyname(classify.id) , :imagename => classify.imagename }
 				classifyplaces = classify.places
 				classifyplaces.sort_by! { |a| a.hot }
 				classifyplaces.reverse!
@@ -24,12 +25,14 @@ class PlacesController < ApplicationController
 				end
 				@classifyshow << now
 			end
+
 			return
 		end
 		# @places.sort_by! {|a| a.rates}
 		places.sort_by! {|a| a.hot} #sort in descending order
 		places.reverse!
 		@classifyshow << { :places => places }
+
 	end
 
 	def searchresult
