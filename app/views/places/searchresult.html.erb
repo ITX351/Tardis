@@ -61,7 +61,7 @@
 							<div class="col-md-9"><!-- TEXT -->
 								<div class = "row">	<!-- placename -->
 									<div class = "col-md-8" style = "text-align:left">
-										<h5 style="margin:0 0 0 1em"><span class="kind"><%= link_to place.placeclassify_id == 0 ? t(:unclassifiedplaces) : place.placeclassify.name1, classifyshowing_path(place.placeclassify_id) %></span>&nbsp;&nbsp;<%= link_to place.name, place, style: "color:black"%></h5>
+										<h5 style="margin:0 0 0 1em"><span class="kind"><%= link_to place.placeclassify_id == 0 ? t(:unclassifiedplaces) : place.placeclassify.name1, classifyshowing_path(place.placeclassify_id) , :style=>"text-decoration:none;color:#a5a9ad;" %></span>&nbsp;&nbsp;<%= link_to place.name, place, style: "color:black"%></h5>
 									</div>
 									<div class = "col-md-4">
 									</div>

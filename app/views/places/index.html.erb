@@ -70,7 +70,7 @@
 											</div>
 											<div class = "buttonrow">
 												<div align = "left" class = "col-md-5">
-													<div class = "hotshow">HOT: <%= place.hot%></div>
+													<div class = "hotshow">Hot: <%= place.hot%></div>
 												</div>
 												<div class="button col-md-6">
 													<%= link_to "Read More", place, :method => :get, style: "color:white;text-decoration: none;"%>
@@ -148,7 +148,7 @@
 			<% @classifyshow.each do |classify| %>
 				<div class="n-i sortable">
 					<div class="name">
-						<a href = "#<%= classify[:id] %>" style = "color:#333"><%= classify[:name] %></a>
+						<a href = "#<%= classify[:id] %>"><%= classify[:name] %></a>
 					</div>
 				</div>
 			<% end %>
@@ -332,7 +332,7 @@
 		-moz-border-radius: 2px;
 		-webkit-border-radius: 2px;
 		border-radius: 6px;
-		font-size:0.9em;
+		font-size:0.85em;
 		border-color:#ff4883;
 		box-shadow: 0 0 0 1px #ff4883;
 
@@ -406,6 +406,17 @@
 	}
 	.index-nav .n-i {
 		cursor: pointer;
+	}
+	.index-nav .n-i:hover{
+		background-color: #009fc6;
+		color:#fff;
+	}
+	.index-nav .n-i .name a:hover {
+	color: #fff;
+	}
+	.index-nav .n-i .name a {
+	color: #333;
+	text-decoration: none;
 	}
 	.index-nav .pointer-block {
 		position: absolute;
