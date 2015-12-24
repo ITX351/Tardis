@@ -8,7 +8,7 @@
 			<h2 align="center" class="title"><%= @place.name %></h2>
 		</div>
 		<div class="col-md-9">
-			<h4 align="left"><br/><br/><a href="#" style="text-decoration:none"><span class="kind"><%= @place.placeclassify.name1 %></span></a> &nbsp;&nbsp;<a href="#showinmap" style="text-decoration:none"><span class="kind connect">Show In Map</span></a>&nbsp;&nbsp;<a href="#comments" style="text-decoration:none"><span class="kind connect1">Comments</span></a></h4>
+			<h4 align="left"><br/><br/><span class="kind"><%= link_to @place.placeclassify_id == 0 ? t(:unclassifiedplaces) : @place.placeclassify.name1, classifyshowing_path(@place.placeclassify_id) %></span>&nbsp;&nbsp;<a href="#showinmap" style="text-decoration:none"><span class="kind connect">Show In Map</span></a>&nbsp;&nbsp;<a href="#comments" style="text-decoration:none"><span class="kind connect1">Comments</span></a></h4>
 		</div>
 		
 	</div>
