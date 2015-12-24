@@ -6,35 +6,50 @@
 <% end %>
 
 <div id="main">
-		<br/><br/></br></br>
+	<br/><br/></br></br>
 	<!-- logo栏+搜索 -->
-		<div class="container-thin container-search">
-			<div class="row">
+	<div class="container-thin container-search">
+		<div class="row">
+			<div class="col-md-3">
+				<%= image_tag("hitnav1.png") %>
+			</div>
+			<div class="col-md-2">
+				<div class="image-result">
+					<%= image_tag("result6.png") %>
+				</div>
+			</div>
+			<div class="col-md-2">
+			</div>
+			
+			<div class="search">
+				<%= form_tag searchshow_path, method: :get, class: "" do%>
 				<div class="col-md-3">
-					<%= image_tag("hitnav1.png") %>
+					<%= text_field_tag :search, params[:search], placeholder: "去哪儿~"%>
 				</div>
 				<div class="col-md-2">
-					<div class="image-result">
-						<%= image_tag("result6.png") %>
-					</div>
+					<%= submit_tag "SEARCH"%>
 				</div>
-				<div class="col-md-2">
-				</div>
-				
-				<div class="search">
-					<%= form_tag searchshow_path, method: :get, class: "" do%>
-					<div class="col-md-3">
-						<%= text_field_tag :search, params[:search], placeholder: "去哪儿~"%>
-					</div>
-					<div class="col-md-2">
-						<%= submit_tag "SEARCH"%>
-					</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+
+	<% if @places.count > 0 %>
+		<div class="container-thin">
+			<br>
+			<div align = "left"class = "row" style = "margin: 0em auto 0em 4em;color:#999; font-size: 1.1em">
+				<div class = "">
+					<% if @places.size == 0 %>
+						There are no results meets your requirements, try to change your key word.
+					<% elsif @places.size == 1 %>
+						There is <%= @places.size%> result &nbsp;|&nbsp;
+						Show it in map,<a href = "#showinmap"> Click me!</a>
+					<% else %>
+						There are <%= @places.size%> results &nbsp;|&nbsp;
+						Show them in map,<a href = "#showinmap"> Click me!</a> 
 					<% end %>
 				</div>
 			</div>
-		</div>
-
-		<div class="container-thin">
 			<div class="row">
 				<div class="col-md-12">
 					<% @places.each do |place| %>
@@ -47,7 +62,6 @@
 								<div class = "row">	<!-- placename -->
 									<div class = "col-md-8" style = "text-align:left">
 										<h5 style="margin:0 0 0 1em"><span class="kind"><%= place.placeclassify.name1 %></span>&nbsp;&nbsp;<%= link_to place.name, place, style: "color:black"%></h5>
-
 									</div>
 									<div class = "col-md-4">
 									</div>
@@ -85,25 +99,71 @@
 					<% end %>
 				</div>
 			</div>
-
 			<div class="divider">&nbsp;</div>
 		</div> <!-- end of container-thin -->
+	<% end %>
 
-		<div style="height:5px;width:1000px"> <!--tail -->
+	<div class="container-thin"> <!-- Baidu map -->
+		 <a id = "showinmap" style="position:relative; margin-top:-50px;"></a>
+		 <br>
+		<div align = "left" class = "row" style = "margin: 0em auto 0em 8em;color:#999; font-size: 1.1em">
+			<div class = "">
+				<% if @places.size == 0 %>
+					<% if @keyword_not_inputted %>
+						<%= t(:search_keyword_not_inputted) %>
+					<% else %>
+						<%= t(:search_no_result) %>
+					<% end %>
+				<% elsif @places.size == 1 %>
+					There is <%= @places.size%> result, click the red point to get more information.
+				<% else %>
+					There are <%= @places.size%> results show in the map, click the red point to get more information.
+				<% end %>
+			</div>
 		</div>
+		<br>
+		<div id="indexmap"
+				style="width: 80%; 
+						height: 500px;
+						
+						border: 1px solid gray;
+						overflow:hidden;">
+		</div>
+		<!-- margin: auto auto auto 2em;  -->
+		<br><br>
+	</div> <!-- end of container-thin -->
+
+	<div style="height:5px;width:1000px"> <!--tail -->
+	</div>
 
 	<!-- copyright -->
-		<div class="container-thin container-tail">
-			<p>Copyright &copy; Tardis 2015</p>
-		</div>
+	<div class="container-thin container-tail">
+		<p>Copyright &copy; Tardis 2015</p>
+	</div>
 
-		<div style="height:5px;width:1000px"> <!--tail -->
-		</div>
-
+	<div style="height:5px;width:1000px"> <!--tail -->
+	</div>
 </div> <!-- end of main -->
 
+<script type = "text/javascript">
+	// $(document).ready(function{
+	// 	$('#showinmap').click(function(){
+	// 		$("html,body").animate({scrollTop: $(".iammap").offset().top}, 1000);
+	// 	});		
+	// })	
 
 
+	// $(function(){ 
+	// 	//当滚动条的位置处于距顶部100像素以下时，跳转链接出现，否则消失 
+	// 		$(function () { 
+	// 				//当点击跳转链接后，回到页面顶部位置 
+	// 				$("#showinmap").click(function(){ 
+	// 				$('body,html').animate({scrollTop:$(".iammap").offset().top},1000); 
+	// 				return false; 
+	// 			}); 
+	// 		}); 
+	// 	}); 
+</script>
 
 <style>
 	#main
@@ -305,7 +365,6 @@
 	}
 </style>
 
-
 <!-- <%= stylesheet_link_tag "jquery.min.js" %>
 <%= stylesheet_link_tag "place/skel-noscript"%>
 <%= stylesheet_link_tag "place/style2"%>
@@ -343,6 +402,35 @@
 	}
 </style>
 
+<style>
+	.titlefont{
+		color: #444;
+		font-size: 13px;
+		max-width: 186px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		-o-text-overflow: ellipsis;
+		white-space: nowrap;
+		font-weight: 700;
+	}
+	.introfont{
+		margin-top: 0.5em;
+		margin-bottom: 0.5em;
+		line-height: 20px;
+		height: 20px;
+		color: #666;
+		display: -webkit-box;
+		-webkit-line-clamp: 1;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.btnpos{
+		margin-bottom:  0.5em;
+	}
+
+</style>
+
 <script>
 	var map = new BMap.Map("indexmap");
 	var point = new BMap.Point(126.638718,45.749316);
@@ -363,6 +451,7 @@
 		map.addOverlay(marker);
 		return marker;
 	}
+
 	function addInfoWindow(marker, intro){
 		var opts = {
 			title: intro[0],
@@ -381,28 +470,11 @@
 	function work(){
 		<% @places.each do |place| %>
 			var marker = new addMaker(new BMap.Point(<%= place.locationx%>, <%= place.locationy%>));
-			var intro = ['<h3><%= place.name%></h3>', '<%= place.intro%><br/><%=link_to "More", place %>'];
+			var infor = '<div class="row"><div><div class="thumbnail"><%= image_tag(place.avatar_url(:big), :style => "width: 100%;max-height: 100px") if place.avatar %><div class="caption"><h3 class =  "titlefont"><%= place.name %></h3><p class = "introfont"><%= place.intro %></p><p class = "btnpos"><%= link_to "more", place, :class => "btn btn-primary"%> </p></div></div></div></div>';
+			var intro = [infor];
 			addInfoWindow(marker, intro);
 		<% end %>
 	}
-
-	//初始化模板选择的下拉框
-	var sel = document.getElementById('stylelist');
-	var item = new Option("Normal", "normal");
-	sel.options.add(item);
-	item = new Option("Light", "light");
-	sel.options.add(item);
-	item = new Option("Midnight", "midnight");
-	sel.options.add(item);
-	item = new Option("Dark", "dark");
-	sel.options.add(item);
-	
 	window.reload(work());
-	
-	changeMapStyle('normal')
-	function changeMapStyle(mystyle){
-		map.setMapStyle({style:mystyle});
-		$('#desc').html(mapstyles[style].desc);
-	}	
+	// $(".showinmap").animate({scrollTop: $("iammap").offset().top}, 1000);
 </script>
-

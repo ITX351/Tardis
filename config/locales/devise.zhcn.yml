@@ -1,0 +1,63 @@
+﻿# encoding: utf-8
+# Additional translations at https://github.com/plataformatec/devise/wiki/I18n
+
+zhcn:
+  devise:
+    confirmations:
+      confirmed: "你的邮件地址已成功验证。"
+      send_instructions: "在几分钟之内，你将会收到一封验证邮件。"
+      send_paranoid_instructions: "如果你的邮件地址已经存在于数据库，在几分钟之内，你将会收到一封验证邮件。"
+    failure:
+      already_authenticated: "你已经登录。"
+      inactive: "你的账户尚未激活。"
+      invalid: "不合法的 %{authentication_keys} 或密码。"
+      locked: "你的账户已被锁定。"
+      last_attempt: "这是你的最后一次尝试。"
+      not_found_in_database: "不合法的%{authentication_keys}或密码。"
+      timeout: "你的 session 已到期，请重新登录。"
+      unauthenticated: "你需要先登录或注册。"
+      unconfirmed: "你需要先验证邮件地址。"
+    mailer:
+      confirmation_instructions:
+        subject: "邮件地址验证"
+      reset_password_instructions:
+        subject: "重设密码"
+      unlock_instructions:
+        subject: "账户解锁"
+      password_change:
+        subject: "密码更改提醒"
+    omniauth_callbacks:
+      failure: "验证%{kind}失败。原因：\"%{reason}\"."
+      success: "验证%{kind}成功。"
+    passwords:
+      no_token: "你不能通过密码重设邮件以外的途径访问这个页面。如果你正在进行密码重设，请确保你使用了完整的URL。"
+      send_instructions: "在几分钟之内，你将会收到一封密码重设邮件。"
+      send_paranoid_instructions: "如果你的邮件地址已经存在于数据库，在几分钟之内，你将会收到一封密码重设邮件。"
+      updated: "你的密码已更改。你已经登录到该账户。"
+      updated_not_active: "你的密码已更改。"
+    registrations:
+      destroyed: "再见！你的账户已成功注销。"
+      signed_up: "欢迎！你已经成功注册！"
+      signed_up_but_inactive: "你已经成功注册，但是在邮件验证前你不能正常使用。"
+      signed_up_but_locked: "你已经成功注册，但是账户被锁定。"
+      signed_up_but_unconfirmed: "已经向你的邮件地址发送一封验证邮件，请按照上面的流程进行验证。"
+      update_needs_confirmation: "用户信息已成功更改。但是需要重新验证邮件地址，请检查邮箱。"
+      updated: "用户信息已成功更改。"
+    sessions:
+      signed_in: "登录成功。"
+      signed_out: "登出成功。"
+      already_signed_out: "你已经登出。"
+    unlocks:
+      send_instructions: "在几分钟之内，你将收到一封解锁验证邮件。"
+      send_paranoid_instructions: "如果账户信息有效，在几分钟之内，你将收到一封解锁验证邮件。"
+      unlocked: "你的账户已成功解锁，现在可以登录了。"
+  errors:
+    messages:
+      already_confirmed: "邮件地址已经验证，可以登录了"
+      confirmation_period_expired: "需要在%{period}使用，请重新发送"
+      expired: "已经过期，请重新发送"
+      not_found: "没有找到"
+      not_locked: "没有被锁定"
+      not_saved:
+        one: "一个错误导致%{resource}没有成功保存："
+        other: "%{count}个错误导致%{resource}没有成功保存："

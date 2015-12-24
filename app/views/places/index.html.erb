@@ -3,157 +3,171 @@
 
 <div id="nav">
 	<ul class="nav nav-tabs" style = "margin: 0em 10em">
-		<li><%= link_to t(:placeshome), places_path, class: "icon fa-home" %></li>
-		<li><%= link_to t(:allplaces), allplaces_path %></li>
+
+<!-- 		<li><%= link_to t(:placeshome), places_path, class: "icon fa-home" %></li>
+		<li><%= link_to t(:allplaces), allplaces_path %></li> -->
+
 		<% @placeclassify.each do |classify| %>
-			<li><%= link_to classify[0], classifyshowing_url(classify[1]) %></a></li>
+			<li <%= 'class="active"'.html_safe if @classifychoose == classify[:id] %>>
+				<%= link_to classify[:name], classify[:url] %></li>
 		<% end %>
-		<li><%= link_to t(:unclassifiedplaces), classifyshowing_url(0) %></li>
 	</ul>
 </div>
 
-<div id="main">
-	<br/><br/>
-	<% @classifyshow.each_with_index do |classify, nowclass| %>
- 		<a name="<%= classify[:id] %>" style="position:relative; top:-50px;"></a>
-		<div class="container-thin" >
-			<% if @indexshow %>
-				<div class = "row">
-					<div class="col-md-2">
-						<div class="image-category">
-							<%= image_tag(classify[:imagename]) %>
-						</div>
-					</div>
-					<div class="col-md-4">
-					</div>
-					<div class="col-md-3">
-						<div class="image-category image-more">
-							<%= link_to image_tag("more2.png"), classifyshowing_url(classify[:id]) %></a>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<br/><br/>
-						<span style="text-align:left;color:#009fc6"><h4><b>|</b> 点击排行榜</h4></span>
-						<br/>
-					</div>
-				</div>
-			<% end %>
+<% if flash[:result] %>
+	<div class="alert"><%= flash[:result] %></div>
+<% end %>
 
-			<div class="row">
-				<div class="col-md-9">
-					<% classify[:places].each_with_index do |place, cnt| %>
-						<% break if (cnt == 3 and @indexshow)%>
+<% if @classifyshow.count > 0 and @classifyshow[0][:places].count > 0 %>
+	<div id="main">
+		<br/><br/>	
+		<% @classifyshow.each_with_index do |classify, nowclass| %>
+	 		<a name="<%= classify[:id] %>" style="position:relative; top:-50px;"></a>
+			<div class="container-thin" >
+				<% if @classifychoose == -1 %>
+					<div class = "row">
+						<div class="col-md-2">
+							<div class="image-category">
+								<%= image_tag(classify[:imagename]) %>
+							</div>
+						</div>
 						<div class="col-md-4">
-							<section class="placeblock" style = "width: 100%; height: 300px">
-								<%= link_to image_tag(place.avatar_url(:big)), place, :class => "image"%>
-									<div class="content">
-										<div class = "row">	
-											<div class = "col-md-10" style = "text-align:left">
-												<h5 style="margin:0 0 0 1em"><%= link_to place.name, place, :class => "titlefont"%></h5>
+						</div>
+						<div class="col-md-3">
+							<div class="image-category image-more">
+								<%= link_to image_tag("more2.png"), classifyshowing_url(classify[:id]) %></a>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<br/><br/>
+							<span style="text-align:left;color:#009fc6"><h4><b>|</b> 点击排行榜</h4></span>
+							<br/>
+						</div>
+					</div>
+				<% else %>
+					<br><br>
+				<% end %>
+
+				<div class="row">
+					<div class="col-md-9">
+						<% classify[:places].each_with_index do |place, cnt| %>
+							<% break if (cnt == 3 and @classifychoose == -1)%>
+							<div class="col-md-4">
+								<section class="placeblock" style = "width: 100%; height: 300px">
+									<%= link_to image_tag(place.avatar_url(:big)), place, :class => "image"%>
+										<div class="content">
+											<div class = "row">	
+												<div class = "col-md-10" style = "text-align:left">
+													<h5 style="margin:0 0 0 1em"><%= link_to place.name, place, :class => "titlefont"%></h5>
+												</div>
+												<div class = "col-md-2">
+												</div>
 											</div>
-											<div class = "col-md-2">
+											<div class = "introfont">
+												<p style = "color:#838383;text-align:left; margin: 0 0 0 1em">
+													<%= place.intro %>
+												</p>
+											</div>
+											<div class = "buttonrow">
+												<div align = "left" class = "col-md-5">
+													<div class = "hotshow">Hot: <%= place.hot%></div>
+												</div>
+												<div class="button col-md-6">
+													<%= link_to "Read More", place, :method => :get, style: "color:white;text-decoration: none;"%>
+												</div>
 											</div>
 										</div>
-										<div class = "introfont">
-											<p style = "color:#838383;text-align:left; margin: 0 0 0 1em">
-												<%= place.intro %>
-											</p>
+								</section>
+							</div>
+						<% end %>
+					</div>
+
+					<div class="col-md-3">
+						<% classify[:places].each_with_index do |place, rank| %>
+							<% break if rank == 6 %>
+							<div class = "row">	
+								<% if rank == 0 %>
+									<div style = "height: 50px">
+										<div class = "col-md-1">
+											<div class = "rankfont" style = "background: #f25d8e"><%= rank  + 1%> </div>
 										</div>
-										<div class = "buttonrow">
-											<div align = "left" class = "col-md-5">
-												<div class = "hotshow">Hot: <%= place.hot%></div>
-											</div>
-											<div class="button col-md-6">
-												<%= link_to "Read More", place, :method => :get, style: "color:white;text-decoration: none;"%>
-											</div>
+										<div class = "col-md-4">
+											<a href="#" class="image"><%= image_tag(place.avatar_url(:thumb), :style => "height: 50px; width:70px") if place.avatar %></a> 
+											<!--<%= link_to image_tag(place.avatar_url(:thumb), :class => "image", :style => "height: 50px; width:70px"), place%> -->
+										</div>
+										<div align = "left" class = "col-md-6  titlefont">
+											<div class = "row ">&nbsp;&nbsp;&nbsp;<%= link_to place.name, place%></div><br>
+											<div class = "row rankhot"> Hot : <%= place.hot %></div>
 										</div>
 									</div>
-							</section>
-						</div>
-					<% end %>
-				</div>
 
-				<div class="col-md-3">
-					<% classify[:places].each_with_index do |place, rank| %>
-						<% break if rank == 7 %>
-						<div class = "row">	
-							<% if rank == 0 %>
-								<div style = "height: 50px">
+								<% elsif rank <= 2 %>
 									<div class = "col-md-1">
 										<div class = "rankfont" style = "background: #f25d8e"><%= rank  + 1%> </div>
 									</div>
-									<div class = "col-md-4">
-										<a href="#" class="image"><%= image_tag(place.avatar_url(:thumb), :style => "height: 50px; width:70px") if place.avatar %></a> 
-										<!--<%= link_to image_tag(place.avatar_url(:thumb), :class => "image", :style => "height: 50px; width:70px"), place%> -->
+									<div class = "col-md-3">
+										<!-- <a href="#" class="image"><%= image_tag(place.avatar_url(:thumb), :style => "max-width:90%") if place.avatar %></a> -->
 									</div>
-									<div align = "left" class = "col-md-6  titlefont">
-										<div class = "row ">&nbsp;&nbsp;&nbsp;<%= link_to place.name, place%></div><br>
-										<div class = "row rankhot"> Hot : <%= place.hot %></div>
+									<div align = "left"class = "col-md-7  titlefont">
+										<%= link_to place.name, place%>
 									</div>
-								</div>
-
-							<% elsif rank <= 2 %>
-								<div class = "col-md-1">
-									<div class = "rankfont" style = "background: #f25d8e"><%= rank  + 1%> </div>
-								</div>
-								<div class = "col-md-3">
-									<!-- <a href="#" class="image"><%= image_tag(place.avatar_url(:thumb), :style => "max-width:90%") if place.avatar %></a> -->
-								</div>
-								<div align = "left"class = "col-md-7  titlefont">
-									<%= link_to place.name, place%>
-								</div>
-							<% else %>
-								<div class = "col-md-1">
-									<div class = "rankfont" style = "background: #b8c0cc"><%= rank  + 1%> </div>
-								</div>
-								<div class = "col-md-3">
-									<!-- <a href="#" class="image"><%= image_tag(place.avatar_url(:thumb), :style => "max-width:90%") if place.avatar %></a> -->
-								</div>
-								<div align = "left"class = "col-md-7">
-									<%= link_to place.name, place%>
-								</div>
-							<% end%>
-							<hr>
-						</div>
-					<% end %>
+								<% else %>
+									<div class = "col-md-1">
+										<div class = "rankfont" style = "background: #b8c0cc"><%= rank  + 1%> </div>
+									</div>
+									<div class = "col-md-3">
+										<!-- <a href="#" class="image"><%= image_tag(place.avatar_url(:thumb), :style => "max-width:90%") if place.avatar %></a> -->
+									</div>
+									<div align = "left"class = "col-md-7">
+										<%= link_to place.name, place%>
+									</div>
+								<% end%>
+								<hr>
+							</div>
+						<% end %>
+					</div>
+		<!-- 
+					<div class="divider">&nbsp;</div> -->
 				</div>
 			</div>
-		</div>
-<!-- 
-		<div style="height:5px;width:1000px"></div>  <!--tail-->
-	<% end %>
-</div> <!-- end of main -->
+	<!-- 
+			<div style="height:5px;width:1000px"></div>  <!--tail-->
+		<% end %>
+	</div> <!-- end of main -->
+<% end %>
 
 <div id="tail">
 	<p>Copyright &copy; Tardis 2015</p>
 </div>
 
-<% if @indexshow %> <!-- slide-nav showed in index -->
+<% if @classifychoose == -1 %> <!-- slide-nav showed in index -->
 	<div class="index-nav" id="index_nav" style="opacity: 1; display: block; top: 240px; left: 1200px; right: auto;">
 		<div class="border"></div>
 		<div class="nav-list">
 	<!-- 		<div class="n-i sortable on"><div class="name"><%= link_to "Home", :home, :method => :get, :class => "name"%></div></div> -->
 			<% @classifyshow.each do |classify| %>
-				<div class="n-i sortable"><div class="name"><a href = "#<%= classify[:id] %>" style = "color:#333"><%= classify[:name] %></a></div></div>
+				<div class="n-i sortable">
+					<div class="name">
+						<a href = "#<%= classify[:id] %>" style = "color:#333"><%= classify[:name] %></a>
+					</div>
+				</div>
 			<% end %>
 			<div class="pointer-block" style="top: 0px; left: 0px; display: block;"></div>
 		</div>
 	<!-- 	<div class="n-i gotop">
 			<div class="s-line"></div><div class="btn_gotop" title="返回顶部"></div>
 		</div> -->
-	<!-- 	<div class="n-i n-i-mlink"><a href="#" >  
+		<div class="n-i n-i-mlink"><a href="#" >  
 			<div class="mlink-dl-msg" style="display: none;"></div>
 			<div class="n-i-mlink-bg" style="display: block; width: 80px; height: 80px; 
 				background-image: url(http://i0.hdslb.com/u_user/nav_float/tv_animate.png); 
 				background-position: 0px 0px;">
 			</div></a>
-		</div> -->
+		</div>
 
 		<!-- target="_blank" -->
 	</div>
 <% end %>
-
-
 
 <style>	
 	#nav
@@ -223,10 +237,9 @@
 		float: right;
 		position: relative;
 		display: inline-block;
-
 		margin-right: 1em;
 		padding: 0.3em 1em;
-		background: #6fb7b7;
+		background: #62dfee;
 		border-radius: 6px;
 		text-decoration: none;
 		text-transform: uppercase;
@@ -386,7 +399,7 @@
 		width: 48px;
 		height: 32px;
 		margin-left: -1px;
-		background: #00a1d6;
+		/*background: #00a1d6;*/
 		z-index: -1;
 		transition: .1s all linear;
 		display: none;
@@ -396,6 +409,7 @@
 		padding: 8px 0;
 		border-top: 1px solid #e5e9ef;
 	}
+
 	.index-nav .n-i {
 	cursor: pointer;
 	}
@@ -406,6 +420,7 @@
 	.index-nav .n-i.on .name {
 	color: #fff;
 	}
+
 	.index-nav .n-i .name {
 		height: 32px;
 		line-height: 32px;
@@ -417,6 +432,16 @@
 		position: relative;
 		z-index: 50;
 	}
+
+/*	.index-nav .n-i .name :hover{
+		background: #00a1d6;
+		color:#fff;
+		position: absolute;
+		width: 48px;
+		height: 32px;
+		margin-left: 1px;
+		z-index: -1;
+	}*/
 
 	.btn_gotop {
 		height: 48px;
@@ -469,6 +494,7 @@
 		-webkit-box-orient: vertical;
 	 }
 	.cont_two{		
+
 		width: 13.5em;
 		height: 50px;
 		line-height: 25px;
@@ -519,7 +545,7 @@
 	}
 
 	function work(){
-		<% if !@indexshow and @classifyshow.count > 0 %>
+		<% if @classifychoose >= 0 and @classifyshow.count > 0 %>
 			<% @classifyshow[0][:places].each do |place| %>
 				var marker = new addMaker(new BMap.Point(<%= place.locationx%>, <%= place.locationy%>));
 				var intro = ['<h3><%= place.name%></h3>', '<%= place.intro%><br/><%=link_to "More", place %>'];

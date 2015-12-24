@@ -18,7 +18,8 @@
 	<%= ajaxful_rating_style %>
 	<%= csrf_meta_tags %>
 
-	<!--<script type="text/javascript" src="jquery-1.10.2.min.js"></script>--> <!-- Caused error, commented by ITX351 -->
+	<!-- <%= javascript_include_tag "jquery-1.10.2.min.js" %> -->
+	<!-- Caused error, commented by ITX351, fixed by ITX351, abandoned by SSSdaye -->
 
 	<!-- 回到顶部按钮的配置 -->
 	<script> 
@@ -126,7 +127,7 @@
 				} 
 			</style>			
 		<% end %>
-		<p id="back-to-top"><a href="#top" rel="external nofollow" ><span></span>返回顶部</a></p>
+		<p id="back-to-top"><a href="#top" rel="external nofollow" ><span > <%= image_tag("go-top5.png", style: "margin-bottom:-2em;width:80%")%></span>返回顶部</a></p>
 
 <!--     		<p class="notice"><%= notice %></p>
     		<% flash.each do |key, value| %>

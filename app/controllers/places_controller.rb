@@ -1,17 +1,30 @@
 class PlacesController < ApplicationController
 
 	def index
-		@placeclassify = getplaceclassify
-		@indexshow = false
-		@classifyshow = []
+		tmpplaceclassify = getplaceclassify
+		@placeclassify = [{:name => I18n.t(:placeshome), :id => -1, :url => places_path}, \
+			{:name => I18n.t(:allplaces), :id => -2, :url => allplaces_path}]
 
+		tmpplaceclassify.each do |name, id| 
+			@placeclassify << {:name => name, :id => id, :url => classifyshowing_path(id) }
+		end
+		@placeclassify << {:name => I18n.t(:unclassifiedplaces), :id => 0, :url => classifyshowing_path(0)}
+
+		@classifyshow = []
 		if params[:classify] #click in classify
-			#flash[:classify] = I18n.t(:classifyshowing_hint) + getplaceclassifyname(params[:classify])
+			#flash.now[:classify] = I18n.t(:classifyshowing_hint) + getplaceclassifyname(params[:classify])
+			@classifychoose = params[:classify].to_i
+
 			places = Place.where(:"placeclassify_id" => params[:classify])
+			flash.now[:result] = I18n.t(:placeindex_no_classify_places) if places.count == 0
 		elsif params[:all] #view all
+			@classifychoose = -2 # -2 for all
+
 			places = Place.all
+			flash.now[:result] = I18n.t(:placeindex_no_places) if places.count == 0
 		else # show index, each classify with 3 places
-			@indexshow = true
+			@classifychoose = -1 # -1 for index
+
 			Placeclassify.all.each do |classify|
 				next if classify.places.count == 0
 				now = {:id => classify.id, :name => classify.name1, :places => [], 
@@ -26,21 +39,24 @@ class PlacesController < ApplicationController
 				@classifyshow << now
 			end
 
+			flash.now[:result] = I18n.t(:placeindex_no_places) if @classifyshow.count == 0
 			return
 		end
 		# @places.sort_by! {|a| a.rates}
 		places.sort_by! {|a| a.hot} #sort in descending order
 		places.reverse!
 		@classifyshow << { :places => places }
-
 	end
 
 	def searchresult
+		@keyword_not_inputted = false
 		if params[:search].nil? or params[:search].length == 0 #normal search
-			flash[:alert] = I18n.t(:search_keyword_not_inputted)
+			# flash.now[:result] = I18n.t(:search_keyword_not_inputted)
+			@places = []
+			@keyword_not_inputted = true
+			return
 		end
-
-		flash[:search] = I18n.t(:search_hint) + params[:search]
+		# flash.now[:search] = I18n.t(:search_hint) + params[:search]
 
 		withpercent = "%" + params[:search] + "%"
 		tclassify, tplace = Placeclassify.arel_table, Place.arel_table
@@ -53,13 +69,14 @@ class PlacesController < ApplicationController
 		else # for them not matches classifyname
 			@places = Place.where(tplace[:name].matches(withpercent))
 		end
-
 		@places.each do |place| # hot count
 			place.hot =	place.hot + 1
 			place.save
 		end
 		@places.sort_by! {|a| a.hot} #sort in descending order
 		@places.reverse!
+
+		# flash.now[:result] = I18n.t(:search_no_result) if @places.count == 0
 	end
 
 	def new
@@ -113,7 +130,7 @@ class PlacesController < ApplicationController
 
 	def destroy
 		@place = Place.find(params[:id])
-		if(@place.user != current_user and @current_user.authority != 1)
+		if(current_user.nil? or (@place.user != current_user and @current_user.authority != 1))
 			redirect_to  notice: 'You do not have the authority to edit it' 
 		else
 			@place.destroy
