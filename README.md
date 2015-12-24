@@ -35,6 +35,8 @@ turbolinks
 uglifier, 1.0.3  
 webrick  
 
+Updated on Dec. 24th, 2015.  
+
   [1]: https://github.com/sshaoshuai
   [2]: https://github.com/nemurisama
   [3]: https://github.com/ITX351
