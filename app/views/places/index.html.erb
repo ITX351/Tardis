@@ -1,10 +1,15 @@
 <% provide(:title, "HIT NAV | Place Information") %> 
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 
 <div id="nav">
 	<ul class="nav nav-tabs" style = "margin: 0em 10em">
+
+<!-- 		<li><%= link_to t(:placeshome), places_path, class: "icon fa-home" %></li>
+		<li><%= link_to t(:allplaces), allplaces_path %></li> -->
+
 		<% @placeclassify.each do |classify| %>
 			<li <%= 'class="active"'.html_safe if @classifychoose == classify[:id] %>>
-				<%= link_to classify[:name], classify[:url] %></a></li>
+				<%= link_to classify[:name], classify[:url] %></li>
 		<% end %>
 	</ul>
 </div>
@@ -262,7 +267,22 @@
 	}
 	#tail p
 	{
-		color:#c1cdcd;
+		color:#8f8f8f;
+	}
+	.icon {
+		color:#009fc6;
+		text-decoration: none;
+		border-bottom: none;
+		position: relative;
+	}
+
+	.icon:before {
+		-moz-osx-font-smoothing: grayscale;
+		-webkit-font-smoothing: antialiased;
+		font-family: FontAwesome;
+		font-style: normal;
+		font-weight: normal;
+		text-transform: none !important;
 	}
 
 	.titlefont{

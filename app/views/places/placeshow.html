@@ -1,16 +1,14 @@
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-<%= stylesheet_link_tag "placeshow.css", :media => "all" %>
 <br/><br/>
 
-<div class = "block-one"><!-- block 1 -->
+<div id = "block-one">
 	<div class="row">
-		<div class="col-md-3">
-			<h2 align="center" class="title"><%= @place.name %></h2>
+		<div class="col-md-2">
+			<h2 align="right" class="title"><%= @place.name %></h2>
 		</div>
-		<div class="col-md-9">
-			<h4 align="left"><br/><br/><a href="#" style="text-decoration:none"><span class="kind"><%= @place.placeclassify.name1 %></span></a> &nbsp;&nbsp;<a href="#showinmap" style="text-decoration:none"><span class="kind connect">Show In Map</span></a>&nbsp;&nbsp;<a href="#comments" style="text-decoration:none"><span class="kind connect1">Comments</span></a></h4>
+		<div class="col-md-10">
+			<h4 align="left"><br/><br/><a href="#" style="text-decoration:none"><span class="kind"><%= @place.placeclassify.name1 %></span></a></h4>
 		</div>
-		
 	</div>
 	
 	<ul class="messages"><!-- messages -->
@@ -66,44 +64,26 @@
 			</div>			
 			<!-- intro end -->
 
-
-			<div class="links"><!-- links -->
-				<% if (current_user == @place.user or (!current_user.nil? and current_user.authority == 1))%>
-					<%= link_to "Edit", edit_place_path(@place), :method => :get, class: "button1"%>
-				<% else %>
-					<%= link_to "Edit Apply", updateapply_url(@place), :method => :get, class: "button1"%>
-				<% end %>
-				
-				<%= link_to "Delete", @place, :method => :delete, :confirm => "Are you sure?",class: "button1" %>
-			</div>
-
-
 		</div><!-- INFO END -->
+
+
+		<div class="links"><!-- links -->
+			<% if (current_user == @place.user or (!current_user.nil? and current_user.authority == 1))%>
+				<%= link_to "Edit", edit_place_path(@place), :method => :get, class: "button1"%>
+			<% else %>
+				<%= link_to "Edit Apply", updateapply_url(@place), :method => :get, class: "button1"%>
+			<% end %>
+			
+			<%= link_to "Delete", @place, :method => :delete, :confirm => "Are you sure?",class: "button1" %>
+		</div>
+
 	</div> <!-- ROW 1 END -->
-<br/><br/>
-
-	<!-- 模态框（Modal） -->
-	<div id="showimg" class="modal fade" tabindex="-1" role="dialog" 
-			 aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog" style="z-index:10000002">
-				<%= image_tag(@place.avatar_url, :style => "max-width:100%") if @place.avatar%>
-				<br/><br/>
-				<button type = "button" class = "btn btn-primary"
-					data-dismiss = "modal">OK
-				</button>		
-			</div>
-	</div><!-- /.modal -->
-
-</div><!-- end of block 1 -->
-
-<section class="two"><!-- 2 -->
+	<hr/>
 
 	<!-- MAP ROW2 -->
 	<div id = "showinmap" class = "row">
 		<br/><br/>
-		<div id="maptitle">
-			<h2><span class="icon fa-map-marker"></span> Map Infromation</h2>
-		</div>
+
 		<!-- baidu map -->
 		<div id="showmap" class = "col-md-8"
 							style="width: 600px; 
@@ -140,103 +120,85 @@
 
 	</div><!-- MAP ROW2 END -->
 
-</section><!-- 2 END -->
+	<hr/>
 
-<section class="three">
-	<div class="block-two">
 
-		<h2><span class="icon fa-comments"></span> Comments For This Place</h2>
-		<!-- COMMENT -->
-		<div id = "comments" class = "row"	style = "width:80%">
-			
-			<div class = "row" align = "left">
-				<% if @place.comments.size == 0 %>
-					<comment style = "font-size: 15px;font-family:'Raleway', Helvetica, sans-serif">
-						There are no comments,  you can be the first!
-					</comment>
-				<% else %>
-					<% @place.comments.each do |comment| %>
-						<div class = "row">
-							<% user = find_user(comment.user_id) %>
-							<div class = "col-md-1">
-								<%= gravatar_image_tag(user.email, :alt => user.nickname, :gravatar => { :size => 50}, :class => " img-circle") %> <br/> 
-							</div>
-							<div class = "col-md-11" >
-								<div class = "username" style = "margin-left:-2px">
-									<%= link_to find_user(comment.user_id).nickname, 
-										user_url(comment.user_id) , :style => "color: #969696;font-weight:600"%> <br>
-								</div>
-								<div class = "comment" style = "font-size: 17px;font-family:'Raleway', Helvetica, sans-serif">
-									<%= comment.content %><br>
-								</div>
-								<div class = "timeago">
-									<%= time_ago_in_words comment.created_at %> ago</em><br>
-								</div>
-							</div>
-							
+	<h3>Comments  for This Place</h3>
+	<!-- COMMENT -->
+	<div id = "comments" class = "row"	style = "width:80%">
+		<hr>
+		<div class = "row" align = "left">
+			<% if @place.comments.size == 0 %>
+				<comment style = "font-size: 20px">
+					There are no comments,  you can be the first!
+				</comment>
+			<% else %>
+				<% @place.comments.each do |comment| %>
+					<div class = "row">
+						<% user = find_user(comment.user_id) %>
+						<div class = "col-md-1">
+							<%= gravatar_image_tag(user.email, :alt => user.nickname, :gravatar => { :size => 50}, :class => " img-circle") %> <br/> 
 						</div>
-						<hr>
-					<% end %>
+						<div class = "col-md-11" >
+							<div class = "username" style = "margin-left:-2px">
+								<%= link_to find_user(comment.user_id).nickname, 
+									user_url(comment.user_id) , :style => "color: #969696;font-weight:600"%> <br>
+							</div>
+							<div class = "comment" >
+								<%= comment.content %><br>
+							</div>
+							<div class = "timeago">
+								<%= time_ago_in_words comment.created_at %> ago</em><br>
+							</div>
+						</div>
+						
+					</div>
+					<hr>
 				<% end %>
+			<% end %>
+		</div>
+		<hr>
+		<div class="row form-group" >
+			<%= form_for [@place, @place.comments.build] do |f| %>
+			<%= f.text_area :content, class: "form-control", placeholder: "Enter Your Comments", rows: 5, cols: 40 %>
+			<br/>
+			<%= f.submit "Post Your Comment", class: "btn btn-default"%>
+			<% end %>
+		</div>
+
+		<hr>
+
+	</div><!-- COMMENTS END -->
+
+
+	<!-- 模态框（Modal） -->
+	<div id="showimg" class="modal fade" tabindex="-1" role="dialog" 
+			 aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" style="z-index:10000002">
+				<%= image_tag(@place.avatar_url, :style => "max-width:100%") if @place.avatar%>
+				<br/><br/>
+				<button type = "button" class = "btn btn-primary"
+					data-dismiss = "modal">OK
+				</button>		
 			</div>
-			
-			<div class="row form-group" >
-				<%= form_for [@place, @place.comments.build] do |f| %>
-				<%= f.text_area :content, class: "form-control", placeholder: "Enter Your Comments", rows: 5, cols: 40 %>
-				<br/>
-				<%= f.submit "Post Your Comment", class: "btn btn-default"%>
-				<% end %>
-			</div>
+	</div><!-- /.modal -->
 
-		</div><!-- COMMENTS END -->
+</div>
 
-	</div>
 
-	<div id="tail">
-		<br/><br/>
-		<p>Copyright &copy; Tardis 2015</p>
-	</div>
-</section>
+
+
+
 
 <style>
 @import url("https://fonts.googleapis.com/css?family=Raleway:400,500,700");
-.block-one
+#block-one
 {
 	width:80%; 
 	background-color: rgba(0, 255, 255, 0.1);
 	background-color: rgba(144, 144, 144, 0.075);
 	border:1px solid #d1e9e9;
 	border-radius: 8px;
-	margin: 0em 0 5em 0;
-	position: relative;
-}
-.two
-{
-	padding: 5.5em 0 5.5em 0;
-	background-color: #d1eeee;
-}
-.three
-{
-	padding: 5.5em 0 5.5em 0;
-	background-color: #1E2832;
-}
-.block-two
-{
-	width:80%; 
-	background-color: rgba(255, 255, 255, 0.8);
-/*	background-color: rgba(144, 144, 144, 0.8);*/
-	border:1px solid #d1e9e9;
-	border-radius: 8px;
-	margin: 0em 0 0em 0;
-	position: relative;
-}
-#showinmap
-{
-	width:80%;
-	background-color:rgba(255,255,255,1);
-	border-radius: 8px;
-	padding: 0.2em 1em 2.5em 1em;
-	border:1px solid #d1e9e9;
 }
 .title{
 	margin:1em auto 1em 0em;
@@ -253,39 +215,6 @@
 	font-size: 0.8em;
 	padding:0.2em 0.2em 0.2em 0.2em;
 }
-.connect
-{
-	border-color:#87cefa;
-	color:#87cefa;
-	box-shadow: 0 0 0 1px #87cefa;
-}
-.connect:hover
-{
-	background: #fff;
-	box-shadow: 0 0 0 2px #87cefa;
-}
-.connect1
-{
-	border-color:#009fc6;
-	color:#009fc6;
-	box-shadow: 0 0 0 1px #009fc6;
-}
-.connect1:hover
-{
-	background: #fff;
-	box-shadow: 0 0 0 2px #009fc6;
-}
-/*.connect1
-{
-	border-color:#1E2832;
-	color:#1E2832;
-	box-shadow: 0 0 0 1px #1E2832;
-}
-.connect1:hover
-{
-	background: #fff;
-	box-shadow: 0 0 0 2px #1E2832;
-}*/
 .messages {
 	color: #a5a9ad;
 	font-size: 1em;
@@ -422,43 +351,6 @@
 	font-weight: 300;
 	line-height: 1.4em;
 }
-#maptitle
-{
-	text-align: center;
-	height:4em;
-	margin:0 0em 3em 0;
-	padding: 0 1em 0 1em;
-}
-#maptitle h2
-{
-	color: #555;
-	font-family: "Raleway", Helvetica, sans-serif;
-	font-size: 28pt;
-	font-weight: 500;
-	line-height: 2em;
-}
-.block-two h2
-{
-	color: #000;
-	font-family: "Raleway", Helvetica, sans-serif;
-	font-size: 22pt;
-	font-weight: 500;
-	line-height: 2em;
-	text-align: center;
-	padding-right: 16em;
-	padding-top: 1em;
-	padding-bottom: 0.6em;
-}
-#tail
-{
-	position: relative;
-	padding: 0em 0em;
-}
-#tail p
-{
-	color:#fff;
-	font-family: "Raleway", Helvetica, sans-serif;
-}
 
 </style>
 
@@ -534,7 +426,7 @@
 		font-size: 18px;
 	}
 	.timeago{
-		color: #fff;
+		color: #cdcdc1;
 	}
 </style>
 
