@@ -36,7 +36,7 @@
 		</div>
 		<div  class = "row">
 			<div class = "col-md-4" align = "left" style = "margin-left: 2em; font-size: 1em;">
-				<%= link_to "More", notice_path, :method => :get, :style => "color:#06c" %>
+				<div class="more" style ="color:#06c"><%= link_to "More", notice_path, :method => :get, :style =>"text-decoration:none" %></div>
 				<marquee onmouseover=this.stop() onmouseout=this.start() scrollAmount=1 scrollDelay=100 direction=up height="150px">
 					<% @notices.each do |notice|%>
 						<% user = find_user(notice.user_id)%>
